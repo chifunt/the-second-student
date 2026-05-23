@@ -1,0 +1,42 @@
+.scene--reactive {
+  background:
+    radial-gradient(circle at 70% 20%, rgba(185, 74, 72, 0.16), transparent 30rem),
+    var(--reactive-bg);
+  color: #f8fafc;
+}
+
+.scene--reactive .window-chrome,
+.scene--reactive .document-surface {
+  background: color-mix(in srgb, var(--reactive-card) 88%, transparent);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.scene--deliberate {
+  background:
+    linear-gradient(135deg, rgba(191, 233, 242, 0.72), transparent 45%),
+    var(--deliberate-bg);
+  color: var(--color-text);
+}
+
+.scene--institutional {
+  background: #eef1f4;
+  color: var(--color-text);
+}
+
+.scene--ambiguous {
+  background:
+    linear-gradient(180deg, #f7f6f2, #ebe8df);
+  color: var(--color-text);
+}
+
+.scene[data-scene="final-paywall-scene"] .scene__inner {
+  align-items: start;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(14rem, 0.72fr) minmax(0, 1.85fr);
+  padding-top: clamp(2rem, 8vh, 4rem);
+}
+
+.scene[data-scene="final-paywall-scene"] .scene__copy h2 {
+  font-size: clamp(2.4rem, 4.4vw, 4rem);
+  line-height: 1.02;
+}

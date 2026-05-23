@@ -1,0 +1,31 @@
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--data-ai);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.reduced-motion .scene {
+  min-height: auto;
+}
+
+.reduced-motion .fake-cursor {
+  display: none;
+}
+
+.reduced-motion .bar-fill,
+.reduced-motion .scene__copy,
+.reduced-motion .scene__stage {
+  opacity: 1 !important;
+  transform: none !important;
+}

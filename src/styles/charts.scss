@@ -1,0 +1,223 @@
+.chart {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 18px 60px rgba(10, 16, 25, 0.13);
+  color: inherit;
+  margin: 0;
+  min-width: 0;
+  padding: 1rem;
+}
+
+.scene--reactive .chart {
+  background: color-mix(in srgb, var(--reactive-card) 88%, transparent);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.chart figcaption {
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.chart__description {
+  color: color-mix(in srgb, currentColor 68%, transparent);
+  font-size: 0.84rem;
+  margin: 0 0 0.9rem;
+}
+
+.chart__svg {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  overflow: visible;
+  width: 100%;
+}
+
+.chart text {
+  fill: currentColor;
+  font-family: var(--font-sans);
+}
+
+.bar-fill {
+  transform-box: fill-box;
+}
+
+.ranked-bar__label,
+.progress-chart__label,
+.gap-chart__label,
+.diverging-chart__label {
+  font-size: 15px;
+}
+
+.ranked-bar__value,
+.progress-chart__value,
+.gap-chart__actual-label,
+.gap-chart__expected-label,
+.stacked-chart__value {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ranked-bar__track,
+.progress-chart__track {
+  fill: rgba(128, 137, 151, 0.22);
+}
+
+.chart--risk .bar-fill {
+  fill: var(--data-risk);
+}
+
+.chart--support .bar-fill {
+  fill: var(--data-positive);
+}
+
+.chart--neutral .bar-fill {
+  fill: var(--data-neutral);
+}
+
+.chart--mixed .bar-fill {
+  fill: var(--data-ai);
+}
+
+.progress-chart__value {
+  font-size: 28px;
+}
+
+.gap-chart__line {
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 3;
+  opacity: 0.32;
+}
+
+.gap-chart__actual {
+  fill: var(--data-ai);
+}
+
+.gap-chart__expected {
+  fill: var(--data-risk);
+}
+
+.gap-chart__actual-label,
+.gap-chart__expected-label {
+  font-size: 12px;
+}
+
+.gap-chart__actual-label {
+  text-anchor: middle;
+}
+
+.gap-chart__expected-label {
+  text-anchor: middle;
+}
+
+.stacked-chart__fill {
+  stroke: rgba(255, 255, 255, 0.72);
+  stroke-width: 2;
+}
+
+.stacked-chart__segment--support .stacked-chart__fill,
+.chart-legend__item--support span {
+  fill: var(--data-positive);
+  background: var(--data-positive);
+}
+
+.stacked-chart__segment--neutral .stacked-chart__fill,
+.chart-legend__item--neutral span {
+  fill: var(--data-neutral);
+  background: var(--data-neutral);
+}
+
+.stacked-chart__segment--risk .stacked-chart__fill,
+.chart-legend__item--risk span {
+  fill: var(--data-risk);
+  background: var(--data-risk);
+}
+
+.stacked-chart__value {
+  fill: #ffffff;
+  font-size: 13px;
+  text-anchor: middle;
+}
+
+.chart-legend {
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.chart-legend__item {
+  align-items: center;
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: 0.85rem 3.25rem 1fr;
+  font-size: 0.86rem;
+}
+
+.chart-legend__item span {
+  border-radius: 2px;
+  display: inline-block;
+  height: 0.85rem;
+  width: 0.85rem;
+}
+
+.chart-legend__item strong {
+  font-family: var(--font-mono);
+}
+
+.diverging-chart__axis {
+  stroke: currentColor;
+  stroke-width: 2;
+  opacity: 0.34;
+}
+
+.diverging-chart__less {
+  fill: var(--data-positive);
+}
+
+.diverging-chart__neutral {
+  fill: var(--data-neutral);
+}
+
+.diverging-chart__more {
+  fill: var(--data-risk);
+}
+
+.ladder-chart {
+  counter-reset: ladder;
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0.9rem 0 0;
+  padding: 0;
+}
+
+.ladder-chart__rung {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(128, 137, 151, 0.26);
+  border-radius: 8px;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 2rem 1fr;
+  padding: 0.65rem 0.75rem;
+}
+
+.ladder-chart__index {
+  align-items: center;
+  background: var(--data-ai);
+  border-radius: 999px;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: var(--font-mono);
+  height: 2rem;
+  justify-content: center;
+  width: 2rem;
+}
+
+.scene--reactive .ladder-chart__rung {
+  background: rgba(255, 255, 255, 0.08);
+}

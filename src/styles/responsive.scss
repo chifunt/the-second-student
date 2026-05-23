@@ -1,0 +1,97 @@
+@media (max-width: 900px) {
+  html {
+    font-size: 16px;
+  }
+
+  .scene__inner {
+    align-content: center;
+    grid-template-columns: 1fr;
+  }
+
+  .scene[data-scene="final-paywall-scene"] .scene__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .scene__copy {
+    max-width: 42rem;
+  }
+
+  .mail-layout,
+  .mail-app,
+  .desktop-surface,
+  .copy-workbench,
+  .workspace-grid,
+  .vle-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .mail-folders {
+    border-right: 0;
+    border-bottom: 1px solid rgba(128, 137, 151, 0.22);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 0 0 1rem;
+  }
+
+  .desktop-sidebar {
+    grid-template-columns: repeat(4, auto);
+    justify-content: start;
+  }
+
+  .workspace-grid > section {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .scene__inner {
+    padding: 1.25rem;
+  }
+
+  .scene__copy h2 {
+    font-size: 2.35rem;
+  }
+
+  .email-row {
+    align-items: start;
+    grid-template-columns: 1fr;
+  }
+
+  .mail-folders,
+  .desktop-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .message-header,
+  .chat-header,
+  .study-header,
+  .document-toolbar,
+  .phone-status {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .chat-composer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .phone-frame {
+    border-radius: 18px;
+    padding: 0.9rem;
+  }
+
+  .phone-chat {
+    min-height: 22rem;
+  }
+
+  .chart {
+    padding: 0.85rem;
+  }
+
+  .ranked-bar__label,
+  .progress-chart__label,
+  .gap-chart__label,
+  .diverging-chart__label {
+    font-size: 13px;
+  }
+}

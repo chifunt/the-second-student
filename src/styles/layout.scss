@@ -1,0 +1,119 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.65rem 0.9rem;
+}
+
+.skip-link {
+  background: var(--color-text);
+  border-radius: 0 0 6px 0;
+  color: var(--color-bg);
+  font-weight: 700;
+  left: 0;
+  padding: 0.75rem 1rem;
+  position: fixed;
+  top: 0;
+  transform: translateY(-120%);
+  transition: transform 0.2s ease;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+#app {
+  min-height: 100svh;
+}
+
+.scene {
+  min-height: 100svh;
+  overflow: hidden;
+  position: relative;
+  scroll-margin-top: 1rem;
+}
+
+.scene__inner {
+  align-items: center;
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(16rem, 0.85fr) minmax(0, 1.65fr);
+  margin: 0 auto;
+  max-width: 1220px;
+  min-height: 100svh;
+  padding: clamp(2rem, 5vw, 5rem);
+}
+
+.scene__copy {
+  max-width: 29rem;
+}
+
+.scene__eyebrow,
+.window-chrome__meta,
+.muted {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.scene__copy h2 {
+  font-size: clamp(2.4rem, 6vw, 5.75rem);
+  letter-spacing: 0;
+  line-height: 0.95;
+  margin: 0.45rem 0 1rem;
+}
+
+.scene__dek {
+  color: color-mix(in srgb, currentColor 76%, transparent);
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  margin: 0;
+}
+
+.scene__action {
+  border-left: 3px solid currentColor;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  margin: 2rem 0 0;
+  padding-left: 1rem;
+}
+
+.scene__stage {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.scene__aside {
+  min-width: 0;
+}

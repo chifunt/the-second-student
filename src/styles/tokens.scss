@@ -1,0 +1,27 @@
+:root {
+  --color-bg: #f7f6f2;
+  --color-surface: #ffffff;
+  --color-text: #18202a;
+  --color-muted: #667085;
+  --color-border: #d7dce3;
+
+  --reactive-bg: #07111f;
+  --reactive-card: #111827;
+  --reactive-violet: #2d223a;
+  --reactive-warning: #e6a23c;
+  --reactive-error: #b94a48;
+
+  --deliberate-bg: #fbfcfb;
+  --deliberate-blue: #dcebff;
+  --deliberate-green: #6faf8d;
+  --deliberate-cyan: #bfe9f2;
+
+  --data-positive: #2f9e7e;
+  --data-neutral: #8b95a4;
+  --data-negative: #b94a48;
+  --data-ai: #3b82f6;
+  --data-risk: #e6a23c;
+
+  --font-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, ui-monospace, monospace;
+}
