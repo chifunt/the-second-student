@@ -1,6 +1,7 @@
 import "./styles/main.scss";
 import { setupScroll } from "./animation/setupScroll";
 import { scenes } from "./scenes";
+import { renderStoryChrome } from "./ui/storyChrome";
 
 const app = document.querySelector<HTMLElement>("#app");
 
@@ -9,6 +10,7 @@ if (!app) {
 }
 
 app.innerHTML = "";
+renderStoryChrome(scenes);
 
 for (const scene of scenes) {
   const section = document.createElement("section");

@@ -1,68 +1,128 @@
 import { animateEmailScene } from "../animation/sceneTransitions";
 import { renderRankedBarChart } from "../charts/rankedBarChart";
 import { stats } from "../data/surveyStats";
-import { renderWindowChrome } from "../ui/windowChrome";
-import { createStaticScene } from "./createScene";
+import { createVisualScene } from "./createScene";
 
-export const emailScene = createStaticScene(
-  "email-scene",
-  "reactive",
-  {
-    eyebrow: "Reactive screen-world",
-    title: "Subject: Possible Academic Misconduct",
-    dek: "The first student opens the message and starts reading it as a threat before reading it as information.",
-    action: "Student action: opens the unread integrity email.",
-    primary: renderWindowChrome({
-      title: "Mail",
-      meta: "student_047 / Inbox",
-      body: `
-      <div class="mail-app">
-        <nav class="mail-folders" aria-label="Mail folders">
-          <strong>student_047</strong>
-          <span>Inbox <b>7</b></span>
-          <span>Flagged <b>3</b></span>
-          <span>Drafts</span>
-        </nav>
-        <div class="mail-list">
-          <article class="mail-list__item">
-            <span>Library notice</span>
-            <small>Renewal request failed</small>
-          </article>
-          <article class="mail-list__item mail-list__item--active">
-            <span>Academic Integrity Office</span>
-            <small>Possible academic misconduct</small>
-          </article>
-          <article class="mail-list__item">
-            <span>Seminar coordinator</span>
-            <small>Room changed again</small>
-          </article>
-          <article class="mail-list__item">
-            <span>Module forum</span>
-            <small>Assessment discussion locked</small>
-          </article>
+const inboxRows = [
+  ["library@uni", "Reminder - overdue items", "14:02", ""],
+  ["timetable", "Week 5 seminar room change", "11:38", ""],
+  [
+    "Academic Integrity Office",
+    "Possible unauthorised use of generative AI",
+    "23:47",
+    "Dear student, Your recent submission has been flagged for review...",
+  ],
+  ["course-announce", "Coursework deadline extended", "09:12", ""],
+  ["finance@uni", "Maintenance loan instalment", "08:55", ""],
+  ["society@filmclub", "Tonight: 1990s screening, free pizza", "Yesterday", ""],
+  ["vle-digest", "Weekly summary - 3 new resources", "Mon", ""],
+] as const;
+
+export const emailScene = createVisualScene({
+  id: "email-scene",
+  title: "Subject: Possible Academic Misconduct",
+  mode: "reactive",
+  sceneClass: "s1",
+  mood: "paper-cold",
+  screenLabel: "01 The Email",
+  animate: animateEmailScene,
+  body: `
+    <div class="chyron"><span class="num">01</span><span class="sep">/</span><span>Subject: Possible Academic Misconduct</span></div>
+    <div class="scene-inner scene-inner--wide">
+      <div class="window mail-window">
+        <div class="window-titlebar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="mark"><span class="mark-dot"></span>Mail</div>
+          <div class="window-title">Inbox - student_047@uni.ac.uk</div>
+          <div class="window-meta">Tue 14 May - 23:47</div>
         </div>
-        <div class="mail-pane">
-          <div class="message-header">
-            <span class="profile-dot profile-dot--reactive">47</span>
-            <div>
-              <h3>Possible academic misconduct</h3>
-              <p class="muted">From Academic Integrity Office / Due 17:00</p>
+        <div class="mail-ribbon">
+          <div class="tab active">Home</div>
+          <div class="tab">View</div>
+          <div class="tab">Help</div>
+          <div class="sep"></div>
+          <div class="act reply"><div class="ic"></div>Reply</div>
+          <div class="act fwd"><div class="ic"></div>Forward</div>
+          <div class="sep"></div>
+          <div class="act flag"><div class="ic"></div>Flag</div>
+          <div class="act del"><div class="ic"></div>Delete</div>
+          <div class="spacer"></div>
+          <div class="search">Search...</div>
+        </div>
+        <div class="email-window">
+          <aside class="email-sidebar">
+            <h6>Favourites</h6>
+            <div class="folder active">Inbox <span class="ct">12</span></div>
+            <div class="folder">Flagged <span class="ct">3</span></div>
+            <div class="folder">Sent</div>
+            <hr />
+            <h6>student_047@uni.ac.uk</h6>
+            <div class="folder">Drafts <span class="ct">4</span></div>
+            <div class="folder">Archive</div>
+            <div class="folder">Junk <span class="ct">31</span></div>
+            <hr />
+            <h6>Groups</h6>
+            <div class="folder">SOC 240</div>
+            <div class="folder">Course reps</div>
+          </aside>
+          <div class="email-list">
+            <div class="list-head"><span>Inbox - by date</span><span class="filter">Filter</span></div>
+            ${inboxRows
+              .map(
+                ([sender, subject, time, preview], index) => `
+                  <div class="row${index === 2 ? " unread target" : ""}">
+                    <span class="marker"></span>
+                    <div>
+                      <div class="sender">${sender}</div>
+                      <div class="subj">${subject}</div>
+                      ${preview ? `<span class="preview">${preview}</span>` : ""}
+                    </div>
+                    <div class="time">${time}</div>
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+          <div class="email-reader">
+            <div class="reader-toolbar">
+              <div class="actions"><span>Reply</span><span>Reply all</span><span>Forward</span></div>
+              <div class="actions"><span>...</span></div>
+            </div>
+            <h2 id="email-scene-title">Possible unauthorised use of generative AI</h2>
+            <div class="sender-row">
+              <div class="ava">AI</div>
+              <div class="who">
+                <div class="name">Academic Integrity Office</div>
+                <div class="addr">integrity@uni.ac.uk - to: student_047@uni.ac.uk</div>
+              </div>
+              <div class="time-stamp"><div class="when">23:47</div><div>Tue 14 May 2026</div></div>
+            </div>
+            <div class="email-body">
+              <div class="uni-banner">
+                <div class="crest">U</div>
+                <div><div class="uni-name">University of Westmore</div><div class="uni-sub">Office of Academic Standards - OAS-2026-04812</div></div>
+              </div>
+              <p>Dear student_047,</p>
+              <p>Your recent submission for <em>SOC 240 - Sociological Theory (Coursework 2)</em> has been flagged for review by the Office of Academic Standards.</p>
+              <p>You are required to provide a written explanation of your process, including reading notes, drafts, sources, and any digital tools used during preparation.</p>
+              <p>This communication is not a final determination. Failure to respond within <strong>seven working days</strong> may affect the assessment process.</p>
+              <div class="signature">
+                <p>Kind regards,</p>
+                <p class="name">Dr. Helen Marwick</p>
+                <p class="role">Academic Integrity Officer - Office of Academic Standards</p>
+              </div>
             </div>
           </div>
-          <p>Please review the attached guidance and respond by 17:00. You may wish to provide notes about your process, sources consulted, and any digital tools used.</p>
-          <p class="message-warning">The line about "digital tools used" is reread three times.</p>
-          <div class="attachment-strip">
-            <span>process-notes-request.pdf</span>
-            <span>academic-integrity-guidance.html</span>
-          </div>
+          <aside class="email-data-panel">
+            ${renderRankedBarChart(stats.barriers, {
+              title: "Barriers and worries",
+              tone: "risk",
+              description:
+                "Top concerns students report around using AI for assessed work.",
+            })}
+          </aside>
         </div>
       </div>
-    `,
-    }),
-    aside: renderRankedBarChart(stats.barriers, {
-      title: "Barriers and worries",
-      tone: "risk",
-    }),
-  },
-  animateEmailScene,
-);
+    </div>
+  `,
+});

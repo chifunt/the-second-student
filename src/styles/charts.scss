@@ -1,28 +1,35 @@
 .chart {
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  box-shadow: 0 18px 60px rgba(10, 16, 25, 0.13);
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(7, 17, 31, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 18px 46px rgba(7, 17, 31, 0.12);
   color: inherit;
   margin: 0;
   min-width: 0;
-  padding: 1rem;
+  padding: 18px;
 }
 
-.scene--reactive .chart {
-  background: color-mix(in srgb, var(--reactive-card) 88%, transparent);
-  border-color: rgba(255, 255, 255, 0.12);
+.chat-data-panel .chart,
+.dep-side .chart {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
 }
 
-.chart figcaption {
-  font-weight: 700;
-  margin-bottom: 0.35rem;
+.chart figcaption,
+.chart h4 {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
 }
 
 .chart__description {
-  color: color-mix(in srgb, currentColor 68%, transparent);
-  font-size: 0.84rem;
-  margin: 0 0 0.9rem;
+  color: color-mix(in srgb, currentColor 62%, transparent);
+  font-size: 12px;
+  margin: 0 0 14px;
 }
 
 .chart__svg {
@@ -46,7 +53,7 @@
 .progress-chart__label,
 .gap-chart__label,
 .diverging-chart__label {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .ranked-bar__value,
@@ -55,21 +62,21 @@
 .gap-chart__expected-label,
 .stacked-chart__value {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
 }
 
 .ranked-bar__track,
 .progress-chart__track {
-  fill: rgba(128, 137, 151, 0.22);
+  fill: rgba(128, 137, 151, 0.2);
 }
 
 .chart--risk .bar-fill {
-  fill: var(--data-risk);
+  fill: var(--amber);
 }
 
 .chart--support .bar-fill {
-  fill: var(--data-positive);
+  fill: var(--teal);
 }
 
 .chart--neutral .bar-fill {
@@ -77,7 +84,16 @@
 }
 
 .chart--mixed .bar-fill {
-  fill: var(--data-ai);
+  fill: var(--blue-ink);
+}
+
+.scene[data-mood="dark"] .chart {
+  color: #c9d1d9;
+}
+
+.scene[data-mood="dark"] .ranked-bar__track,
+.scene[data-mood="dark"] .progress-chart__track {
+  fill: rgba(255, 255, 255, 0.08);
 }
 
 .progress-chart__value {
@@ -85,30 +101,23 @@
 }
 
 .gap-chart__line {
+  opacity: 0.35;
   stroke: currentColor;
   stroke-linecap: round;
   stroke-width: 3;
-  opacity: 0.32;
 }
 
 .gap-chart__actual {
-  fill: var(--data-ai);
+  fill: var(--blue-ink);
 }
 
 .gap-chart__expected {
-  fill: var(--data-risk);
+  fill: var(--amber);
 }
 
 .gap-chart__actual-label,
 .gap-chart__expected-label {
   font-size: 12px;
-}
-
-.gap-chart__actual-label {
-  text-anchor: middle;
-}
-
-.gap-chart__expected-label {
   text-anchor: middle;
 }
 
@@ -119,105 +128,65 @@
 
 .stacked-chart__segment--support .stacked-chart__fill,
 .chart-legend__item--support span {
-  fill: var(--data-positive);
-  background: var(--data-positive);
+  background: var(--teal);
+  fill: var(--teal);
 }
 
 .stacked-chart__segment--neutral .stacked-chart__fill,
 .chart-legend__item--neutral span {
-  fill: var(--data-neutral);
-  background: var(--data-neutral);
+  background: #4a5b78;
+  fill: #4a5b78;
 }
 
 .stacked-chart__segment--risk .stacked-chart__fill,
 .chart-legend__item--risk span {
-  fill: var(--data-risk);
-  background: var(--data-risk);
+  background: var(--muted-purple);
+  fill: var(--muted-purple);
 }
 
 .stacked-chart__value {
   fill: #ffffff;
-  font-size: 13px;
+  font-size: 12px;
   text-anchor: middle;
 }
 
 .chart-legend {
   display: grid;
-  gap: 0.55rem;
+  gap: 8px;
   list-style: none;
-  margin: 0.5rem 0 0;
+  margin: 12px 0 0;
   padding: 0;
 }
 
 .chart-legend__item {
   align-items: center;
   display: grid;
-  gap: 0.55rem;
-  grid-template-columns: 0.85rem 3.25rem 1fr;
-  font-size: 0.86rem;
+  font-size: 12px;
+  gap: 8px;
+  grid-template-columns: 12px 42px 1fr;
 }
 
 .chart-legend__item span {
-  border-radius: 2px;
+  border-radius: 3px;
   display: inline-block;
-  height: 0.85rem;
-  width: 0.85rem;
-}
-
-.chart-legend__item strong {
-  font-family: var(--font-mono);
+  height: 12px;
+  width: 12px;
 }
 
 .diverging-chart__axis {
+  opacity: 0.34;
   stroke: currentColor;
   stroke-width: 2;
-  opacity: 0.34;
 }
 
 .diverging-chart__less {
-  fill: var(--data-positive);
+  fill: var(--teal);
 }
 
 .diverging-chart__neutral {
-  fill: var(--data-neutral);
+  fill: #4a5b78;
 }
 
 .diverging-chart__more {
-  fill: var(--data-risk);
-}
-
-.ladder-chart {
-  counter-reset: ladder;
-  display: grid;
-  gap: 0.55rem;
-  list-style: none;
-  margin: 0.9rem 0 0;
-  padding: 0;
-}
-
-.ladder-chart__rung {
-  align-items: center;
-  background: rgba(255, 255, 255, 0.68);
-  border: 1px solid rgba(128, 137, 151, 0.26);
-  border-radius: 8px;
-  display: grid;
-  gap: 0.75rem;
-  grid-template-columns: 2rem 1fr;
-  padding: 0.65rem 0.75rem;
-}
-
-.ladder-chart__index {
-  align-items: center;
-  background: var(--data-ai);
-  border-radius: 999px;
-  color: #ffffff;
-  display: inline-flex;
-  font-family: var(--font-mono);
-  height: 2rem;
-  justify-content: center;
-  width: 2rem;
-}
-
-.scene--reactive .ladder-chart__rung {
-  background: rgba(255, 255, 255, 0.08);
+  fill: var(--muted-purple);
 }

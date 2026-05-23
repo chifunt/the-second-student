@@ -1,56 +1,95 @@
 import { animateBoundaryScene } from "../animation/sceneTransitions";
-import { renderLadderChart } from "../charts/ladderChart";
-import { createStaticScene } from "./createScene";
+import { stats } from "../data/surveyStats";
+import { createVisualScene } from "./createScene";
 
-export const boundaryScene = createStaticScene(
-  "boundary-scene",
-  "ambiguous",
-  {
-    eyebrow: "Document editor",
-    title: "Boundary",
-    dek: "Suggestions sit beside the paragraph. The dangerous button is not the tool. It is the unexamined acceptance.",
-    action: "Student action: reviews suggestions but pauses over Accept all.",
-    primary: `
-    <article class="document-surface">
-      <header class="document-toolbar">
-        <span>essay-draft-v5.doc</span>
-        <span>Suggestions: 4</span>
-      </header>
-      <div class="document-page">
-        <p><mark>AI can help me clarify the claim</mark>, but the claim still needs to be mine.</p>
-        <p>The evidence should show how support changes student behaviour, not only whether the tool is present.</p>
-        <div class="margin-note">
-          <strong>Assistant suggestion</strong>
-          <span>Split this into claim, evidence, and limitation.</span>
+const ladderRows = [
+  [
+    "support",
+    "Explain concept",
+    `${stats.assessmentUses[0].value}%`,
+    "AI clarifies a definition, but the student still writes the claim.",
+  ],
+  [
+    "support",
+    "Summarise source",
+    `${stats.assessmentUses[1].value}%`,
+    "AI compresses a paper; the student decides what matters.",
+  ],
+  [
+    "support",
+    "Structure thoughts",
+    `${stats.assessmentUses[3].value}%`,
+    "AI helps order ideas; the argument remains visible.",
+  ],
+  [
+    "amber",
+    "Edit my writing",
+    "-",
+    "Where help can become voice if every suggestion is accepted.",
+  ],
+  [
+    "amber",
+    "Generate text, then edit",
+    `${stats.assessmentUses[5].value}%`,
+    "A draft arrives before judgement has fully formed.",
+  ],
+  [
+    "risk",
+    "Include AI text directly",
+    `${stats.assessmentUses[6].value}%`,
+    "The submitted words may no longer show the student's thinking.",
+  ],
+] as const;
+
+export const boundaryScene = createVisualScene({
+  id: "boundary-scene",
+  title: "Boundary",
+  mode: "ambiguous",
+  sceneClass: "s5",
+  mood: "bright",
+  screenLabel: "05 The Boundary",
+  animate: animateBoundaryScene,
+  body: `
+    <div class="chyron"><span class="num">05</span><span class="sep">/</span><span>Help, Edit, Hand-In</span></div>
+    <div class="scene-inner scene-inner--wide">
+      <div class="window">
+        <div class="window-titlebar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="mark"><span class="mark-dot"></span>write</div>
+          <div class="window-title">essay_draft_v3.docx - Suggestions mode</div>
+          <div class="window-meta">14:48</div>
         </div>
-        <div class="margin-note margin-note--warning">
-          <strong>Authorship risk</strong>
-          <span>Accept all would replace the paragraph voice.</span>
+        <div class="writer-toolbar">
+          <span>3 suggestions in this paragraph - 12 in the document</span>
+          <button class="accept-all pulse" type="button">Accept all suggestions</button>
+        </div>
+        <div class="writer">
+          <div class="writer-doc">
+            <h3 id="boundary-scene-title">Drafting the second paragraph</h3>
+            <p><span class="strike">In this essay, I am going to talk about</span> <span class="sug">This paper examines</span> how universities are responding to the spread of generative AI in assessed work. Recent surveys <span class="sug-amber">suggest a rapid shift in student practice</span>, but the gap between policy and lived experience remains uneven.</p>
+            <p>Where teaching staff have offered explicit guidance, students report <span class="sug">clearer expectations and</span> higher confidence. Where guidance is absent, students <span class="sug-amber">improvise - sometimes responsibly, sometimes not.</span></p>
+            <p><span class="sug">The question is no longer whether students use AI in their work, but where their own judgement remains visible inside it.</span></p>
+            <p class="revision-note">revision history - 14 saved versions - last opened 14:21</p>
+          </div>
+          <aside class="writer-panel">
+            <h4>Support to substitution</h4>
+            <p class="sub">Where does AI use sit on the path to the submitted assignment?</p>
+            <div class="ladder">
+              ${ladderRows
+                .map(
+                  ([zone, label, pct, desc], index) => `
+                    <button class="rung" data-zone="${zone}" type="button">
+                      <span>${index + 1}</span><span>${label}</span><span class="pct">${pct}<span class="toggle-ic">></span></span>
+                      <span class="desc">${desc}</span>
+                    </button>
+                  `,
+                )
+                .join("")}
+            </div>
+          </aside>
         </div>
       </div>
-      <div class="button-row">
-        <span class="button-like">Accept</span>
-        <span class="button-like">Reject</span>
-        <span class="button-like button-danger">Accept all</span>
-      </div>
-    </article>
+      <div class="boundary-question">At what point does help become authorship?</div>
+    </div>
   `,
-    aside: renderLadderChart(
-      [
-        "Explain concept",
-        "Summarise source",
-        "Structure thoughts",
-        "Edit writing",
-        "Generate text, then edit",
-        "Include AI text directly",
-      ],
-      {
-        title: "Support to substitution ladder",
-        tone: "mixed",
-        description:
-          "A staged model for discussing when help starts becoming authorship.",
-      },
-    ),
-  },
-  animateBoundaryScene,
-);
+});

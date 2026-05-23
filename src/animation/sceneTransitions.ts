@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { animateCharts } from "./chartAnimations";
-import { animateFakeCursor } from "./cursorTimeline";
-import { revealSceneCopy } from "./textReveal";
+
+gsap.defaults({ immediateRender: false });
 
 type TimelineOptions = {
   pin?: boolean;
@@ -21,8 +21,8 @@ function sceneTimeline(
     },
     scrollTrigger: {
       trigger: container,
-      start: options.start ?? "top 72%",
-      end: options.end ?? "bottom 28%",
+      start: options.start ?? "top 70%",
+      end: options.end ?? "bottom 30%",
       once: !options.scrub,
       pin: options.pin,
       scrub: options.scrub,
@@ -30,317 +30,275 @@ function sceneTimeline(
   });
 }
 
-function revealStage(timeline: gsap.core.Timeline, container: HTMLElement): void {
-  timeline.from(
-    container.querySelector(".scene__stage"),
-    {
-      autoAlpha: 0,
-      duration: 0.75,
-      scale: 0.98,
-      y: 24,
-    },
-    0.12,
-  );
-}
-
-function standardReveal(container: HTMLElement): gsap.core.Timeline {
+function baseReveal(container: HTMLElement): gsap.core.Timeline {
   const timeline = sceneTimeline(container);
-  revealSceneCopy(timeline, container);
-  revealStage(timeline, container);
-  // Charts render statically first, then animate through stable .bar-fill hooks
-  // so the story remains readable when motion is disabled.
-  animateCharts(timeline, container, 0.35);
+
+  timeline.from(container.querySelector(".scene-inner"), {
+    autoAlpha: 0,
+    duration: 0.8,
+    scale: 0.985,
+    y: 26,
+  });
+  animateCharts(timeline, container, 0.25);
+
   return timeline;
 }
 
+function revealMessages(
+  timeline: gsap.core.Timeline,
+  container: HTMLElement,
+  selector = ".msg, .phone-bubble",
+  position = 0.3,
+): void {
+  const messages = container.querySelectorAll(selector);
+
+  if (messages.length > 0) {
+    timeline.from(
+      messages,
+      {
+        autoAlpha: 0,
+        duration: 0.45,
+        stagger: 0.14,
+        y: 18,
+      },
+      position,
+    );
+  }
+}
+
 export function animateTitleScene(container: HTMLElement): void {
-  const timeline = standardReveal(container);
+  const timeline = baseReveal(container);
 
   timeline.from(
-    container.querySelector(".email-row--unread"),
+    container.querySelectorAll(".s0-density .tick.lit"),
     {
-      boxShadow: "0 0 0 rgba(230, 162, 60, 0)",
-      duration: 0.9,
-      repeat: 1,
-      yoyo: true,
+      autoAlpha: 0,
+      duration: 0.22,
+      stagger: 0.006,
+      y: 8,
     },
-    0.7,
+    0.3,
   );
 }
 
 export function animateEmailScene(container: HTMLElement): void {
-  const timeline = standardReveal(container);
+  const timeline = baseReveal(container);
 
   timeline
     .from(
-      container.querySelectorAll(".mail-list__item"),
+      container.querySelectorAll(".email-list .row"),
       {
         autoAlpha: 0,
-        duration: 0.45,
-        stagger: 0.07,
-        x: -22,
+        duration: 0.35,
+        stagger: 0.05,
+        x: -18,
       },
-      0.25,
+      0.18,
     )
     .from(
-      container.querySelector(".mail-pane"),
+      container.querySelector(".email-reader"),
       {
         autoAlpha: 0,
         duration: 0.55,
         x: 24,
       },
-      0.45,
+      0.32,
     );
 }
 
 export function animatePanicButtonScene(container: HTMLElement): void {
-  const timeline = standardReveal(container);
+  const timeline = baseReveal(container);
 
-  animateFakeCursor(timeline, container, 0.25);
   timeline
-    .from(
-      container.querySelector(".selected-text"),
-      {
-        backgroundColor: "rgba(230, 162, 60, 0)",
-        duration: 0.55,
-      },
-      0.42,
+    .fromTo(
+      container.querySelector(".cursor"),
+      { autoAlpha: 0, x: -70, y: -40 },
+      { autoAlpha: 1, duration: 0.25, x: 0, y: 0 },
+      0.15,
     )
-    .from(
+    .to(
+      container.querySelector(".cursor"),
+      {
+        duration: 1,
+        ease: "power1.inOut",
+        left: "58%",
+        top: "57%",
+      },
+      0.45,
+    )
+    .to(
       container.querySelector(".context-menu"),
       {
-        autoAlpha: 0,
+        autoAlpha: 1,
         duration: 0.35,
-        scale: 0.96,
-        transformOrigin: "top left",
-      },
-      0.72,
-    )
-    .from(
-      container.querySelector(".clipboard-preview"),
-      {
-        autoAlpha: 0,
-        duration: 0.45,
-        y: 18,
+        y: 0,
       },
       0.95,
+    )
+    .to(
+      container.querySelector(".s2-overlay .callout"),
+      {
+        autoAlpha: 1,
+        duration: 0.45,
+        y: 0,
+      },
+      1.25,
     );
 }
 
 export function animatePanicChatScene(container: HTMLElement): void {
-  const timeline = standardReveal(container);
-
-  timeline
-    .from(
-      container.querySelector(".pasted-card"),
-      {
-        autoAlpha: 0,
-        duration: 0.45,
-        y: 16,
-      },
-      0.28,
-    )
-    .from(
-      container.querySelectorAll(".bubble"),
-      {
-        autoAlpha: 0,
-        duration: 0.5,
-        stagger: 0.16,
-        y: 18,
-      },
-      0.5,
-    );
+  const timeline = baseReveal(container);
+  revealMessages(timeline, container, ".chat-stream .msg", 0.32);
 }
 
 export function animateDeliberateWorkflowScene(container: HTMLElement): void {
-  const timeline = standardReveal(container);
+  const timeline = baseReveal(container);
 
   timeline
     .from(
-      container.querySelectorAll(".workspace-grid > section"),
+      container.querySelectorAll(".file"),
       {
         autoAlpha: 0,
-        duration: 0.5,
-        stagger: 0.08,
-        y: 22,
+        duration: 0.3,
+        stagger: 0.04,
+        x: -12,
       },
-      0.28,
+      0.18,
     )
     .from(
-      container.querySelector(".structured-prompt"),
+      container.querySelectorAll(".studio-stream .msg, .quote-note"),
       {
         autoAlpha: 0,
         duration: 0.45,
-        y: 16,
+        stagger: 0.14,
+        y: 18,
       },
-      0.68,
-    )
-    .from(
-      container.querySelector(".quote-card"),
-      {
-        autoAlpha: 0,
-        duration: 0.45,
-        rotate: -1.5,
-        y: 14,
-      },
-      0.85,
+      0.32,
     );
 }
 
 export function animateBoundaryScene(container: HTMLElement): void {
-  const timeline = standardReveal(container);
+  const timeline = baseReveal(container);
 
   timeline
     .from(
-      container.querySelectorAll(".margin-note"),
+      container.querySelectorAll(".sug, .sug-amber"),
       {
-        autoAlpha: 0,
-        duration: 0.45,
-        stagger: 0.12,
-        x: 20,
+        backgroundColor: "rgba(255,255,255,0)",
+        duration: 0.5,
+        stagger: 0.08,
       },
-      0.42,
+      0.35,
     )
     .from(
-      container.querySelector(".button-danger"),
+      container.querySelectorAll(".rung"),
       {
-        boxShadow: "0 0 0 rgba(185, 74, 72, 0)",
-        duration: 0.65,
-        repeat: 1,
-        yoyo: true,
+        autoAlpha: 0,
+        duration: 0.35,
+        stagger: 0.07,
+        x: 18,
       },
-      0.8,
+      0.48,
     );
 }
 
 export function animateSkillGapScene(container: HTMLElement): void {
-  const timeline = standardReveal(container);
+  const timeline = baseReveal(container);
 
-  timeline
-    .from(
-      container.querySelector(".vle-search"),
-      {
-        autoAlpha: 0,
-        duration: 0.45,
-        y: -12,
-      },
-      0.22,
-    )
-    .from(
-      container.querySelectorAll(".vle-cards article"),
-      {
-        autoAlpha: 0,
-        duration: 0.45,
-        stagger: 0.08,
-        y: 18,
-      },
-      0.4,
-    )
-    .from(
-      container.querySelector(".guidance-alert"),
-      {
-        autoAlpha: 0,
-        duration: 0.45,
-        y: 14,
-      },
-      0.72,
-    );
+  timeline.from(
+    container.querySelectorAll(".vle-card"),
+    {
+      autoAlpha: 0,
+      duration: 0.35,
+      stagger: 0.06,
+      y: 16,
+    },
+    0.28,
+  );
 }
 
 export function animateDependencyScene(container: HTMLElement): void {
-  const timeline = standardReveal(container);
+  const timeline = baseReveal(container);
+  revealMessages(timeline, container, ".dep-stream .msg", 0.28);
 
-  timeline
-    .from(
-      container.querySelectorAll(".chat-shell--crowded .bubble"),
-      {
-        autoAlpha: 0,
-        duration: 0.38,
-        stagger: 0.11,
-        y: 16,
-      },
-      0.32,
-    )
-    .from(
-      container.querySelectorAll(".thread-tags span"),
-      {
-        autoAlpha: 0,
-        duration: 0.35,
-        stagger: 0.06,
-        y: 10,
-      },
-      0.9,
-    );
+  timeline.from(
+    container.querySelectorAll(".chip, .quote-card"),
+    {
+      autoAlpha: 0,
+      duration: 0.35,
+      stagger: 0.05,
+      y: 12,
+    },
+    0.82,
+  );
 }
 
 export function animateCompanionScene(container: HTMLElement): void {
-  const timeline = standardReveal(container);
+  const timeline = baseReveal(container);
 
   timeline
     .from(
-      container.querySelector(".phone-frame"),
+      container.querySelector(".phone"),
       {
         autoAlpha: 0,
         duration: 0.75,
         filter: "blur(12px)",
-        y: 28,
+        y: 32,
       },
-      0.16,
+      0.14,
     )
     .from(
-      container.querySelectorAll(".phone-chat .bubble, .phone-chat .quote-card"),
+      container.querySelectorAll(".phone-bubble"),
       {
         autoAlpha: 0,
-        duration: 0.55,
-        stagger: 0.16,
+        duration: 0.45,
+        stagger: 0.18,
         y: 18,
       },
-      0.55,
+      0.48,
     );
 }
 
 export function animateFinalPaywallScene(container: HTMLElement): void {
-  // Pinning is reserved for the ending because the interruption is the
-  // narrative beat; earlier scenes should keep normal scroll momentum.
-  const timeline = sceneTimeline(container, {
-    end: "+=80%",
-    pin: true,
-    scrub: 0.6,
-    start: "top top",
-  });
-
-  revealSceneCopy(timeline, container);
-  revealStage(timeline, container);
-  animateCharts(timeline, container, 0.3);
+  const timeline = sceneTimeline(container);
 
   timeline
     .from(
-      container.querySelectorAll(".final-chat .bubble"),
+      container.querySelectorAll(".reflect-body .msg"),
       {
         autoAlpha: 0,
-        duration: 0.5,
-        stagger: 0.16,
+        duration: 0.45,
+        stagger: 0.15,
         y: 18,
       },
-      0.2,
+      0,
+    )
+    .to(
+      container.querySelector(".continue-btn"),
+      {
+        autoAlpha: 1,
+        duration: 0.3,
+        y: 0,
+      },
+      0.32,
     )
     .from(
-      container.querySelector(".paywall-modal"),
+      container.querySelectorAll(".ghost-card"),
+      {
+        autoAlpha: 0,
+        duration: 0.25,
+        stagger: 0.04,
+        y: 12,
+      },
+      0.45,
+    )
+    .from(
+      container.querySelector(".s9-outro"),
       {
         autoAlpha: 0,
         duration: 0.35,
-        scale: 0.92,
-        y: 24,
+        y: 18,
       },
-      0.68,
-    )
-    .from(
-      container.querySelector(".final-line"),
-      {
-        autoAlpha: 0,
-        duration: 0.35,
-        y: 14,
-      },
-      0.9,
+      0.6,
     );
 }

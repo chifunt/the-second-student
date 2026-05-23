@@ -1,97 +1,166 @@
+@media (max-width: 1180px) {
+  .email-window {
+    grid-template-columns: 150px 240px minmax(360px, 1fr);
+  }
+
+  .email-data-panel {
+    display: none;
+  }
+
+  .chat-window,
+  .studio {
+    grid-template-columns: 210px minmax(360px, 1fr);
+  }
+
+  .chat-data-panel,
+  .studio-data {
+    display: none;
+  }
+}
+
 @media (max-width: 900px) {
-  html {
-    font-size: 16px;
-  }
-
-  .scene__inner {
-    align-content: center;
-    grid-template-columns: 1fr;
-  }
-
-  .scene[data-scene="final-paywall-scene"] .scene__inner {
-    grid-template-columns: 1fr;
-  }
-
-  .scene__copy {
-    max-width: 42rem;
-  }
-
-  .mail-layout,
-  .mail-app,
-  .desktop-surface,
-  .copy-workbench,
-  .workspace-grid,
-  .vle-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .mail-folders {
-    border-right: 0;
-    border-bottom: 1px solid rgba(128, 137, 151, 0.22);
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 0 0 1rem;
-  }
-
-  .desktop-sidebar {
-    grid-template-columns: repeat(4, auto);
-    justify-content: start;
-  }
-
-  .workspace-grid > section {
+  .scene {
+    align-items: start;
     min-height: auto;
+    overflow: visible;
+    padding: 72px 18px 48px;
+    scroll-snap-align: none;
+  }
+
+  html {
+    scroll-snap-type: none;
+  }
+
+  .progress {
+    display: none;
+  }
+
+  .chyron {
+    left: 18px;
+    top: 18px;
+  }
+
+  .s0-content {
+    padding-top: 40px;
+  }
+
+  .s0-stats,
+  .s2-bottom,
+  .phone-stage,
+  .vle-body,
+  .writer,
+  .dep-chat {
+    grid-template-columns: 1fr;
+  }
+
+  .email-window {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+  }
+
+  .email-sidebar,
+  .email-list {
+    display: none;
+  }
+
+  .chat-window,
+  .studio {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+  }
+
+  .chat-side,
+  .studio-files {
+    display: none;
+  }
+
+  .chat-stream,
+  .dep-stream,
+  .studio-stream {
+    min-height: 420px;
+  }
+
+  .writer {
+    height: auto;
+    min-height: 0;
+  }
+
+  .writer-doc {
+    padding: 28px;
+  }
+
+  .writer-panel {
+    border-left: 0;
+    border-top: 1px solid #e4e1d8;
+  }
+
+  .vle-cards,
+  .col-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .ghost-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .quote-note {
+    margin-top: 18px;
+    position: static;
+    rotate: none;
   }
 }
 
 @media (max-width: 560px) {
-  .scene__inner {
-    padding: 1.25rem;
+  .scene {
+    padding-inline: 12px;
   }
 
-  .scene__copy h2 {
-    font-size: 2.35rem;
+  .window-titlebar {
+    gap: 8px;
+    grid-template-columns: auto 1fr;
   }
 
-  .email-row {
-    align-items: start;
+  .window-title,
+  .window-meta {
+    display: none;
+  }
+
+  .mail-ribbon {
+    display: none;
+  }
+
+  .email-reader,
+  .reflect-body {
+    padding: 22px;
+  }
+
+  .s0-stats,
+  .ghost-stats {
     grid-template-columns: 1fr;
   }
 
-  .mail-folders,
-  .desktop-sidebar {
-    grid-template-columns: 1fr;
+  .s0-density {
+    height: 26px;
   }
 
-  .message-header,
-  .chat-header,
-  .study-header,
-  .document-toolbar,
-  .phone-status {
-    align-items: flex-start;
-    flex-direction: column;
+  .phone {
+    height: 580px;
+    width: min(320px, 92vw);
   }
 
-  .chat-composer {
-    align-items: stretch;
-    flex-direction: column;
+  .s8-aside h2,
+  .s9-outro h1 {
+    font-size: 42px;
   }
 
-  .phone-frame {
-    border-radius: 18px;
-    padding: 0.9rem;
+  .reflect-bar {
+    gap: 8px;
+    overflow: hidden;
   }
 
-  .phone-chat {
-    min-height: 22rem;
-  }
-
-  .chart {
-    padding: 0.85rem;
-  }
-
-  .ranked-bar__label,
-  .progress-chart__label,
-  .gap-chart__label,
-  .diverging-chart__label {
-    font-size: 13px;
+  .reflect-bar .center {
+    display: none;
   }
 }

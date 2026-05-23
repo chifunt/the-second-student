@@ -2,6 +2,7 @@ export type StatDatum = {
   label: string;
   value: number;
   note?: string;
+  sourceTable?: string;
 };
 
 export type SurveySource = {
@@ -12,6 +13,8 @@ export type SurveySource = {
   url: string;
   fieldwork: string;
   sample: string;
+  workbook: string;
+  marginOfError: string;
 };
 
 export const surveySource: SurveySource = {
@@ -22,6 +25,8 @@ export const surveySource: SurveySource = {
   url: "https://www.hepi.ac.uk/reports/student-generative-ai-survey-2026/",
   fieldwork: "December 2025",
   sample: "1,054 full-time UK undergraduates",
+  workbook: "Third-version-of-2026-weighted-data.xlsx",
+  marginOfError: "Approximately +/-3 percentage points",
 };
 
 export const stats = {
@@ -31,29 +36,37 @@ export const stats = {
   },
 
   barriers: [
-    { label: "Being accused of cheating", value: 42 },
-    { label: "False results / hallucinations", value: 35 },
-    { label: "Biased results", value: 32 },
-    { label: "Environmental impact", value: 23 },
-    { label: "Institution discourages or bans AI", value: 21 },
+    { label: "Being accused of cheating", value: 42, sourceTable: "Table 23" },
+    { label: "False results / hallucinations", value: 35, sourceTable: "Table 23" },
+    { label: "Biased results", value: 32, sourceTable: "Table 23" },
+    { label: "Environmental impact", value: 23, sourceTable: "Table 23" },
+    {
+      label: "Institution discourages or bans AI",
+      value: 21,
+      sourceTable: "Table 23",
+    },
   ],
 
   motivations: [
-    { label: "Improve quality of work", value: 47 },
-    { label: "Save time", value: 45 },
-    { label: "Instant support", value: 38 },
-    { label: "Personalised support", value: 31 },
-    { label: "Outside traditional study hours", value: 28 },
+    { label: "Improve quality of work", value: 47, sourceTable: "Table 22" },
+    { label: "Save time", value: 45, sourceTable: "Table 22" },
+    { label: "Instant support", value: 38, sourceTable: "Table 22" },
+    { label: "Personalised support", value: 31, sourceTable: "Table 22" },
+    {
+      label: "Outside traditional study hours",
+      value: 28,
+      sourceTable: "Table 22",
+    },
   ],
 
   assessmentUses: [
-    { label: "Explain concepts", value: 61 },
-    { label: "Summarise a relevant article", value: 49 },
-    { label: "Suggest research ideas", value: 40 },
-    { label: "Structure thoughts", value: 39 },
-    { label: "Search the internet", value: 36 },
-    { label: "Generate text, then edit", value: 25 },
-    { label: "Include AI text directly", value: 12 },
+    { label: "Explain concepts", value: 61, sourceTable: "Table 18" },
+    { label: "Summarise a relevant article", value: 49, sourceTable: "Table 18" },
+    { label: "Suggest research ideas", value: 40, sourceTable: "Table 18" },
+    { label: "Structure thoughts", value: 39, sourceTable: "Table 18" },
+    { label: "Search the internet", value: 36, sourceTable: "Table 18" },
+    { label: "Generate text, then edit", value: 25, sourceTable: "Table 18" },
+    { label: "Include AI text directly", value: 12, sourceTable: "Table 18" },
   ],
 
   supportGap: {
@@ -84,4 +97,15 @@ export const stats = {
     { label: "AI skills essential", value: 68 },
     { label: "Feel supported", value: 48 },
   ],
+} as const;
+
+export const sourceNotes = {
+  adoption: "Workbook prevalence tables and HEPI/Kortext report summary.",
+  assessmentUses: "Workbook Table 18, Q2a.",
+  motivations: "Workbook Table 22.",
+  barriers: "Workbook Table 23.",
+  supportGap: "Workbook Tables 29 and 30.",
+  loneliness: "Workbook Tables 34 and 35.",
+  quotes:
+    "Short fragments are used as illustrative free-text-derived material, not attributed to identifiable respondents.",
 } as const;

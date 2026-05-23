@@ -1,6 +1,6 @@
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid var(--data-ai);
+  outline: 3px solid var(--amber);
   outline-offset: 3px;
 }
 
@@ -13,19 +13,24 @@ button:focus-visible {
     scroll-behavior: auto !important;
     transition-duration: 0.001ms !important;
   }
-}
 
-.reduced-motion .scene {
-  min-height: auto;
-}
+  body.scroll-locked {
+    height: auto;
+    overflow: auto;
+  }
 
-.reduced-motion .fake-cursor {
-  display: none;
-}
+  .cursor,
+  .fake-cursor {
+    display: none;
+  }
 
-.reduced-motion .bar-fill,
-.reduced-motion .scene__copy,
-.reduced-motion .scene__stage {
-  opacity: 1 !important;
-  transform: none !important;
+  .msg,
+  .phone-bubble,
+  .scene-inner,
+  .bar-fill,
+  .continue-btn {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
 }

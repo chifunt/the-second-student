@@ -1,28 +1,39 @@
 :root {
-  --color-bg: #f7f6f2;
+  --off-white: #f7f6f2;
+  --light-grey: #e9ecef;
+  --dark-text: #18202a;
+  --muted-text: #667085;
+  --navy-deep: #07111f;
+  --navy: #0d1623;
+  --panel-dark: #111827;
+  --panel-dark-2: #161f2e;
+  --violet: #2d223a;
+  --amber: #e6a23c;
+  --red: #b94a48;
+  --soft-blue: #dcebff;
+  --calm-green: #6faf8d;
+  --cyan: #bfe9f2;
+  --blue-ink: #2c4a7c;
+  --teal: #2f8e8b;
+  --muted-purple: #6b5b8a;
+  --cream: #f3eee1;
+  --paper: #ece9e1;
+  --paper-deep: #e4e1d8;
+  --color-bg: var(--off-white);
   --color-surface: #ffffff;
-  --color-text: #18202a;
-  --color-muted: #667085;
+  --color-text: var(--dark-text);
+  --color-muted: var(--muted-text);
   --color-border: #d7dce3;
-
-  --reactive-bg: #07111f;
-  --reactive-card: #111827;
-  --reactive-violet: #2d223a;
-  --reactive-warning: #e6a23c;
-  --reactive-error: #b94a48;
-
-  --deliberate-bg: #fbfcfb;
-  --deliberate-blue: #dcebff;
-  --deliberate-green: #6faf8d;
-  --deliberate-cyan: #bfe9f2;
-
-  --data-positive: #2f9e7e;
+  --reactive-bg: var(--navy-deep);
+  --reactive-card: var(--panel-dark);
+  --reactive-warning: var(--amber);
+  --data-positive: var(--teal);
   --data-neutral: #8b95a4;
-  --data-negative: #b94a48;
+  --data-negative: var(--red);
   --data-ai: #3b82f6;
-  --data-risk: #e6a23c;
-
+  --data-risk: var(--amber);
   --font-sans:
-    Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, ui-monospace, monospace;
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, ui-monospace, monospace;
+  --font-serif: "Source Serif 4", Georgia, serif;
 }

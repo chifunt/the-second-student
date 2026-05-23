@@ -1,59 +1,60 @@
 import { animateCompanionScene } from "../animation/sceneTransitions";
 import { renderDivergingBar } from "../charts/divergingBar";
-import { renderProgressBars } from "../charts/progressBars";
+import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
-import { renderWindowChrome } from "../ui/windowChrome";
-import { createStaticScene } from "./createScene";
+import { createVisualScene } from "./createScene";
 
-export const companionScene = createStaticScene(
-  "companion-scene",
-  "reactive",
-  {
-    eyebrow: "02:13",
-    title: "Company at 2AM",
-    dek: "The chat is no longer just academic support. It is company in a room that feels too quiet.",
-    action: "Student action: asks the assistant to stay while they finish.",
-    primary: renderWindowChrome({
-      title: "Mobile companion chat",
-      meta: "student_047 / phone",
-      body: `
-      <div class="phone-frame">
-        <div class="phone-status">
-          <span>02:13</span>
-          <span>deadline mode</span>
+export const companionScene = createVisualScene({
+  id: "companion-scene",
+  title: "Company at 2AM",
+  mode: "reactive",
+  sceneClass: "s8",
+  mood: "dark",
+  screenLabel: "08 Company at 2AM",
+  animate: animateCompanionScene,
+  body: `
+    <div class="chyron"><span class="num">08</span><span class="sep">/</span><span>Company at 2AM</span></div>
+    <div class="scene-inner">
+      <div class="phone-stage">
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="phone-screen">
+            <div class="phone-status"><span>02:13</span><span>4%</span></div>
+            <div class="phone-header">
+              <div class="ava">A</div>
+              <div class="name">assist</div>
+              <div class="status">always on - always here</div>
+            </div>
+            <div class="phone-stream">
+              <div class="ts">- 2:13 AM -</div>
+              <div class="phone-bubble user">can you just stay while i finish this</div>
+              <div class="phone-bubble bot"><div class="first-line">It is not stupid. You are not being dramatic.</div><span>I can stay while you work. First, breathe. Then do the next small thing.</span></div>
+              <div class="phone-bubble user blink">i think i'm losing it</div>
+              <div class="phone-bubble bot">You are not losing it. You are tired and the deadline is real. Tell me what's open in front of you - one document, one sentence - and we'll start there.</div>
+            </div>
+            <div class="phone-input">Type a message...</div>
+          </div>
         </div>
-        <div class="phone-chat">
-          <p class="bubble bubble--user">can you just stay while i finish this</p>
-          <p class="bubble bubble--assistant">First, breathe. I can keep you company while you work through the next paragraph.</p>
-          <p class="bubble bubble--user">dont solve it. just keep me on task</p>
-          <p class="quote-card">"It keeps me company."</p>
+        <div class="s8-aside">
+          <h2 id="companion-scene-title">"${copy.quotes.company}"</h2>
+          <p class="lead">${stats.loneliness.companionshipUse}% of students use AI for friendship, company, advice, or tackling loneliness. The effect on how lonely they feel is almost evenly split.</p>
+          ${renderDivergingBar(
+            {
+              lessLabel: "less lonely",
+              lessValue: stats.loneliness.lessLonely,
+              neutralLabel: "no impact",
+              neutralValue: stats.loneliness.noImpact,
+              moreLabel: "more lonely",
+              moreValue: stats.loneliness.moreLonely,
+            },
+            {
+              title: "Effect of AI use on loneliness",
+              tone: "mixed",
+            },
+          )}
+          <div class="small-data"><span>${stats.loneliness.companionshipUse}% use AI for friendship / company / advice</span><span>n = 1,054</span></div>
         </div>
-        <div class="phone-input">message...</div>
       </div>
-    `,
-    }),
-    aside: `
-    ${renderProgressBars(
-      [
-        {
-          label: "Use AI for companionship, advice or loneliness",
-          value: stats.loneliness.companionshipUse,
-        },
-      ],
-      { title: "Companionship use", tone: "mixed" },
-    )}
-    ${renderDivergingBar(
-      {
-        lessLabel: "less lonely",
-        lessValue: stats.loneliness.lessLonely,
-        neutralLabel: "no impact",
-        neutralValue: stats.loneliness.noImpact,
-        moreLabel: "more lonely",
-        moreValue: stats.loneliness.moreLonely,
-      },
-      { title: "Effect on loneliness", tone: "mixed" },
-    )}
+    </div>
   `,
-  },
-  animateCompanionScene,
-);
+});
