@@ -36,10 +36,11 @@ export const finalPaywallScene = createStaticScene(
         </div>
       `,
     }),
-    aside: renderRankedBarChart(stats.finalRecap, {
-      title: "What the survey leaves on screen",
-      tone: "mixed",
-    }) + renderSourcePanel(),
+    aside:
+      renderRankedBarChart(stats.finalRecap, {
+        title: "What the survey leaves on screen",
+        tone: "mixed",
+      }) + renderSourcePanel(),
   },
   animateFinalPaywallScene,
 );

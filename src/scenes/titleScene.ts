@@ -5,15 +5,18 @@ import { renderProgressBars } from "../charts/progressBars";
 import { renderWindowChrome } from "../ui/windowChrome";
 import { createStaticScene } from "./createScene";
 
-export const titleScene = createStaticScene("title-scene", "ambiguous", {
-  eyebrow: copy.title.eyebrow,
-  title: copy.title.headline,
-  dek: copy.title.body,
-  action: copy.title.action,
-  primary: renderWindowChrome({
-    title: "Inbox / 08:41",
-    meta: surveySource.reportNumber,
-    body: `
+export const titleScene = createStaticScene(
+  "title-scene",
+  "ambiguous",
+  {
+    eyebrow: copy.title.eyebrow,
+    title: copy.title.headline,
+    dek: copy.title.body,
+    action: copy.title.action,
+    primary: renderWindowChrome({
+      title: "Inbox / 08:41",
+      meta: surveySource.reportNumber,
+      body: `
       <div class="desktop-surface desktop-surface--title">
         <div class="desktop-sidebar">
           <span class="profile-dot profile-dot--ambiguous">?</span>
@@ -46,5 +49,7 @@ export const titleScene = createStaticScene("title-scene", "ambiguous", {
         { title: "Near universal adoption", tone: "mixed" },
       )}
     `,
-  }),
-}, animateTitleScene);
+    }),
+  },
+  animateTitleScene,
+);

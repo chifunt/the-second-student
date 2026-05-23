@@ -1,8 +1,4 @@
-export type StudentMode =
-  | "reactive"
-  | "deliberate"
-  | "institutional"
-  | "ambiguous";
+export type StudentMode = "reactive" | "deliberate" | "institutional" | "ambiguous";
 
 export type SceneConfig = {
   id: string;

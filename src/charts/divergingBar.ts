@@ -11,10 +11,7 @@ export type DivergingDatum = {
   moreValue: number;
 };
 
-export function renderDivergingBar(
-  data: DivergingDatum,
-  options: ChartOptions,
-): string {
+export function renderDivergingBar(data: DivergingDatum, options: ChartOptions): string {
   const width = 660;
   const height = 152;
   const center = 330;

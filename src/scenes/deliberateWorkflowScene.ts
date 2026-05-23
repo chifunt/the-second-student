@@ -11,7 +11,8 @@ export const deliberateWorkflowScene = createStaticScene(
     eyebrow: "d.sim",
     title: "Same Tool, Used Differently",
     dek: "The second screen is organized: sources on the left, notes in the middle, judgement still visible in the draft.",
-    action: "Student action: asks for structure, source navigation, and revision prompts.",
+    action:
+      "Student action: asks for structure, source navigation, and revision prompts.",
     primary: renderWindowChrome({
       title: "Study workspace",
       meta: "essay-plan-v4.md / sources tagged",

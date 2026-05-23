@@ -2,10 +2,7 @@ import * as d3 from "d3";
 import type { ChartOptions, GapDatum } from "./chartTypes";
 import { createSvgChart, renderFigure, toneClass } from "./chartUtils";
 
-export function renderGapChart(
-  data: readonly GapDatum[],
-  options: ChartOptions,
-): string {
+export function renderGapChart(data: readonly GapDatum[], options: ChartOptions): string {
   const width = 680;
   const rowHeight = 82;
   const left = 210;

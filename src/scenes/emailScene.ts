@@ -4,15 +4,18 @@ import { stats } from "../data/surveyStats";
 import { renderWindowChrome } from "../ui/windowChrome";
 import { createStaticScene } from "./createScene";
 
-export const emailScene = createStaticScene("email-scene", "reactive", {
-  eyebrow: "Reactive screen-world",
-  title: "Subject: Possible Academic Misconduct",
-  dek: "The first student opens the message and starts reading it as a threat before reading it as information.",
-  action: "Student action: opens the unread integrity email.",
-  primary: renderWindowChrome({
-    title: "Mail",
-    meta: "student_047 / Inbox",
-    body: `
+export const emailScene = createStaticScene(
+  "email-scene",
+  "reactive",
+  {
+    eyebrow: "Reactive screen-world",
+    title: "Subject: Possible Academic Misconduct",
+    dek: "The first student opens the message and starts reading it as a threat before reading it as information.",
+    action: "Student action: opens the unread integrity email.",
+    primary: renderWindowChrome({
+      title: "Mail",
+      meta: "student_047 / Inbox",
+      body: `
       <div class="mail-app">
         <nav class="mail-folders" aria-label="Mail folders">
           <strong>student_047</strong>
@@ -55,9 +58,11 @@ export const emailScene = createStaticScene("email-scene", "reactive", {
         </div>
       </div>
     `,
-  }),
-  aside: renderRankedBarChart(stats.barriers, {
-    title: "Barriers and worries",
-    tone: "risk",
-  }),
-}, animateEmailScene);
+    }),
+    aside: renderRankedBarChart(stats.barriers, {
+      title: "Barriers and worries",
+      tone: "risk",
+    }),
+  },
+  animateEmailScene,
+);

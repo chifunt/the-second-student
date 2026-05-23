@@ -5,15 +5,18 @@ import { stats } from "../data/surveyStats";
 import { renderWindowChrome } from "../ui/windowChrome";
 import { createStaticScene } from "./createScene";
 
-export const companionScene = createStaticScene("companion-scene", "reactive", {
-  eyebrow: "02:13",
-  title: "Company at 2AM",
-  dek: "The chat is no longer just academic support. It is company in a room that feels too quiet.",
-  action: "Student action: asks the assistant to stay while they finish.",
-  primary: renderWindowChrome({
-    title: "Mobile companion chat",
-    meta: "student_047 / phone",
-    body: `
+export const companionScene = createStaticScene(
+  "companion-scene",
+  "reactive",
+  {
+    eyebrow: "02:13",
+    title: "Company at 2AM",
+    dek: "The chat is no longer just academic support. It is company in a room that feels too quiet.",
+    action: "Student action: asks the assistant to stay while they finish.",
+    primary: renderWindowChrome({
+      title: "Mobile companion chat",
+      meta: "student_047 / phone",
+      body: `
       <div class="phone-frame">
         <div class="phone-status">
           <span>02:13</span>
@@ -28,8 +31,8 @@ export const companionScene = createStaticScene("companion-scene", "reactive", {
         <div class="phone-input">message...</div>
       </div>
     `,
-  }),
-  aside: `
+    }),
+    aside: `
     ${renderProgressBars(
       [
         {
@@ -51,4 +54,6 @@ export const companionScene = createStaticScene("companion-scene", "reactive", {
       { title: "Effect on loneliness", tone: "mixed" },
     )}
   `,
-}, animateCompanionScene);
+  },
+  animateCompanionScene,
+);

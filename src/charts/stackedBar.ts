@@ -20,7 +20,10 @@ export function renderStackedBar(
     .selectAll("g")
     .data(data)
     .join("g")
-    .attr("class", (datum) => `stacked-chart__segment stacked-chart__segment--${datum.tone}`)
+    .attr(
+      "class",
+      (datum) => `stacked-chart__segment stacked-chart__segment--${datum.tone}`,
+    )
     .attr("transform", (datum) => {
       const current = cursor;
       cursor += x(datum.value);

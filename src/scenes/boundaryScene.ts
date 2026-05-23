@@ -2,12 +2,15 @@ import { animateBoundaryScene } from "../animation/sceneTransitions";
 import { renderLadderChart } from "../charts/ladderChart";
 import { createStaticScene } from "./createScene";
 
-export const boundaryScene = createStaticScene("boundary-scene", "ambiguous", {
-  eyebrow: "Document editor",
-  title: "Boundary",
-  dek: "Suggestions sit beside the paragraph. The dangerous button is not the tool. It is the unexamined acceptance.",
-  action: "Student action: reviews suggestions but pauses over Accept all.",
-  primary: `
+export const boundaryScene = createStaticScene(
+  "boundary-scene",
+  "ambiguous",
+  {
+    eyebrow: "Document editor",
+    title: "Boundary",
+    dek: "Suggestions sit beside the paragraph. The dangerous button is not the tool. It is the unexamined acceptance.",
+    action: "Student action: reviews suggestions but pauses over Accept all.",
+    primary: `
     <article class="document-surface">
       <header class="document-toolbar">
         <span>essay-draft-v5.doc</span>
@@ -32,19 +35,22 @@ export const boundaryScene = createStaticScene("boundary-scene", "ambiguous", {
       </div>
     </article>
   `,
-  aside: renderLadderChart(
-    [
-      "Explain concept",
-      "Summarise source",
-      "Structure thoughts",
-      "Edit writing",
-      "Generate text, then edit",
-      "Include AI text directly",
-    ],
-    {
-      title: "Support to substitution ladder",
-      tone: "mixed",
-      description: "A staged model for discussing when help starts becoming authorship.",
-    },
-  ),
-}, animateBoundaryScene);
+    aside: renderLadderChart(
+      [
+        "Explain concept",
+        "Summarise source",
+        "Structure thoughts",
+        "Edit writing",
+        "Generate text, then edit",
+        "Include AI text directly",
+      ],
+      {
+        title: "Support to substitution ladder",
+        tone: "mixed",
+        description:
+          "A staged model for discussing when help starts becoming authorship.",
+      },
+    ),
+  },
+  animateBoundaryScene,
+);

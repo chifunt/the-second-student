@@ -4,12 +4,15 @@ import { stats } from "../data/surveyStats";
 import { renderWindowChrome } from "../ui/windowChrome";
 import { createStaticScene } from "./createScene";
 
-export const panicChatScene = createStaticScene("panic-chat-scene", "reactive", {
-  eyebrow: "student_047",
-  title: "First, Breathe",
-  dek: "The assistant becomes a reassurance machine, useful and risky in the same breath.",
-  action: "Student action: sends an anxious pasted prompt.",
-  primary: renderWindowChrome({
+export const panicChatScene = createStaticScene(
+  "panic-chat-scene",
+  "reactive",
+  {
+    eyebrow: "student_047",
+    title: "First, Breathe",
+    dek: "The assistant becomes a reassurance machine, useful and risky in the same breath.",
+    action: "Student action: sends an anxious pasted prompt.",
+    primary: renderWindowChrome({
       title: "AI chat",
       meta: "02 messages / unsaved",
       body: `
@@ -35,9 +38,11 @@ export const panicChatScene = createStaticScene("panic-chat-scene", "reactive", 
         </div>
       </div>
     `,
-  }),
-  aside: renderRankedBarChart(stats.motivations, {
-    title: "Why students use AI",
-    tone: "support",
-  }),
-}, animatePanicChatScene);
+    }),
+    aside: renderRankedBarChart(stats.motivations, {
+      title: "Why students use AI",
+      tone: "support",
+    }),
+  },
+  animatePanicChatScene,
+);
