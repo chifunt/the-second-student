@@ -1,5 +1,5 @@
 import { animateEmailScene } from "../animation/sceneTransitions";
-import { renderRankedBarChart } from "../charts/rankedBarChart";
+import { renderDialGrid } from "../charts/dialGrid";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -114,8 +114,8 @@ export const emailScene = createVisualScene({
             </div>
           </div>
           <aside class="email-data-panel">
-            ${renderRankedBarChart(stats.barriers, {
-              title: "Barriers and worries",
+            ${renderDialGrid(stats.barriers, {
+              title: "What stops students?",
               tone: "risk",
               description:
                 "Top concerns students report around using AI for assessed work.",

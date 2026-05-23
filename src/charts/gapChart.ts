@@ -1,71 +1,48 @@
 import * as d3 from "d3";
 import type { ChartOptions, GapDatum } from "./chartTypes";
-import { createSvgChart, renderFigure, toneClass } from "./chartUtils";
+import { escapeHtml, renderFigure, toneClass } from "./chartUtils";
 
 export function renderGapChart(data: readonly GapDatum[], options: ChartOptions): string {
-  const width = 680;
-  const rowHeight = 82;
-  const left = 210;
-  const chartWidth = 360;
-  const height = 20 + data.length * rowHeight;
-  const x = d3.scaleLinear().domain([0, 100]).range([0, chartWidth]).clamp(true);
-  const svg = createSvgChart(options.title, width, height);
-
-  const rows = svg
-    .append("g")
-    .selectAll("g")
-    .data(data)
-    .join("g")
-    .attr("class", "gap-chart__row")
-    .attr("transform", (_datum, index) => `translate(0 ${22 + index * rowHeight})`);
-
-  rows
-    .append("text")
-    .attr("class", "gap-chart__label")
-    .attr("x", 0)
-    .attr("y", 16)
-    .text((datum) => datum.label);
-
-  rows
-    .append("line")
-    .attr("class", "gap-chart__line")
-    .attr("x1", (datum) => left + x(datum.actual))
-    .attr("x2", (datum) => left + x(datum.expected))
-    .attr("y1", 34)
-    .attr("y2", 34);
-
-  rows
-    .append("circle")
-    .attr("class", "gap-chart__actual")
-    .attr("cx", (datum) => left + x(datum.actual))
-    .attr("cy", 34)
-    .attr("r", 8);
-
-  rows
-    .append("circle")
-    .attr("class", "gap-chart__expected")
-    .attr("cx", (datum) => left + x(datum.expected))
-    .attr("cy", 34)
-    .attr("r", 8);
-
-  rows
-    .append("text")
-    .attr("class", "gap-chart__actual-label")
-    .attr("x", (datum) => left + x(datum.actual))
-    .attr("y", 61)
-    .text((datum) => `${datum.actualLabel}: ${datum.actual}%`);
-
-  rows
-    .append("text")
-    .attr("class", "gap-chart__expected-label")
-    .attr("x", (datum) => left + x(datum.expected))
-    .attr("y", 61)
-    .text((datum) => `${datum.expectedLabel}: ${datum.expected}%`);
+  const position = d3.scaleLinear().domain([0, 100]).range([0, 100]).clamp(true);
+  const body = `
+    <div class="dumbbells">
+      ${data
+        .map((datum) => {
+          const low = Math.min(datum.actual, datum.expected);
+          const high = Math.max(datum.actual, datum.expected);
+          return `
+            <div class="dumbbell">
+              <div class="dumbbell__title">${escapeHtml(datum.label)}</div>
+              <div
+                class="dumbbell-axis"
+                style="--have:${position(datum.actual).toFixed(2)}%;--need:${position(
+                  datum.expected,
+                ).toFixed(2)}%;--low:${position(low).toFixed(2)}%;--high:${position(
+                  high,
+                ).toFixed(2)}%;"
+              >
+                <div class="dumbbell-bar gap-chart__line" aria-hidden="true"></div>
+                <div class="dumbbell-node have gap-chart__actual" aria-hidden="true"></div>
+                <div class="dumbbell-node need gap-chart__expected" aria-hidden="true"></div>
+                <div class="dumbbell-label have">${datum.actual}%</div>
+                <div class="dumbbell-label need">${datum.expected}%</div>
+                <div class="dumbbell-gap">${Math.abs(datum.expected - datum.actual)} pt gap</div>
+              </div>
+              <div class="dumbbell-legend">
+                <span><i class="sw have"></i>${escapeHtml(datum.actualLabel)}</span>
+                <span><i class="sw need"></i>${escapeHtml(datum.expectedLabel)}</span>
+              </div>
+            </div>
+          `;
+        })
+        .join("")}
+    </div>
+  `;
 
   return renderFigure(
     `chart chart--gap ${toneClass(options.tone)}`,
     options.title,
-    svg.node()?.outerHTML ?? "",
+    body,
     options.description,
   );
 }

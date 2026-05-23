@@ -1,5 +1,5 @@
 import { animatePanicButtonScene } from "../animation/sceneTransitions";
-import { renderProgressBars } from "../charts/progressBars";
+import { renderPictogram } from "../charts/pictogram";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -56,18 +56,14 @@ export const panicButtonScene = createVisualScene({
         </div>
         <aside class="s2-data">
           <h2>Assessment work is already AI-mediated.</h2>
-          ${renderProgressBars(
-            [
-              {
-                label: "Use GenAI to help with assessed work",
-                value: stats.adoption.genAiAssessment,
-              },
-            ],
-            {
-              title: "Assessment prevalence",
-              tone: "mixed",
-            },
-          )}
+          ${renderPictogram({
+            title: "Assessment prevalence",
+            tone: "mixed",
+            value: stats.adoption.genAiAssessment,
+            label: "use GenAI to help with assessed work",
+            description:
+              "A near-full room of students makes the panic feel less exceptional.",
+          })}
         </aside>
       </div>
       <div class="s2-overlay" aria-hidden="true">

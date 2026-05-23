@@ -7,6 +7,7 @@ export function animateCharts(
   const gapLines = container.querySelectorAll(".gap-chart__line");
   const gapDots = container.querySelectorAll(".gap-chart__actual, .gap-chart__expected");
   const ladderRungs = container.querySelectorAll(".ladder-chart__rung");
+  const pictogramIcons = container.querySelectorAll(".pictogram__icon");
 
   if (bars.length > 0) {
     timeline.from(
@@ -55,6 +56,24 @@ export function animateCharts(
         duration: 0.45,
         stagger: 0.08,
         x: -18,
+      },
+      position,
+    );
+  }
+
+  if (pictogramIcons.length > 0) {
+    timeline.from(
+      pictogramIcons,
+      {
+        autoAlpha: 0,
+        duration: 0.28,
+        scale: 0.72,
+        stagger: {
+          amount: 0.7,
+          from: "start",
+          grid: "auto",
+        },
+        transformOrigin: "center",
       },
       position,
     );
