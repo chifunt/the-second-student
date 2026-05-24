@@ -1,0 +1,55 @@
+.chart--companion-anchor {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  box-shadow: none;
+}
+
+.companion-anchor {
+  align-items: center;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: auto 1fr;
+}
+
+.companion-anchor__stat {
+  color: #d8c8ff;
+  letter-spacing: -0.06em;
+  line-height: 0.88;
+}
+
+.companion-anchor__stat span {
+  font-size: 68px;
+  font-weight: 300;
+}
+
+.companion-anchor__stat small {
+  color: rgba(216, 200, 255, 0.5);
+  font-size: 20px;
+}
+
+.companion-anchor__label {
+  color: #aebbd0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.companion-anchor__grid {
+  display: grid;
+  gap: 4px;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(20, 1fr);
+}
+
+.companion-anchor__dot {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.09);
+  border-radius: 50%;
+}
+
+.companion-anchor__dot--lit {
+  background: #d8c8ff;
+  box-shadow: 0 0 8px rgba(216, 200, 255, 0.42);
+}

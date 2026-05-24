@@ -1,0 +1,125 @@
+.studio {
+  display: grid;
+  grid-template-columns: 230px minmax(420px, 1fr) 330px;
+  height: min(78vh, 740px);
+  min-height: 610px;
+}
+
+.studio-files {
+  background: #f1efe9;
+  border-right: 1px solid #e4e1d8;
+  padding: 18px 16px;
+}
+
+.studio-files h5,
+.writer-panel h4,
+.vle-side h4 {
+  color: #99957f;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.studio-files h5:not(:first-child) {
+  margin-top: 18px;
+}
+
+.file {
+  align-items: center;
+  border-radius: 6px;
+  color: #555;
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  gap: 8px;
+  margin-bottom: 2px;
+  padding: 8px 10px;
+}
+
+.file.active {
+  background: white;
+  color: var(--dark-text);
+}
+
+.ext {
+  background: #dcd9cf;
+  border-radius: 3px;
+  color: #777;
+  font-size: 9px;
+  padding: 2px 5px;
+}
+
+.studio-main {
+  background: #fafaf6;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 24px 30px;
+}
+
+.studio-header {
+  align-items: center;
+  border-bottom: 1px solid #e4e1d8;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+}
+
+.studio-profile .ava {
+  background: linear-gradient(135deg, var(--calm-green), var(--cyan));
+  color: var(--dark-text);
+}
+
+.studio-stream {
+  padding: 0;
+}
+
+.studio-stream .msg.user {
+  background: white;
+  border-color: #e4e1d8;
+  color: var(--dark-text);
+}
+
+.studio-stream .msg.bot {
+  color: var(--dark-text);
+}
+
+.col-2 {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.col-2 > div {
+  background: white;
+  border: 1px solid #e4e1d8;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.col-2 h6 {
+  color: var(--teal);
+  font-size: 13px;
+  margin: 0 0 8px;
+}
+
+.col-2 .miss {
+  color: var(--amber);
+}
+
+.quote-note {
+  bottom: 28px;
+  max-width: 290px;
+  position: absolute;
+  right: 360px;
+  rotate: -1.5deg;
+}
+
+.studio-data {
+  background: #f1efe9;
+  border-left-color: #e4e1d8;
+  color: var(--dark-text);
+}

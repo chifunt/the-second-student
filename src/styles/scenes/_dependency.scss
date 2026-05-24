@@ -1,0 +1,53 @@
+.dep-chat {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  height: min(74vh, 720px);
+  min-height: 600px;
+}
+
+.dep-stream .msg.user {
+  padding: 10px 14px;
+}
+
+.dep-stream .refused {
+  background: linear-gradient(180deg, #3a2632, #2b1a24);
+  border: 1px dashed #6b3a4a;
+  color: #ffadad;
+}
+
+.dep-stream .refuse {
+  background: rgba(107, 91, 138, 0.12);
+  border-left: 2px solid var(--muted-purple);
+  border-radius: 0 8px 8px 0;
+  color: #d8c8ff;
+  font-style: italic;
+  padding: 10px 14px;
+}
+
+.dep-themes {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.dep-themes .col {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.dep-themes h5 {
+  color: #c9d1d9;
+  margin: 0 0 8px;
+}
+
+.chip {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 999px;
+  color: #9da8b8;
+  display: inline-flex;
+  font-size: 11px;
+  margin: 0 4px 6px 0;
+  padding: 5px 8px;
+}

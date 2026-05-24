@@ -1,0 +1,48 @@
+# The Second Student
+
+An interactive scrollytelling prototype about student generative AI use, based on the HEPI / Kortext Student Generative AI Survey 2026.
+
+The experience is deliberately framework-free. Scenes own their DOM, D3 owns chart calculation/rendering, and GSAP/ScrollTrigger owns scroll choreography.
+
+## Stack
+
+- Vite
+- TypeScript
+- D3
+- GSAP + ScrollTrigger
+- SCSS
+- ESLint
+- Prettier
+
+## Commands
+
+```bash
+npm install
+npm run dev
+npm run lint
+npm run format:check
+npm run build
+```
+
+Use `npm run format` for a project-wide Prettier write.
+
+## Data Source
+
+Displayed survey values are centralized in `src/data/surveyStats.ts`.
+
+Source metadata points to HEPI Report 199, `Student Generative Artificial Intelligence Survey 2026`, sponsored by Kortext. The local workbook reference is `Third-version-of-2026-weighted-data.xlsx`.
+
+## Project Map
+
+- `src/main.ts`: app bootstrap.
+- `src/scenes/`: scene registry and scene markup modules.
+- `src/data/`: survey stats, source metadata, and narrative copy.
+- `src/charts/`: chart helpers that render reusable chart markup/SVG.
+- `src/animation/`: GSAP setup, scene timelines, and focused interaction helpers.
+- `src/styles/base/`: tokens, base layout, responsive rules, accessibility.
+- `src/styles/chrome/`: shared window, chat, drawer, and navigation chrome.
+- `src/styles/scenes/`: scene-specific layouts.
+- `src/styles/charts/`: chart-specific visual systems.
+- `docs/`: architecture, visualization, and AI working notes.
+
+The ignored `claude-design_the-second-student/` folder is a visual reference only. Do not import it into the production bundle.

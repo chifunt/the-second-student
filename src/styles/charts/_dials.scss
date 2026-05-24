@@ -1,0 +1,56 @@
+.dials {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.dial {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.54);
+  border: 1px solid rgba(15, 58, 110, 0.08);
+  border-radius: 10px;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  min-height: 128px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.dial--wide {
+  grid-column: 1 / -1;
+}
+
+.dial-ring {
+  align-items: center;
+  background:
+    radial-gradient(circle at center, #faf9f7 0 58%, transparent 59%),
+    conic-gradient(var(--amber) var(--angle), rgba(15, 58, 110, 0.08) 0);
+  border-radius: 50%;
+  display: flex;
+  height: 72px;
+  justify-content: center;
+  width: 72px;
+}
+
+.dial--wide .dial-ring {
+  height: 92px;
+  width: 92px;
+}
+
+.dial-ring span {
+  color: #0f3a6e;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.dial--wide .dial-ring span {
+  font-size: 21px;
+}
+
+.dial-label {
+  color: #2c3e50;
+  font-size: 12px;
+  line-height: 1.3;
+}

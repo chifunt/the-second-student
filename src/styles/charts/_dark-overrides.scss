@@ -1,0 +1,11 @@
+.scene[data-mood="dark"] .chart {
+  color: #c9d1d9;
+}
+
+.scene[data-mood="dark"] .bar-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.scene[data-mood="dark"] .bar-row .val {
+  color: #9fb3c8;
+}

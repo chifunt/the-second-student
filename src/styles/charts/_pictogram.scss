@@ -1,0 +1,72 @@
+.chart--pictogram {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+.pictogram {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.pictogram__headline {
+  align-items: baseline;
+  color: #f0f6fc;
+  display: flex;
+  gap: 14px;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  margin-bottom: 8px;
+}
+
+.pictogram__headline span {
+  font-size: 72px;
+  font-weight: 300;
+}
+
+.pictogram__headline small {
+  color: rgba(255, 255, 255, 0.46);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pictogram__label {
+  color: rgba(255, 255, 255, 0.64);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  line-height: 1.45;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.pictogram__grid {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.pictogram__icon {
+  aspect-ratio: 1;
+  color: rgba(255, 255, 255, 0.13);
+  display: grid;
+  place-items: center;
+}
+
+.pictogram__icon svg {
+  fill: currentColor;
+  height: 100%;
+  max-height: 18px;
+  width: 100%;
+}
+
+.pictogram__icon--lit {
+  color: #6fa3ff;
+  filter: drop-shadow(0 0 7px rgba(111, 163, 255, 0.34));
+}

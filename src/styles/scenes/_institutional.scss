@@ -1,0 +1,83 @@
+.vle {
+  background: white;
+  border-radius: 10px;
+  box-shadow:
+    0 28px 60px -20px rgba(7, 17, 31, 0.25),
+    0 10px 24px -10px rgba(7, 17, 31, 0.15);
+  overflow: hidden;
+}
+
+.vle-bar {
+  align-items: center;
+  background: var(--dark-text);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 24px;
+}
+
+.vle-bar .crumbs,
+.vle-bar .mono {
+  color: #99a7bd;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.vle-body {
+  display: grid;
+  gap: 36px;
+  grid-template-columns: 1.1fr 1fr;
+  padding: 32px 36px;
+}
+
+.vle-content h2 {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.lead {
+  color: #667085;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.vle-cards {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 26px 0 20px;
+}
+
+.vle-card {
+  background: var(--off-white);
+  border-left: 3px solid #c8c2af;
+  border-radius: 8px;
+  color: var(--dark-text);
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 14px 16px;
+}
+
+.vle-card .num {
+  color: #99957f;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.vle-note {
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 62ch;
+}
+
+.vle-side {
+  background: #fafaf6;
+  border: 1px solid #e4e1d8;
+  border-radius: 10px;
+  padding: 24px;
+}

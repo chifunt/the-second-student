@@ -1,0 +1,105 @@
+.bar-fill {
+  display: block;
+  transform-box: border-box;
+  transform-origin: left center;
+}
+
+.bar-track {
+  background: rgba(128, 137, 151, 0.18);
+  border-radius: 999px;
+  height: 7px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-track .bar-fill {
+  background: var(--blue-ink);
+  border-radius: inherit;
+  height: 100%;
+  width: var(--w);
+}
+
+.chart--risk .bar-track .bar-fill {
+  background: var(--amber);
+}
+
+.chart--risk .progress-stat__num {
+  color: var(--amber);
+}
+
+.chart--support .bar-track .bar-fill {
+  background: var(--teal);
+}
+
+.chart--support .progress-stat__num {
+  color: var(--teal);
+}
+
+.chart--mixed .bar-track .bar-fill {
+  background: var(--blue-ink);
+}
+
+.chart--mixed .progress-stat__num {
+  color: var(--blue-ink);
+}
+
+.data-bars {
+  display: grid;
+  gap: 13px;
+}
+
+.bar-row {
+  display: grid;
+  gap: 7px;
+}
+
+.bar-row__top {
+  align-items: baseline;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.bar-row .label {
+  color: currentColor;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.bar-row .val {
+  color: color-mix(in srgb, currentColor 78%, transparent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.progress-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.progress-stat {
+  display: grid;
+  gap: 10px;
+}
+
+.progress-stat__num {
+  font-size: clamp(48px, 6vw, 76px);
+  font-weight: 300;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+}
+
+.progress-stat__num span {
+  color: color-mix(in srgb, currentColor 60%, transparent);
+  font-size: 0.32em;
+  letter-spacing: 0;
+}
+
+.progress-stat__label {
+  color: color-mix(in srgb, currentColor 66%, transparent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}

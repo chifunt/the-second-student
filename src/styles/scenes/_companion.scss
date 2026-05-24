@@ -1,0 +1,165 @@
+.s8 {
+  background: radial-gradient(ellipse at center, #0e1b30 0%, #060a12 80%) !important;
+}
+
+.phone-stage {
+  align-items: center;
+  display: grid;
+  gap: 48px;
+  grid-template-columns: 320px 1fr;
+}
+
+.phone {
+  background: #0a1322;
+  border-radius: 36px;
+  box-shadow:
+    0 50px 100px rgba(0, 0, 0, 0.6),
+    0 0 0 8px #1a2436,
+    0 0 80px rgba(60, 80, 160, 0.25);
+  height: 640px;
+  margin: 0 auto;
+  padding: 14px;
+  position: relative;
+  width: 320px;
+}
+
+.notch {
+  background: #050a13;
+  border-radius: 0 0 16px 16px;
+  height: 22px;
+  left: 50%;
+  position: absolute;
+  top: 14px;
+  transform: translateX(-50%);
+  width: 100px;
+  z-index: 2;
+}
+
+.phone-screen {
+  background: #060d1a;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.phone-status {
+  color: #c8d3e6;
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  justify-content: space-between;
+  padding: 18px 28px 6px;
+}
+
+.phone-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 6px 16px 12px;
+  text-align: center;
+}
+
+.phone-header .ava {
+  margin: 0 auto 4px;
+}
+
+.phone-header .name {
+  color: #c8d3e6;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.phone-header .status {
+  color: #6b7e9e;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+.phone-stream {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  padding: 14px 18px;
+}
+
+.phone-stream .ts {
+  color: #4a5b78;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+.phone-bubble {
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.45;
+  max-width: 78%;
+  padding: 10px 14px;
+}
+
+.phone-bubble.user {
+  align-self: flex-end;
+  background: #1a2436;
+  border-bottom-right-radius: 4px;
+  color: #e6ecf6;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.phone-bubble.bot {
+  align-self: flex-start;
+  background: #0e1827;
+  border: 1px solid #1a2436;
+  border-bottom-left-radius: 4px;
+  color: #c8d3e6;
+}
+
+.phone-bubble .first-line {
+  color: #d8c8ff;
+  font-size: 16px;
+}
+
+.phone-input {
+  background: #0a1322;
+  border-top: 1px solid #1a2436;
+  color: #4a5b78;
+  font-size: 13px;
+  padding: 14px 18px;
+}
+
+.s8-aside h2 {
+  color: #f0f6fc;
+  font-family: var(--font-serif);
+  font-size: clamp(42px, 6vw, 78px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0 0 18px;
+}
+
+.s8-aside .lead {
+  color: #aebbd0;
+  max-width: 58ch;
+}
+
+.s8-aside .chart {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+  color: #c8d3e6;
+  margin-top: 18px;
+}
+
+.small-data {
+  color: #6b7e9e;
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  justify-content: space-between;
+  margin-top: 14px;
+}
