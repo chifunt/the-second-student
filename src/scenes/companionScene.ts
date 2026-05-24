@@ -9,18 +9,18 @@ export const companionScene = createVisualScene({
   id: "companion-scene",
   title: "Company at 2AM",
   mode: "reactive",
-  sceneClass: "s8",
+  sceneClass: "s9",
   mood: "dark",
-  screenLabel: "08 Company at 2AM",
+  screenLabel: "09 Company at 2AM",
   animate: animateCompanionScene,
   body: `
-    <div class="chyron"><span class="num">08</span><span class="sep">/</span><span>Company at 2AM</span></div>
+    <div class="chyron"><span class="num">09</span><span class="sep">/</span><span>Company at 2AM</span></div>
     <div class="scene-inner">
       <div class="phone-stage">
         <div class="phone">
           <div class="notch"></div>
           <div class="phone-screen">
-            <div class="phone-status"><span>02:13</span><span>4%</span></div>
+            <div class="phone-status"><span>${copy.students.reactive.displayName}</span><span>02:13 - 4%</span></div>
             <div class="phone-header">
               <div class="ava">A</div>
               <div class="name">assist</div>
@@ -36,7 +36,7 @@ export const companionScene = createVisualScene({
             <div class="phone-input">Type a message...</div>
           </div>
         </div>
-        <div class="s8-aside">
+        <div class="s9-aside">
           <h2 id="companion-scene-title">"${copy.quotes.company}"</h2>
           <p class="lead">${stats.loneliness.companionshipUse}% of students use AI for friendship, company, advice, or tackling loneliness. The effect on how lonely they feel is almost evenly split.</p>
           ${renderPictogram({

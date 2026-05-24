@@ -1,5 +1,6 @@
 import { animatePanicChatScene } from "../animation/sceneTransitions";
 import { renderRankedBarChart } from "../charts/rankedBarChart";
+import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -37,8 +38,8 @@ export const panicChatScene = createVisualScene({
             <div class="chat-header">
               <div class="chat-model"><span class="glow"></span>assist - large</div>
               <div class="chat-profile">
-                <div class="ava">04</div>
-                <div><div class="name">student_047</div><div class="status">private - 02:13 - battery 8%</div></div>
+                <div class="ava">${copy.students.reactive.initials}</div>
+                <div><div class="name">${copy.students.reactive.displayName}</div><div class="status">${copy.students.reactive.username} - private - 02:13 - battery 8%</div></div>
               </div>
             </div>
             <div class="chat-stream">

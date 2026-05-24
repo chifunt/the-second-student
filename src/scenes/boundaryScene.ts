@@ -1,4 +1,5 @@
 import { animateBoundaryScene } from "../animation/sceneTransitions";
+import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -56,11 +57,11 @@ export const boundaryScene = createVisualScene({
         <div class="window-titlebar">
           <div class="dots"><span></span><span></span><span></span></div>
           <div class="mark"><span class="mark-dot"></span>write</div>
-          <div class="window-title">essay_draft_v3.docx - Suggestions mode</div>
+          <div class="window-title">essay_draft_v3.docx - ${copy.students.deliberate.displayName} - Suggestions mode</div>
           <div class="window-meta">14:48</div>
         </div>
         <div class="writer-toolbar">
-          <span>3 suggestions in this paragraph - 12 in the document</span>
+          <span>${copy.students.deliberate.username} - 3 suggestions in this paragraph - 12 in the document</span>
           <button class="accept-all pulse" type="button">Accept all suggestions</button>
         </div>
         <div class="writer">

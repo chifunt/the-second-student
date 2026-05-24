@@ -8,6 +8,7 @@ import { panicButtonScene } from "./panicButtonScene";
 import { panicChatScene } from "./panicChatScene";
 import type { SceneConfig } from "./sceneTypes";
 import { skillGapScene } from "./skillGapScene";
+import { splitExperienceScene } from "./splitExperienceScene";
 import { titleScene } from "./titleScene";
 
 export const scenes: readonly SceneConfig[] = [
@@ -18,6 +19,7 @@ export const scenes: readonly SceneConfig[] = [
   deliberateWorkflowScene,
   boundaryScene,
   skillGapScene,
+  splitExperienceScene,
   dependencyScene,
   companionScene,
   finalPaywallScene,

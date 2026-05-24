@@ -68,15 +68,23 @@ Visual: paired dumbbell/gap charts for 68 vs 48 and 50 vs 38.
 
 Why: gaps are the story; paired points communicate distance more directly than separate bars.
 
-### 07 Dependency
+### 07 Split Experience
 
-Primary point: AI can improve or worsen the student experience.
+Primary point: the same population distribution can read as support or harm depending on the student's conditions.
 
-Visual: 100% stacked bar for 49 better, 35 no impact, 16 worse.
+Visual: theatrical 100% stacked bar for 49 better, 35 no impact, 16 worse.
 
-Why: the scene needs a whole-population split that sits behind the dependent prompt sequence.
+Why: this is the mirror moment; the chart belongs to both student worlds and should sit between them.
 
-### 08 Companion
+### 08 Dependency
+
+Primary point: help can become dependence when the student asks the tool to carry judgement.
+
+Visual: dependent prompt sequence, risk chips, refusal beat, and sharp quote.
+
+Why: the experience-impact distribution has already been established, so this scene can focus on the darker reading.
+
+### 09 Companion
 
 Primary point: companionship use is smaller, but emotionally loaded.
 
@@ -84,7 +92,7 @@ Visual: compact student pictogram for 15% plus diverging loneliness bar for less
 
 Why: the pictogram makes the companionship group feel human and intimate, while the diverging bar shows the mixed emotional effect.
 
-### 09 Final Paywall
+### 10 Final Paywall
 
 Primary point: the survey recap collapses into one unresolved question.
 

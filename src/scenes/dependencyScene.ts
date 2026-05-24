@@ -1,19 +1,17 @@
 import { animateDependencyScene } from "../animation/sceneTransitions";
-import { renderStackedBar } from "../charts/stackedBar";
 import { copy } from "../data/copy";
-import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
 export const dependencyScene = createVisualScene({
   id: "dependency-scene",
   title: "When Help Starts Thinking for You",
   mode: "reactive",
-  sceneClass: "s7",
+  sceneClass: "s8",
   mood: "dark",
-  screenLabel: "07 When Help Starts Thinking",
+  screenLabel: "08 When Help Starts Thinking",
   animate: animateDependencyScene,
   body: `
-    <div class="chyron"><span class="num">07</span><span class="sep">/</span><span>When help starts thinking for you</span></div>
+    <div class="chyron"><span class="num">08</span><span class="sep">/</span><span>When help starts thinking for you</span></div>
     <div class="scene-inner scene-inner--wide">
       <div class="window ai-chat">
         <div class="window-titlebar">
@@ -27,8 +25,8 @@ export const dependencyScene = createVisualScene({
             <div class="chat-header">
               <div class="chat-model"><span class="glow"></span>assist - fast</div>
               <div class="chat-profile">
-                <div class="ava">04</div>
-                <div><div class="name">student_047</div><div class="status">14 chats today - tabs: 11 open</div></div>
+                <div class="ava">${copy.students.reactive.initials}</div>
+                <div><div class="name">${copy.students.reactive.displayName}</div><div class="status">${copy.students.reactive.username} - 14 chats today - tabs: 11 open</div></div>
               </div>
             </div>
             <div class="dep-stream">
@@ -48,34 +46,14 @@ export const dependencyScene = createVisualScene({
             </div>
           </div>
           <aside class="dep-side">
-            ${renderStackedBar(
-              [
-                {
-                  label: "Better",
-                  value: stats.experience.better,
-                  tone: "support",
-                },
-                {
-                  label: "No impact",
-                  value: stats.experience.noImpact,
-                  tone: "neutral",
-                },
-                {
-                  label: "Worse",
-                  value: stats.experience.worse,
-                  tone: "risk",
-                },
-              ],
-              {
-                title: "How students rate the experience",
-                tone: "mixed",
-                description:
-                  "Has AI made the student experience better, the same, or worse?",
-              },
-            )}
+            <div class="dep-warning">
+              <span class="eyebrow">after the mirror</span>
+              <h3>The darker reading starts here.</h3>
+              <p>The issue is no longer whether the tool can help. It is how quickly help becomes the place where judgement goes missing.</p>
+            </div>
             <div class="dep-themes">
-              <div class="col better"><h5>Better, because</h5><div class="chip">understanding concepts</div><div class="chip">structuring coursework</div><div class="chip">saving time</div><div class="chip">instant support</div></div>
-              <div class="col worse"><h5>Worse, because</h5><div class="chip">over-reliance</div><div class="chip">less confidence</div><div class="chip">authorship doubts</div><div class="chip">harder to know rules</div></div>
+              <div class="col worse"><h5>Risk signals</h5><div class="chip">over-reliance</div><div class="chip">less confidence</div><div class="chip">authorship doubts</div><div class="chip">harder to know rules</div></div>
+              <div class="col worse"><h5>Prompt drift</h5><div class="chip">make it smarter</div><div class="chip">decide my argument</div><div class="chip">rewrite all of it</div><div class="chip">does this sound like me?</div></div>
             </div>
             <div class="quote-card sharp">"${copy.quotes.noBrain}"</div>
           </aside>

@@ -1,5 +1,6 @@
 import { animateEmailScene } from "../animation/sceneTransitions";
 import { renderHeroConcernChart } from "../charts/heroConcernChart";
+import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -10,7 +11,7 @@ const inboxRows = [
     "Academic Integrity Office",
     "Possible unauthorised use of generative AI",
     "23:47",
-    "Dear student, Your recent submission has been flagged for review...",
+    `Dear ${copy.students.reactive.firstName}, Your recent submission has been flagged for review...`,
   ],
   ["course-announce", "Coursework deadline extended", "09:12", ""],
   ["finance@uni", "Maintenance loan instalment", "08:55", ""],
@@ -23,7 +24,7 @@ export const emailScene = createVisualScene({
   title: "Subject: Possible Academic Misconduct",
   mode: "reactive",
   sceneClass: "s1",
-  mood: "paper-cold",
+  mood: "dark",
   screenLabel: "01 The Email",
   animate: animateEmailScene,
   body: `
@@ -33,7 +34,7 @@ export const emailScene = createVisualScene({
         <div class="window-titlebar">
           <div class="dots"><span></span><span></span><span></span></div>
           <div class="mark"><span class="mark-dot"></span>Mail</div>
-          <div class="window-title">Inbox - student_047@uni.ac.uk</div>
+          <div class="window-title">Inbox - ${copy.students.reactive.email}</div>
           <div class="window-meta">Tue 14 May - 23:47</div>
         </div>
         <div class="mail-ribbon">
@@ -56,7 +57,8 @@ export const emailScene = createVisualScene({
             <div class="folder">Flagged <span class="ct">3</span></div>
             <div class="folder">Sent</div>
             <hr />
-            <h6>student_047@uni.ac.uk</h6>
+            <h6>${copy.students.reactive.displayName}</h6>
+            <div class="folder account">${copy.students.reactive.email}</div>
             <div class="folder">Drafts <span class="ct">4</span></div>
             <div class="folder">Archive</div>
             <div class="folder">Junk <span class="ct">31</span></div>
@@ -93,7 +95,7 @@ export const emailScene = createVisualScene({
               <div class="ava">AI</div>
               <div class="who">
                 <div class="name">Academic Integrity Office</div>
-                <div class="addr">integrity@uni.ac.uk - to: student_047@uni.ac.uk</div>
+                <div class="addr">integrity@uni.ac.uk - to: ${copy.students.reactive.fullName}</div>
               </div>
               <div class="time-stamp"><div class="when">23:47</div><div>Tue 14 May 2026</div></div>
             </div>
@@ -102,7 +104,7 @@ export const emailScene = createVisualScene({
                 <div class="crest">U</div>
                 <div><div class="uni-name">University of Westmore</div><div class="uni-sub">Office of Academic Standards - OAS-2026-04812</div></div>
               </div>
-              <p>Dear student_047,</p>
+              <p>Dear ${copy.students.reactive.firstName},</p>
               <p>Your recent submission for <em>SOC 240 - Sociological Theory (Coursework 2)</em> has been flagged for review by the Office of Academic Standards.</p>
               <p>You are required to provide a written explanation of your process, including reading notes, drafts, sources, and any digital tools used during preparation.</p>
               <p>This communication is not a final determination. Failure to respond within <strong>seven working days</strong> may affect the assessment process.</p>

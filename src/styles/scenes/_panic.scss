@@ -9,6 +9,46 @@
   min-height: 560px;
 }
 
+.s2-account {
+  align-items: center;
+  background: #0d1828;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  color: #c8d3e6;
+  display: flex;
+  gap: 10px;
+  padding: 10px 18px;
+}
+
+.s2-account span {
+  align-items: center;
+  background: #243554;
+  border: 1px solid rgba(216, 200, 255, 0.16);
+  border-radius: 50%;
+  color: #d8e7ff;
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  height: 30px;
+  justify-content: center;
+  width: 30px;
+}
+
+.s2-account strong,
+.s2-account small {
+  display: block;
+  font-family: var(--font-mono);
+}
+
+.s2-account strong {
+  font-size: 12px;
+}
+
+.s2-account small {
+  color: #7f90aa;
+  font-size: 10px;
+}
+
 .context-menu {
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid rgba(7, 17, 31, 0.12);

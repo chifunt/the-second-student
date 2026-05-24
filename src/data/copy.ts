@@ -5,6 +5,24 @@ export const copy = {
     body: "A scroll-driven prototype about two student screen-worlds and the last AI chat window before the deadline.",
     action: "Open the email",
   },
+  students: {
+    reactive: {
+      fullName: "Arman Aziz",
+      firstName: "Arman",
+      displayName: "Arman A.",
+      username: "arman.a",
+      email: "arman.a@university.ac.uk",
+      initials: "AA",
+    },
+    deliberate: {
+      fullName: "Ben Carter",
+      firstName: "Ben",
+      displayName: "Ben C.",
+      username: "ben.c",
+      email: "ben.c@university.ac.uk",
+      initials: "BC",
+    },
+  },
   floatingQuotes: [
     "wtf do i do",
     "First, breathe.",

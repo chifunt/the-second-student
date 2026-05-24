@@ -34,11 +34,11 @@ npm run build
 
 Browser checks:
 
-- All 10 scenes render in order.
+- All 11 scenes render in order.
 - No starter Vite content appears.
 - No horizontal overflow at desktop or mobile width.
 - Reduced-motion mode still shows all content.
-- Data scenes 01, 02, 04, 05, 06, and 08 remain visually populated.
+- Data scenes 01, 02, 04, 05, 06, 07, and 09 remain visually populated.
 
 ## Current Structure Notes
 

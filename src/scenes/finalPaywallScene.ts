@@ -15,12 +15,12 @@ export const finalPaywallScene = createVisualScene({
   id: "final-paywall-scene",
   title: copy.finalQuestion,
   mode: "ambiguous",
-  sceneClass: "s9",
+  sceneClass: "s10",
   mood: "paper",
-  screenLabel: "09 Critical Thinking",
+  screenLabel: "10 Critical Thinking",
   animate: animateFinalPaywallScene,
   body: `
-    <div class="chyron"><span class="num">09</span><span class="sep">/</span><span>Is my critical thinking gone?</span></div>
+    <div class="chyron"><span class="num">10</span><span class="sep">/</span><span>Is my critical thinking gone?</span></div>
     <div class="scene-inner">
       <div class="reflect">
         <div class="reflect-bar">
@@ -63,7 +63,7 @@ export const finalPaywallScene = createVisualScene({
           )
           .join("")}
       </div>
-      <div class="s9-outro">
+      <div class="s10-outro">
         <h1 id="final-paywall-scene-title">What's in your <span class="em">last chat window?</span></h1>
         <p>The <em>second</em> student is already here.</p>
       </div>

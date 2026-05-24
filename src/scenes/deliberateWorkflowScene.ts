@@ -37,8 +37,8 @@ export const deliberateWorkflowScene = createVisualScene({
           <div class="studio-main">
             <div class="studio-header">
               <div class="studio-profile">
-                <div class="ava">DS</div>
-                <div><div class="name">d.sim</div><div class="status">signed in - institution profile</div></div>
+                <div class="ava">${copy.students.deliberate.initials}</div>
+                <div><div class="name">${copy.students.deliberate.displayName}</div><div class="status">${copy.students.deliberate.username} - signed in - institution profile</div></div>
               </div>
               <div class="mono small muted">draft autosaved - 14:21</div>
             </div>

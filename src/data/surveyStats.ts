@@ -118,6 +118,20 @@ export const stats = {
     worse: 16,
   },
 
+  experienceGrouped: [
+    { label: "Better", value: 49, sourceTable: "Table 37" },
+    { label: "No significant impact", value: 35, sourceTable: "Table 37" },
+    { label: "Worse", value: 16, sourceTable: "Table 37" },
+  ],
+
+  experienceDetailed: [
+    { label: "Significantly worse", value: 3, sourceTable: "Table 37" },
+    { label: "Somewhat worse", value: 13, sourceTable: "Table 37" },
+    { label: "No significant impact", value: 35, sourceTable: "Table 37" },
+    { label: "Somewhat better", value: 40, sourceTable: "Table 37" },
+    { label: "Significantly better", value: 9, sourceTable: "Table 37" },
+  ],
+
   loneliness: {
     companionshipUse: 15,
     lessLonely: 21,
@@ -141,6 +155,7 @@ export const sourceNotes = {
   motivations: "Workbook Table 22.",
   barriers: "Workbook Table 23.",
   supportGap: "Workbook Tables 29 and 30.",
+  experience: "Workbook Table 37.",
   loneliness: "Workbook Tables 34 and 35.",
   quotes:
     "Short fragments are used as illustrative free-text-derived material, not attributed to identifiable respondents.",

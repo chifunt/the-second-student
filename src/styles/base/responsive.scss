@@ -46,6 +46,7 @@
 
   .s0-stats,
   .s2-bottom,
+  .split-experience,
   .phone-stage,
   .vle-body,
   .writer,
@@ -97,8 +98,33 @@
   }
 
   .vle-cards,
+  .split-matrix,
   .col-2 {
     grid-template-columns: 1fr;
+  }
+
+  .split-experience {
+    min-height: 0;
+  }
+
+  .split-side {
+    min-height: 0;
+  }
+
+  .split-chart {
+    width: 100%;
+  }
+
+  .split-chart-stage {
+    order: -1;
+  }
+
+  .split-chart-stage h2 {
+    max-width: none;
+  }
+
+  .split-final-caption {
+    border-radius: 16px;
   }
 
   .ghost-stats {
@@ -150,8 +176,17 @@
     width: min(320px, 92vw);
   }
 
-  .s8-aside h2,
-  .s9-outro h1 {
+  .split-chart .stack-100 {
+    height: 58px;
+  }
+
+  .split-chart .stack-100 .seg {
+    font-size: 12px;
+    padding: 0 4px;
+  }
+
+  .s9-aside h2,
+  .s10-outro h1 {
     font-size: 42px;
   }
 

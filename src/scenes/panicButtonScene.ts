@@ -1,5 +1,6 @@
 import { animatePanicButtonScene } from "../animation/sceneTransitions";
 import { renderPictogram } from "../charts/pictogram";
+import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -8,7 +9,7 @@ export const panicButtonScene = createVisualScene({
   title: "The Panic Button",
   mode: "reactive",
   sceneClass: "s2",
-  mood: "paper-cold",
+  mood: "dark",
   screenLabel: "02 The Panic Button",
   animate: animatePanicButtonScene,
   body: `
@@ -19,8 +20,12 @@ export const panicButtonScene = createVisualScene({
           <div class="window-titlebar">
             <div class="dots"><span></span><span></span><span></span></div>
             <div class="mark"><span class="mark-dot"></span>Mail</div>
-            <div class="window-title">Inbox - student_047</div>
+            <div class="window-title">Inbox - ${copy.students.reactive.displayName}</div>
             <div class="window-meta">23:47</div>
+          </div>
+          <div class="s2-account">
+            <span>${copy.students.reactive.initials}</span>
+            <div><strong>${copy.students.reactive.displayName}</strong><small>${copy.students.reactive.email}</small></div>
           </div>
           <div class="email-reader s2-reader">
             <div class="reader-toolbar">
@@ -30,7 +35,7 @@ export const panicButtonScene = createVisualScene({
             <h2 id="panic-button-scene-title">Possible unauthorised use of generative AI</h2>
             <div class="sender-row">
               <div class="ava">AI</div>
-              <div class="who"><div class="name">Academic Integrity Office</div><div class="addr">integrity@uni.ac.uk - to: student_047@uni.ac.uk</div></div>
+              <div class="who"><div class="name">Academic Integrity Office</div><div class="addr">integrity@uni.ac.uk - to: ${copy.students.reactive.fullName}</div></div>
               <div class="time-stamp"><div class="when">23:47</div><div>Tue 14 May</div></div>
             </div>
             <div class="email-body">
@@ -38,7 +43,7 @@ export const panicButtonScene = createVisualScene({
                 <div class="crest">U</div>
                 <div><div class="uni-name">University of Westmore</div><div class="uni-sub">Office of Academic Standards - OAS-2026-04812</div></div>
               </div>
-              <p>Dear student_047,</p>
+              <p>Dear ${copy.students.reactive.firstName},</p>
               <p>Your <span class="highlight">recent submission for <em>SOC 240 - Sociological Theory (Coursework 2)</em> has been flagged for review</span> by the Office of Academic Standards under Section 4.2 of the Academic Misconduct Policy.</p>
               <p>You are required to provide a <span class="highlight">written explanation of your process</span>, including any reading notes, drafts, sources, and digital tools used during preparation.</p>
               <p>This communication is not a final determination. Failure to respond within <strong>seven working days</strong> may affect the assessment process.</p>

@@ -20,7 +20,7 @@ function renderScrollHint(
 ): string {
   const sceneNumber = Number(sceneClass.match(/^s(\d+)$/)?.[1] ?? NaN);
 
-  if (sceneNumber < 1 || sceneNumber > 8 || !context?.nextScene) {
+  if (sceneNumber < 1 || sceneNumber > 9 || !context?.nextScene) {
     return "";
   }
 

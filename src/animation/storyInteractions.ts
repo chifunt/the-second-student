@@ -26,7 +26,7 @@ export function setupInteractiveDetails(): void {
     });
   });
 
-  const finalScene = document.querySelector<HTMLElement>(".s9");
+  const finalScene = document.querySelector<HTMLElement>(".s10");
   finalScene?.addEventListener("click", (event) => {
     const target = event.target as HTMLElement;
     const continueButton = finalScene.querySelector<HTMLButtonElement>(".continue-btn");

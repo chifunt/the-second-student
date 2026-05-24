@@ -24,6 +24,40 @@
   padding: 10px 14px;
 }
 
+.dep-warning {
+  background:
+    radial-gradient(circle at 12% 20%, rgba(185, 74, 72, 0.18), transparent 38%),
+    rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.dep-warning .eyebrow {
+  color: #d8c8ff;
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.dep-warning h3 {
+  color: #f0f6fc;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: 1.05;
+  margin: 0 0 10px;
+}
+
+.dep-warning p {
+  color: #aebbd0;
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0;
+}
+
 .dep-themes {
   display: grid;
   gap: 12px;
