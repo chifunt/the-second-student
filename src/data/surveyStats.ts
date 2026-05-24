@@ -3,6 +3,7 @@ export type StatDatum = {
   value: number;
   note?: string;
   sourceTable?: string;
+  zone?: "support" | "amber" | "risk";
 };
 
 export type SurveySource = {
@@ -60,13 +61,48 @@ export const stats = {
   ],
 
   assessmentUses: [
-    { label: "Explain concepts", value: 61, sourceTable: "Table 18" },
-    { label: "Summarise a relevant article", value: 49, sourceTable: "Table 18" },
-    { label: "Suggest research ideas", value: 40, sourceTable: "Table 18" },
-    { label: "Structure thoughts", value: 39, sourceTable: "Table 18" },
-    { label: "Search the internet", value: 36, sourceTable: "Table 18" },
-    { label: "Generate text, then edit", value: 25, sourceTable: "Table 18" },
-    { label: "Include AI text directly", value: 12, sourceTable: "Table 18" },
+    {
+      label: "Explain concepts",
+      value: 61,
+      sourceTable: "Table 18",
+      zone: "support",
+    },
+    {
+      label: "Summarise a relevant article",
+      value: 49,
+      sourceTable: "Table 18",
+      zone: "support",
+    },
+    {
+      label: "Suggest research ideas",
+      value: 40,
+      sourceTable: "Table 18",
+      zone: "support",
+    },
+    {
+      label: "Structure thoughts",
+      value: 39,
+      sourceTable: "Table 18",
+      zone: "support",
+    },
+    {
+      label: "Search the internet",
+      value: 36,
+      sourceTable: "Table 18",
+      zone: "support",
+    },
+    {
+      label: "Generate text, then edit",
+      value: 25,
+      sourceTable: "Table 18",
+      zone: "amber",
+    },
+    {
+      label: "Include AI text directly",
+      value: 12,
+      sourceTable: "Table 18",
+      zone: "risk",
+    },
   ],
 
   supportGap: {

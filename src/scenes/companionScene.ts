@@ -1,4 +1,5 @@
 import { animateCompanionScene } from "../animation/sceneTransitions";
+import { renderCompanionAnchor } from "../charts/companionAnchor";
 import { renderDivergingBar } from "../charts/divergingBar";
 import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
@@ -38,6 +39,12 @@ export const companionScene = createVisualScene({
         <div class="s8-aside">
           <h2 id="companion-scene-title">"${copy.quotes.company}"</h2>
           <p class="lead">${stats.loneliness.companionshipUse}% of students use AI for friendship, company, advice, or tackling loneliness. The effect on how lonely they feel is almost evenly split.</p>
+          ${renderCompanionAnchor({
+            title: "Companionship use",
+            tone: "mixed",
+            value: stats.loneliness.companionshipUse,
+            label: "use AI for friendship, company, advice or tackling loneliness",
+          })}
           ${renderDivergingBar(
             {
               lessLabel: "less lonely",

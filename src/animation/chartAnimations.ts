@@ -8,6 +8,13 @@ export function animateCharts(
   const gapDots = container.querySelectorAll(".gap-chart__actual, .gap-chart__expected");
   const ladderRungs = container.querySelectorAll(".ladder-chart__rung");
   const pictogramIcons = container.querySelectorAll(".pictogram__icon");
+  const heroConcernParts = container.querySelectorAll(
+    ".hero-concern__dial, .hero-concern__strip",
+  );
+  const workflowItems = container.querySelectorAll(
+    ".workflow-map__zone, .workflow-map__item",
+  );
+  const companionDots = container.querySelectorAll(".companion-anchor__dot");
 
   if (bars.length > 0) {
     timeline.from(
@@ -74,6 +81,49 @@ export function animateCharts(
           grid: "auto",
         },
         transformOrigin: "center",
+      },
+      position,
+    );
+  }
+
+  if (heroConcernParts.length > 0) {
+    timeline.from(
+      heroConcernParts,
+      {
+        autoAlpha: 0,
+        duration: 0.45,
+        stagger: 0.08,
+        y: 14,
+      },
+      position,
+    );
+  }
+
+  if (workflowItems.length > 0) {
+    timeline.from(
+      workflowItems,
+      {
+        autoAlpha: 0,
+        duration: 0.4,
+        stagger: 0.08,
+        y: 16,
+      },
+      position,
+    );
+  }
+
+  if (companionDots.length > 0) {
+    timeline.from(
+      companionDots,
+      {
+        autoAlpha: 0,
+        duration: 0.2,
+        scale: 0.6,
+        stagger: {
+          amount: 0.35,
+          from: "start",
+          grid: "auto",
+        },
       },
       position,
     );

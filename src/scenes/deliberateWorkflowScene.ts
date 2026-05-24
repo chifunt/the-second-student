@@ -1,5 +1,5 @@
 import { animateDeliberateWorkflowScene } from "../animation/sceneTransitions";
-import { renderRankedBarChart } from "../charts/rankedBarChart";
+import { renderWorkflowRiskMap } from "../charts/workflowRiskMap";
 import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
@@ -63,9 +63,10 @@ export const deliberateWorkflowScene = createVisualScene({
             <div class="quote-note">"${copy.quotes.studyBuddy}"</div>
           </div>
           <aside class="studio-data">
-            ${renderRankedBarChart(stats.assessmentUses, {
-              title: "What students use AI for in assessed work",
-              tone: "support",
+            ${renderWorkflowRiskMap(stats.assessmentUses, {
+              title: "Support to substitution",
+              tone: "mixed",
+              description: "The same tool looks different when judgement stays visible.",
             })}
           </aside>
         </div>

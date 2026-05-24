@@ -4,39 +4,39 @@ import { createVisualScene } from "./createScene";
 
 const ladderRows = [
   [
-    "support",
-    "Explain concept",
-    `${stats.assessmentUses[0].value}%`,
+    stats.assessmentUses[0].zone,
+    stats.assessmentUses[0].label,
+    stats.assessmentUses[0].value,
     "AI clarifies a definition, but the student still writes the claim.",
   ],
   [
-    "support",
-    "Summarise source",
-    `${stats.assessmentUses[1].value}%`,
+    stats.assessmentUses[1].zone,
+    stats.assessmentUses[1].label,
+    stats.assessmentUses[1].value,
     "AI compresses a paper; the student decides what matters.",
   ],
   [
-    "support",
-    "Structure thoughts",
-    `${stats.assessmentUses[3].value}%`,
+    stats.assessmentUses[3].zone,
+    stats.assessmentUses[3].label,
+    stats.assessmentUses[3].value,
     "AI helps order ideas; the argument remains visible.",
   ],
   [
     "amber",
     "Edit my writing",
-    "-",
+    null,
     "Where help can become voice if every suggestion is accepted.",
   ],
   [
-    "amber",
-    "Generate text, then edit",
-    `${stats.assessmentUses[5].value}%`,
+    stats.assessmentUses[5].zone,
+    stats.assessmentUses[5].label,
+    stats.assessmentUses[5].value,
     "A draft arrives before judgement has fully formed.",
   ],
   [
-    "risk",
-    "Include AI text directly",
-    `${stats.assessmentUses[6].value}%`,
+    stats.assessmentUses[6].zone,
+    stats.assessmentUses[6].label,
+    stats.assessmentUses[6].value,
     "The submitted words may no longer show the student's thinking.",
   ],
 ] as const;
@@ -79,7 +79,7 @@ export const boundaryScene = createVisualScene({
                 .map(
                   ([zone, label, pct, desc], index) => `
                     <button class="rung" data-zone="${zone}" type="button">
-                      <span>${index + 1}</span><span>${label}</span><span class="pct">${pct}<span class="toggle-ic">></span></span>
+                      <span>${index + 1}</span><span>${label}</span><span class="pct">${pct === null ? "voice" : `${pct}%`}<span class="toggle-ic">></span></span>
                       <span class="desc">${desc}</span>
                     </button>
                   `,

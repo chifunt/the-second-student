@@ -1,5 +1,5 @@
 import { animateEmailScene } from "../animation/sceneTransitions";
-import { renderDialGrid } from "../charts/dialGrid";
+import { renderHeroConcernChart } from "../charts/heroConcernChart";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -114,7 +114,7 @@ export const emailScene = createVisualScene({
             </div>
           </div>
           <aside class="email-data-panel">
-            ${renderDialGrid(stats.barriers, {
+            ${renderHeroConcernChart(stats.barriers, {
               title: "What stops students?",
               tone: "risk",
               description:
