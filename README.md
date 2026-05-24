@@ -4,6 +4,8 @@ An interactive scrollytelling prototype about student generative AI use, based o
 
 The experience is deliberately framework-free. Scenes own their DOM, D3 owns chart calculation/rendering, and GSAP/ScrollTrigger owns scroll choreography.
 
+Live site: https://chifunt.github.io/the-second-student/
+
 ## Stack
 
 - Vite
@@ -25,6 +27,12 @@ npm run build
 ```
 
 Use `npm run format` for a project-wide Prettier write.
+
+## Deployment
+
+GitHub Pages serves the built site from the `gh-pages` branch root. The Vite base path is configured in `vite.config.ts` for the project-page URL.
+
+Until the GitHub CLI token is re-authenticated with `workflow` scope, deploy by building locally and publishing `dist/` to `gh-pages`.
 
 ## Data Source
 
