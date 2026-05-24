@@ -1,11 +1,21 @@
 .progress {
   display: grid;
   gap: 9px;
+  opacity: 0;
+  pointer-events: none;
   position: fixed;
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
   z-index: 80;
+}
+
+.progress.is-visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .progress button {

@@ -5,9 +5,16 @@ export function setupProgressDots(
   scenes: readonly SceneConfig[],
   reduceMotion: boolean,
 ): void {
+  const progress = document.querySelector<HTMLElement>(".progress");
   const dots = Array.from(
     document.querySelectorAll<HTMLButtonElement>(".progress button"),
   );
+
+  function activate(index: number): void {
+    dots.forEach((dot) => dot.classList.remove("active"));
+    dots[index]?.classList.add("active");
+    progress?.classList.toggle("is-visible", index > 0);
+  }
 
   dots.forEach((dot) => {
     dot.addEventListener("click", () => {
@@ -27,10 +34,8 @@ export function setupProgressDots(
       trigger: element,
       start: "top center",
       end: "bottom center",
-      onEnter: () => dots[index]?.classList.add("active"),
-      onEnterBack: () => dots[index]?.classList.add("active"),
-      onLeave: () => dots[index]?.classList.remove("active"),
-      onLeaveBack: () => dots[index]?.classList.remove("active"),
+      onEnter: () => activate(index),
+      onEnterBack: () => activate(index),
     });
   });
 }
