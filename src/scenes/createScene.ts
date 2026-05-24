@@ -13,6 +13,20 @@ export type VisualSceneMarkup = {
   animate?: SceneAnimate;
 };
 
+function renderScrollHint(sceneClass: string): string {
+  const sceneNumber = Number(sceneClass.match(/^s(\d+)$/)?.[1] ?? NaN);
+
+  if (sceneNumber < 1 || sceneNumber > 8) {
+    return "";
+  }
+
+  return `
+    <div class="scroll-hint" aria-hidden="true">
+      Continue<span class="scroll-hint__arrow"></span>
+    </div>
+  `;
+}
+
 export function createVisualScene(markup: VisualSceneMarkup): SceneConfig {
   return {
     id: markup.id,
@@ -25,7 +39,7 @@ export function createVisualScene(markup: VisualSceneMarkup): SceneConfig {
       container.classList.add(markup.sceneClass);
       container.dataset.mood = markup.mood;
       container.dataset.screenLabel = markup.screenLabel;
-      container.innerHTML = markup.body;
+      container.innerHTML = `${markup.body}${renderScrollHint(markup.sceneClass)}`;
     },
   };
 }

@@ -1,7 +1,7 @@
 .s2-bottom {
   display: grid;
   gap: 24px;
-  grid-template-columns: minmax(0, 1fr) 320px;
+  grid-template-columns: minmax(0, 1fr) 400px;
   position: relative;
 }
 
@@ -75,6 +75,18 @@
   letter-spacing: -0.02em;
   line-height: 1.05;
   margin: 0 0 22px;
+}
+
+.s2-data .pictogram {
+  padding: 12px;
+}
+
+.s2-data .pictogram__grid {
+  gap: 4px;
+}
+
+.s2-data .pictogram__icon svg {
+  max-height: 30px;
 }
 
 .s2-overlay {
