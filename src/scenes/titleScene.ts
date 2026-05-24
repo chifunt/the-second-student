@@ -72,6 +72,7 @@ export const titleScene = createVisualScene({
             <path d="m4 7 8 6 8-6" />
           </svg>
           Open the email
+          <span class="open-btn-arrow" aria-hidden="true">-&gt;</span>
         </span>
       </button>
       <div class="s0-stats" aria-label="Headline survey statistics">

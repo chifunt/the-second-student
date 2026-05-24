@@ -178,6 +178,17 @@
   color: var(--navy-deep);
   font-weight: 600;
   position: relative;
+  transform-origin: center;
+  transition:
+    box-shadow 0.24s ease,
+    transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.open-btn:hover {
+  box-shadow:
+    0 28px 58px rgba(0, 0, 0, 0.52),
+    0 0 30px rgba(255, 255, 255, 0.22);
+  transform: scale(1.06);
 }
 
 .open-btn::after {
@@ -200,12 +211,23 @@
 }
 
 .open-btn-icon {
-  height: 18px;
+  height: 30px;
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 2;
-  width: 18px;
+  width: 30px;
+}
+
+.open-btn-arrow {
+  animation: title-arrow-nudge 1.05s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  display: inline-block;
+  font-family: var(--font-mono);
+  margin-left: 2px;
+}
+
+.open-btn:hover .open-btn-arrow {
+  animation-duration: 0.75s;
 }
 
 @keyframes cta-breathe {
@@ -226,6 +248,17 @@
   100% {
     opacity: 0;
     transform: scale(1.1);
+  }
+}
+
+@keyframes title-arrow-nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  45% {
+    transform: translateX(3px);
   }
 }
 
