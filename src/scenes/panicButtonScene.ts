@@ -42,6 +42,11 @@ export const panicButtonScene = createVisualScene({
               <p>Your <span class="highlight">recent submission for <em>SOC 240 - Sociological Theory (Coursework 2)</em> has been flagged for review</span> by the Office of Academic Standards under Section 4.2 of the Academic Misconduct Policy.</p>
               <p>You are required to provide a <span class="highlight">written explanation of your process</span>, including any reading notes, drafts, sources, and digital tools used during preparation.</p>
               <p>This communication is not a final determination. Failure to respond within <strong>seven working days</strong> may affect the assessment process.</p>
+              <div class="signature">
+                <p>Kind regards,</p>
+                <p class="name">Dr. Helen Marwick</p>
+                <p class="role">Academic Integrity Officer - Office of Academic Standards</p>
+              </div>
             </div>
             <div class="context-menu">
               <div class="item"><span>Reply</span><span class="sk">Cmd R</span></div>

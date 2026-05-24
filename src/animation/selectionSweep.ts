@@ -45,10 +45,16 @@ export function setupSelectionSweep(reduceMotion: boolean): void {
         return;
       }
 
+      const startDelay = 350;
+      const characterDelay = 1.2;
+
       chars.forEach((char, index) => {
-        schedule(() => char.classList.add("sel"), 500 + index * 5);
+        schedule(() => char.classList.add("sel"), startDelay + index * characterDelay);
       });
-      schedule(() => body.classList.add("is-selected"), 500 + chars.length * 5);
+      schedule(
+        () => body.classList.add("is-selected"),
+        startDelay + chars.length * characterDelay,
+      );
     },
   });
 }

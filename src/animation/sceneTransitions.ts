@@ -112,17 +112,17 @@ export function animatePanicButtonScene(container: HTMLElement): void {
   timeline
     .fromTo(
       container.querySelector(".cursor"),
-      { autoAlpha: 0, x: -70, y: -40 },
+      { autoAlpha: 0, x: -24, y: -18 },
       { autoAlpha: 1, duration: 0.25, x: 0, y: 0 },
       0.15,
     )
     .to(
       container.querySelector(".cursor"),
       {
-        duration: 1,
+        duration: 1.9,
         ease: "power1.inOut",
-        left: "58%",
-        top: "57%",
+        left: "86%",
+        top: "72%",
       },
       0.45,
     )
@@ -133,7 +133,7 @@ export function animatePanicButtonScene(container: HTMLElement): void {
         duration: 0.35,
         y: 0,
       },
-      0.95,
+      2.35,
     )
     .to(
       container.querySelector(".s2-overlay .callout"),
@@ -142,7 +142,7 @@ export function animatePanicButtonScene(container: HTMLElement): void {
         duration: 0.45,
         y: 0,
       },
-      1.25,
+      2.7,
     );
 }
 

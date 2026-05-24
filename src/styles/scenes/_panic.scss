@@ -14,11 +14,11 @@
   border: 1px solid rgba(7, 17, 31, 0.12);
   border-radius: 8px;
   box-shadow: 0 18px 48px rgba(7, 17, 31, 0.22);
-  left: 55%;
   opacity: 0;
   padding: 6px;
   position: absolute;
-  top: 55%;
+  right: 56px;
+  top: 69%;
   transform: translateY(8px);
   width: 190px;
   z-index: 5;
@@ -40,9 +40,9 @@
 .cursor {
   color: white;
   height: 28px;
-  left: 22%;
+  left: 46px;
   position: absolute;
-  top: 16%;
+  top: 230px;
   width: 22px;
   z-index: 6;
 }
@@ -90,14 +90,12 @@
 }
 
 .s2-overlay {
-  align-items: flex-end;
   display: flex;
-  inset: 0;
   justify-content: center;
-  padding-bottom: 76px;
+  margin-top: 22px;
   pointer-events: none;
-  position: absolute;
-  z-index: 6;
+  position: relative;
+  z-index: 12;
 }
 
 .s2-overlay .callout {
@@ -106,9 +104,9 @@
   border-radius: 14px;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
   color: #f6f1e8;
-  max-width: 620px;
+  max-width: 760px;
   opacity: 0;
-  padding: 26px 40px;
+  padding: 18px 32px;
   text-align: center;
   transform: translateY(20px);
   transition:
