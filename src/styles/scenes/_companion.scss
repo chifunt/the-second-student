@@ -155,6 +155,60 @@
   margin-top: 18px;
 }
 
+.s8-aside .chart--pictogram {
+  padding: 10px 12px;
+}
+
+.s8-aside .chart--pictogram .pictogram {
+  align-items: center;
+  background:
+    radial-gradient(circle at 12% 22%, rgba(216, 200, 255, 0.14), transparent 30%),
+    rgba(6, 13, 26, 0.58);
+  border-color: rgba(216, 200, 255, 0.16);
+  display: grid;
+  gap: 6px 12px;
+  grid-template-columns: auto minmax(180px, 1fr);
+  padding: 10px;
+}
+
+.s8-aside .pictogram__headline {
+  color: #d8c8ff;
+  margin: 0;
+}
+
+.s8-aside .pictogram__headline span {
+  font-size: 36px;
+}
+
+.s8-aside .pictogram__headline small {
+  font-size: 9px;
+}
+
+.s8-aside .pictogram__icon {
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.s8-aside .pictogram__icon--lit {
+  color: #d8c8ff;
+  filter: drop-shadow(0 0 8px rgba(216, 200, 255, 0.42));
+}
+
+.s8-aside .pictogram__label {
+  font-size: 9px;
+  margin: 0;
+}
+
+.s8-aside .pictogram__grid {
+  gap: 4px;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(25, minmax(0, 1fr));
+  width: 100%;
+}
+
+.s8-aside .pictogram__icon svg {
+  max-height: 30px;
+}
+
 .small-data {
   color: #6b7e9e;
   display: flex;

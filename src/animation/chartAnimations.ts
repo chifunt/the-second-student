@@ -14,7 +14,6 @@ export function animateCharts(
   const workflowItems = container.querySelectorAll(
     ".workflow-map__zone, .workflow-map__item",
   );
-  const companionDots = container.querySelectorAll(".companion-anchor__dot");
 
   if (bars.length > 0) {
     timeline.from(
@@ -107,23 +106,6 @@ export function animateCharts(
         duration: 0.4,
         stagger: 0.08,
         y: 16,
-      },
-      position,
-    );
-  }
-
-  if (companionDots.length > 0) {
-    timeline.from(
-      companionDots,
-      {
-        autoAlpha: 0,
-        duration: 0.2,
-        scale: 0.6,
-        stagger: {
-          amount: 0.35,
-          from: "start",
-          grid: "auto",
-        },
       },
       position,
     );

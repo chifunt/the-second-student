@@ -80,9 +80,9 @@ Why: the scene needs a whole-population split that sits behind the dependent pro
 
 Primary point: companionship use is smaller, but emotionally loaded.
 
-Visual: companion anchor for 15% plus diverging loneliness bar for less/no impact/more lonely.
+Visual: compact student pictogram for 15% plus diverging loneliness bar for less/no impact/more lonely.
 
-Why: the anchor shows scale, while the diverging bar shows the mixed emotional effect.
+Why: the pictogram makes the companionship group feel human and intimate, while the diverging bar shows the mixed emotional effect.
 
 ### 09 Final Paywall
 
