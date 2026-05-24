@@ -1,6 +1,6 @@
-# AI Working Notes
+# Working Notes
 
-This file is for fast orientation by humans and AI agents.
+This file is for fast orientation during maintenance and refactors.
 
 ## Important Files
 
@@ -20,7 +20,6 @@ This file is for fast orientation by humans and AI agents.
 - Keep data centralized; do not introduce duplicate visible survey values in scene files.
 - Keep chart helpers reusable and typed.
 - Keep GSAP focused on animation of rendered elements.
-- Avoid edits to `claude-design_the-second-student/`; it is ignored reference material.
 - Do not hide content by default and reveal it only with animation.
 
 ## Verification Checklist

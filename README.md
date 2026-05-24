@@ -51,6 +51,4 @@ Source metadata points to HEPI Report 199, `Student Generative Artificial Intell
 - `src/styles/chrome/`: shared window, chat, drawer, and navigation chrome.
 - `src/styles/scenes/`: scene-specific layouts.
 - `src/styles/charts/`: chart-specific visual systems.
-- `docs/`: architecture, visualization, and AI working notes.
-
-The ignored `claude-design_the-second-student/` folder is a visual reference only. Do not import it into the production bundle.
+- `docs/`: architecture, visualization, and working notes.
