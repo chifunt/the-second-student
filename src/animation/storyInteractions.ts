@@ -29,14 +29,16 @@ export function setupInteractiveDetails(): void {
   const finalScene = document.querySelector<HTMLElement>(".s9");
   finalScene?.addEventListener("click", (event) => {
     const target = event.target as HTMLElement;
+    const continueButton = finalScene.querySelector<HTMLButtonElement>(".continue-btn");
 
     if (target.closest(".continue-btn")) {
       finalScene.classList.add("gated");
-      target.closest(".continue-btn")?.classList.add("used");
+      continueButton?.classList.add("used");
     }
 
     if (target.closest(".later")) {
       finalScene.classList.remove("gated");
+      continueButton?.classList.remove("used");
     }
   });
 }

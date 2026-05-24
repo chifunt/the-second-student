@@ -1,15 +1,14 @@
 import { animateFinalPaywallScene } from "../animation/sceneTransitions";
 import { copy } from "../data/copy";
-import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
 const recapCards = [
-  ["95", "use AI in at least one way"],
-  ["94", "use GenAI for assessed work"],
-  ["49", "say AI made experience better"],
-  ["16", "say AI made experience worse"],
-  ["68", "say AI skills are essential"],
-  ["48", "feel supported by teaching staff"],
+  ["adoption", "95", "use AI in at least one way"],
+  ["assessment", "94", "use GenAI for assessed work"],
+  ["better", "49", "say AI made experience better"],
+  ["worse", "16", "say AI made experience worse"],
+  ["skills", "68", "say AI skills are essential"],
+  ["support", "48", "feel supported by teaching staff"],
 ] as const;
 
 export const finalPaywallScene = createVisualScene({
@@ -26,7 +25,7 @@ export const finalPaywallScene = createVisualScene({
       <div class="reflect">
         <div class="reflect-bar">
           <div class="brand">reflect</div>
-          <div class="center">thread #14 - <span class="free-counter"><span data-msg-counter>4</span> free messages remaining</span></div>
+          <div class="center">thread #14 - <span class="free-counter"><span data-msg-counter>0</span> free messages remaining</span></div>
           <div class="right">02:46</div>
         </div>
         <div class="reflect-body">
@@ -36,7 +35,9 @@ export const finalPaywallScene = createVisualScene({
             <p>${copy.finalResponse[1]}</p>
             <p>${copy.finalResponse[2]} The clearer the trace of your own thought - your reading, your hesitation, your edits, your push-back - the more the work is still yours.</p>
           </div>
-          <button class="continue-btn" type="button">Continue this thought <span class="arrow">-&gt;</span></button>
+          <div class="continue-slot">
+            <button class="continue-btn" type="button">Continue this thought <span class="arrow">-&gt;</span></button>
+          </div>
         </div>
         <div class="paywall" role="dialog" aria-label="Upgrade required">
           <div class="paywall-card">
@@ -52,8 +53,9 @@ export const finalPaywallScene = createVisualScene({
       <div class="ghost-stats" aria-label="Recap statistics">
         ${recapCards
           .map(
-            ([value, label], index) => `
+            ([icon, value, label], index) => `
               <div class="ghost-card">
+                <div class="ghost-icon ghost-icon--${icon}" aria-hidden="true"></div>
                 <div class="v"><span data-countup data-target="${value}" data-suffix="%" data-delay="${200 + index * 100}">${value}%</span></div>
                 <div class="l">${label}</div>
               </div>
@@ -64,7 +66,6 @@ export const finalPaywallScene = createVisualScene({
       <div class="s9-outro">
         <h1 id="final-paywall-scene-title">What's in your <span class="em">last chat window?</span></h1>
         <p>The <em>second</em> student is already here.</p>
-        <p class="recap-line">${stats.adoption.aiUse}% use AI. The question is where judgement remains.</p>
       </div>
     </div>
   `,
