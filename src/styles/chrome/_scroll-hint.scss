@@ -1,17 +1,22 @@
 .scroll-hint {
   animation: hint-bob 2.4s ease-in-out infinite;
   bottom: 22px;
+  color: inherit;
   font-family: var(--font-mono);
   font-size: 10px;
   left: 50%;
   letter-spacing: 0.22em;
   opacity: 0.42;
-  pointer-events: none;
+  padding: 6px 10px;
   position: absolute;
   text-align: center;
   text-transform: uppercase;
   transform: translateX(-50%);
   z-index: 12;
+}
+
+.scroll-hint:hover {
+  opacity: 0.75;
 }
 
 .scroll-hint__arrow {

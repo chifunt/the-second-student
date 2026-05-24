@@ -12,7 +12,7 @@ if (!app) {
 app.innerHTML = "";
 renderStoryChrome(scenes);
 
-for (const scene of scenes) {
+scenes.forEach((scene, index) => {
   const section = document.createElement("section");
   section.id = scene.id;
   section.className = `scene scene--${scene.mode}`;
@@ -20,8 +20,8 @@ for (const scene of scenes) {
   section.setAttribute("role", "region");
   section.setAttribute("aria-labelledby", `${scene.id}-title`);
 
-  scene.render(section);
+  scene.render(section, { nextScene: scenes[index + 1] });
   app.appendChild(section);
-}
+});
 
 setupScroll(scenes);

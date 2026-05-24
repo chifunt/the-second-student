@@ -23,6 +23,13 @@ export function setupProgressDots(
     });
   });
 
+  document.querySelectorAll<HTMLButtonElement>(".scroll-hint").forEach((hint) => {
+    hint.addEventListener("click", () => {
+      const target = document.getElementById(hint.dataset.target ?? "");
+      target?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+    });
+  });
+
   scenes.forEach((scene, index) => {
     const element = document.getElementById(scene.id);
 
