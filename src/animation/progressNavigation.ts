@@ -16,6 +16,36 @@ export function setupProgressDots(
     progress?.classList.toggle("is-visible", index > 0);
   }
 
+  function updateFromViewport(): void {
+    const viewportCenter = window.innerHeight / 2;
+    const sceneRects = scenes
+      .map((scene, index) => {
+        const element = document.getElementById(scene.id);
+
+        if (!element) {
+          return null;
+        }
+
+        const rect = element.getBoundingClientRect();
+        return {
+          distance: Math.abs(rect.top + rect.height / 2 - viewportCenter),
+          index,
+          intersectsCenter: rect.top <= viewportCenter && rect.bottom >= viewportCenter,
+        };
+      })
+      .filter((sceneRect): sceneRect is NonNullable<typeof sceneRect> =>
+        Boolean(sceneRect),
+      );
+
+    const centeredScene =
+      sceneRects.find((sceneRect) => sceneRect.intersectsCenter) ??
+      sceneRects.toSorted((a, b) => a.distance - b.distance)[0];
+
+    if (centeredScene) {
+      activate(centeredScene.index);
+    }
+  }
+
   dots.forEach((dot) => {
     dot.addEventListener("click", () => {
       const target = document.getElementById(dot.dataset.target ?? "");
@@ -30,19 +60,12 @@ export function setupProgressDots(
     });
   });
 
-  scenes.forEach((scene, index) => {
-    const element = document.getElementById(scene.id);
-
-    if (!element) {
-      return;
-    }
-
-    ScrollTrigger.create({
-      trigger: element,
-      start: "top center",
-      end: "bottom center",
-      onEnter: () => activate(index),
-      onEnterBack: () => activate(index),
-    });
+  ScrollTrigger.create({
+    start: 0,
+    end: "max",
+    onRefresh: updateFromViewport,
+    onUpdate: updateFromViewport,
   });
+
+  updateFromViewport();
 }
