@@ -33,17 +33,19 @@ export const copy = {
     "decide my argument",
     "wait does this still sound like me",
     "That matters.",
-    "i'm not using my brain at all",
+    "what part is actually mine",
     "can you just stay while i finish this",
     "help me reply",
   ],
+  quoteSource: {
+    label: "Survey free-text quote",
+    detail: "HEPI Report 199 open-text response",
+  },
   quotes: {
     studyBuddy: "Makes me feel like I have a study buddy.",
     noBrain: "I'm not using my brain at all.",
+    thinkLess: "It encourages you to think less.",
     company: "It keeps me company.",
-  },
-  dependency: {
-    privateNote: "I can't tell which parts are mine anymore.",
   },
   finalResponse: [
     "I cannot answer it for your course, your assessment, or your future.",

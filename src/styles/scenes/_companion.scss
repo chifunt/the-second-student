@@ -131,15 +131,25 @@
   padding: 14px 18px;
 }
 
-.s9-aside h2 {
+.s9-quote-head {
+  margin-bottom: 18px;
+}
+
+.s9-quote-head .survey-quote__source {
+  color: rgba(216, 200, 255, 0.72);
+  margin-bottom: 4px;
+}
+
+.s9-quote-head em {
   color: #f0f6fc;
+  display: block;
   font-family: var(--font-serif);
   font-size: clamp(42px, 6vw, 78px);
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1;
-  margin: 0 0 18px;
+  margin: 0;
 }
 
 .s9-aside .lead {

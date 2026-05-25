@@ -3,6 +3,7 @@ import { renderDivergingBar } from "../charts/divergingBar";
 import { renderPictogram } from "../charts/pictogram";
 import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
+import { renderInlineSurveyQuote } from "../ui/surveyQuote";
 import { createVisualScene } from "./createScene";
 
 export const companionScene = createVisualScene({
@@ -37,7 +38,9 @@ export const companionScene = createVisualScene({
           </div>
         </div>
         <div class="s9-aside">
-          <h2 id="companion-scene-title">"${copy.quotes.company}"</h2>
+          <div class="s9-quote-head" id="companion-scene-title">
+            ${renderInlineSurveyQuote(copy.quotes.company)}
+          </div>
           <p class="lead">${stats.loneliness.companionshipUse}% of students use AI for friendship, company, advice, or tackling loneliness. The effect on how lonely they feel is almost evenly split.</p>
           ${renderPictogram({
             title: "Companionship use",

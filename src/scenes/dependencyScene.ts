@@ -2,6 +2,7 @@ import { animateDependencyScene } from "../animation/sceneTransitions";
 import { renderStackedBar } from "../charts/stackedBar";
 import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
+import { renderSurveyQuote } from "../ui/surveyQuote";
 import { createVisualScene } from "./createScene";
 
 const sourceBalanceSegments = [
@@ -83,7 +84,9 @@ export const dependencyScene = createVisualScene({
               <div class="col worse"><h5>Risk signals</h5><div class="chip">AI-first workflow</div><div class="chip">source voice drifting</div><div class="chip">authorship doubts</div></div>
               <div class="col worse"><h5>Prompt drift</h5><div class="chip">give me a thesis</div><div class="chip">turn notes into argument</div><div class="chip">what part do I write?</div></div>
             </div>
-            <div class="quote-card sharp dep-private-note">${copy.dependency.privateNote}</div>
+            ${renderSurveyQuote(copy.quotes.thinkLess, {
+              className: "quote-card sharp dep-private-note",
+            })}
           </aside>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { animateDeliberateWorkflowScene } from "../animation/sceneTransitions";
 import { renderWorkflowRiskMap } from "../charts/workflowRiskMap";
 import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
+import { renderSurveyQuote } from "../ui/surveyQuote";
 import { createVisualScene } from "./createScene";
 
 export const deliberateWorkflowScene = createVisualScene({
@@ -60,7 +61,7 @@ export const deliberateWorkflowScene = createVisualScene({
               </div>
             </div>
             <div class="chat-input chat-input--light"><span>Reply to study...</span><span>enter</span></div>
-            <div class="quote-note">"${copy.quotes.studyBuddy}"</div>
+            ${renderSurveyQuote(copy.quotes.studyBuddy, { className: "quote-note" })}
           </div>
           <aside class="studio-data">
             ${renderWorkflowRiskMap(stats.assessmentUses, {

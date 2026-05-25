@@ -2,6 +2,7 @@ import { animateSplitExperienceScene } from "../animation/sceneTransitions";
 import { renderStackedBar } from "../charts/stackedBar";
 import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
+import { renderInlineSurveyQuote } from "../ui/surveyQuote";
 import { createVisualScene } from "./createScene";
 
 const experienceSegments = [
@@ -57,7 +58,7 @@ export const splitExperienceScene = createVisualScene({
         <div class="split-reading split-reading--better">
           <strong>${stats.experience.better}% say AI made their student experience better.</strong>
           <span>Faster understanding. Better structure. More confidence.</span>
-          <em>"${copy.quotes.studyBuddy}"</em>
+          <em>Support, when judgement remains visible.</em>
         </div>
       </section>
 
@@ -89,7 +90,7 @@ export const splitExperienceScene = createVisualScene({
         <div class="split-reading split-reading--worse">
           <strong>${stats.experience.worse}% say AI made their student experience worse.</strong>
           <span>More anxiety. More dependence. Less confidence.</span>
-          <em>"${copy.quotes.noBrain}"</em>
+          ${renderInlineSurveyQuote(copy.quotes.noBrain)}
         </div>
       </section>
     </div>

@@ -102,6 +102,46 @@
   padding: 18px 20px;
 }
 
+.survey-quote {
+  display: grid;
+  gap: 8px;
+}
+
+.survey-quote blockquote {
+  margin: 0;
+}
+
+.survey-quote__source {
+  align-items: center;
+  color: rgba(92, 75, 24, 0.68);
+  display: inline-flex;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 700;
+  gap: 6px;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.survey-quote__source small {
+  border-left: 1px solid currentcolor;
+  font: inherit;
+  opacity: 0.62;
+  padding-left: 6px;
+}
+
+.survey-quote--inline {
+  display: inline-grid;
+  gap: 6px;
+}
+
+.survey-quote--inline em {
+  font-style: italic;
+}
+
 .quote-card.sharp {
   background: rgba(185, 74, 72, 0.12);
   border-color: rgba(185, 74, 72, 0.32);
@@ -110,6 +150,10 @@
   font-size: 15px;
   font-style: normal;
   margin-top: 18px;
+}
+
+.quote-card.sharp .survey-quote__source {
+  color: rgba(255, 208, 208, 0.66);
 }
 
 .button-like {

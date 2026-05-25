@@ -191,5 +191,5 @@ export const sourceNotes = {
   sourceBalance: "Workbook Table 38.",
   loneliness: "Workbook Tables 34 and 35.",
   quotes:
-    "Short fragments are used as illustrative free-text-derived material, not attributed to identifiable respondents.",
+    "The workbook contains weighted aggregate tables; survey quote cards use short excerpts from HEPI Report 199 open-text responses, with no respondent identified.",
 } as const;

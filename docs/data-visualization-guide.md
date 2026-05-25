@@ -6,6 +6,8 @@ The visualizations should make the narrative point immediately. A chart is part 
 
 - Pull survey values from `src/data/surveyStats.ts`.
 - Put labels, visible values, source notes, and zone metadata in data/copy files.
+- Label any real student excerpt with the shared survey free-text quote treatment.
+- Treat the Excel workbook as canonical for percentages, but not for quotes: the workbook contains weighted aggregate tables, while quote excerpts come from HEPI Report 199 open-text response sections.
 - Use D3 for scale calculations or SVG structure when a chart needs quantitative layout.
 - Use GSAP only after the chart structure exists.
 - Do not rely on color alone; every visual needs text labels or positional encoding.
@@ -52,6 +54,8 @@ Visual: `renderWorkflowRiskMap`, grouping assessed-work uses into understanding,
 
 Why: the story needs a boundary map more than another ranked chart.
 
+Quote treatment: the study-buddy excerpt is a real free-text quote and should remain labeled as survey source material.
+
 ### 05 Boundary
 
 Primary point: support can slide toward substitution.
@@ -76,6 +80,8 @@ Visual: theatrical 100% stacked bar for 49 better, 35 no impact, 16 worse.
 
 Why: this is the mirror moment; the chart belongs to both student worlds and should sit between them.
 
+Quote treatment: the worse-side excerpt is a real free-text quote and should use the shared survey quote label.
+
 ### 08 Dependency
 
 Primary point: help can become dependence when the student asks the tool to carry judgement.
@@ -84,6 +90,8 @@ Visual: dependent prompt sequence, refusal beat, risk chips, and 100% stacked so
 
 Why: the experience-impact distribution has already been established, so this scene should show the mechanism: AI becoming the first place the work starts.
 
+Quote treatment: use a different real skill-erosion excerpt here so the scene does not repeat Scene 07.
+
 ### 09 Companion
 
 Primary point: companionship use is smaller, but emotionally loaded.
@@ -91,6 +99,8 @@ Primary point: companionship use is smaller, but emotionally loaded.
 Visual: compact student pictogram for 15% plus diverging loneliness bar for less/no impact/more lonely.
 
 Why: the pictogram makes the companionship group feel human and intimate, while the diverging bar shows the mixed emotional effect.
+
+Quote treatment: the companion headline is a real free-text quote and should remain source-labeled.
 
 ### 10 Final Paywall
 
