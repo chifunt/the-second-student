@@ -1,0 +1,63 @@
+.paywall {
+  align-items: center;
+  backdrop-filter: blur(6px);
+  background: rgba(42, 38, 30, 0.16);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: scale(1.02);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.s10.gated .paywall {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.paywall-card {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.24);
+  max-width: 390px;
+  padding: 28px;
+  text-align: center;
+}
+
+.badge {
+  color: #c25a3a;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.paywall-card h3 {
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 10px 0;
+}
+
+.upgrade,
+.later {
+  border-radius: 8px;
+  display: block;
+  margin-top: 10px;
+  padding: 12px;
+  width: 100%;
+}
+
+.upgrade {
+  background: #2a261e;
+  color: white;
+}
+
+.later {
+  color: #8a7e5e;
+}

@@ -2,26 +2,32 @@ import { animateBoundaryScene } from "../animation/sceneTransitions";
 import { renderEvidenceAttributes } from "../charts/chartUtils";
 import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
-import { stats } from "../data/surveyStats";
+import { getAssessmentUse } from "../data/statLookups";
 import { createVisualScene } from "./createScene";
+
+const explainConcepts = getAssessmentUse("Explain concepts");
+const summariseArticle = getAssessmentUse("Summarise a relevant article");
+const structureThoughts = getAssessmentUse("Structure thoughts");
+const generateThenEdit = getAssessmentUse("Generate text, then edit");
+const includeDirectly = getAssessmentUse("Include AI text directly");
 
 const ladderRows = [
   {
-    zone: stats.assessmentUses[0].zone,
-    label: stats.assessmentUses[0].label,
-    value: stats.assessmentUses[0].value,
+    zone: explainConcepts.zone,
+    label: explainConcepts.label,
+    value: explainConcepts.value,
     desc: "AI clarifies a definition, but the student still writes the claim.",
   },
   {
-    zone: stats.assessmentUses[1].zone,
-    label: stats.assessmentUses[1].label,
-    value: stats.assessmentUses[1].value,
+    zone: summariseArticle.zone,
+    label: summariseArticle.label,
+    value: summariseArticle.value,
     desc: "AI compresses a paper; the student decides what matters.",
   },
   {
-    zone: stats.assessmentUses[3].zone,
-    label: stats.assessmentUses[3].label,
-    value: stats.assessmentUses[3].value,
+    zone: structureThoughts.zone,
+    label: structureThoughts.label,
+    value: structureThoughts.value,
     desc: "AI helps order ideas; the argument remains visible.",
   },
   {
@@ -31,15 +37,15 @@ const ladderRows = [
     desc: "Boundary marker: there is no survey value for this exact step.",
   },
   {
-    zone: stats.assessmentUses[5].zone,
-    label: stats.assessmentUses[5].label,
-    value: stats.assessmentUses[5].value,
+    zone: generateThenEdit.zone,
+    label: generateThenEdit.label,
+    value: generateThenEdit.value,
     desc: "A draft arrives before judgement has fully formed.",
   },
   {
-    zone: stats.assessmentUses[6].zone,
-    label: stats.assessmentUses[6].label,
-    value: stats.assessmentUses[6].value,
+    zone: includeDirectly.zone,
+    label: includeDirectly.label,
+    value: includeDirectly.value,
     desc: "The submitted words may no longer show the student's thinking.",
   },
 ] as const;
@@ -78,8 +84,8 @@ export const boundaryScene = createVisualScene({
             <h4>The Authorship Threshold</h4>
             <p class="sub">The same sequence changes meaning when generated words enter the draft.</p>
             <div class="threshold-summary" aria-label="Boundary markers">
-              <div><strong>${stats.assessmentUses[5].value}%</strong><span>generate text, then edit</span></div>
-              <div><strong>${stats.assessmentUses[6].value}%</strong><span>include AI text directly</span></div>
+              <div><strong>${generateThenEdit.value}%</strong><span>generate text, then edit</span></div>
+              <div><strong>${includeDirectly.value}%</strong><span>include AI text directly</span></div>
             </div>
             <div class="threshold-note">Boundary: when generated words enter the submitted draft.</div>
             <div class="ladder threshold-ladder">

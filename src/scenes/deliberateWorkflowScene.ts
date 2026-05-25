@@ -4,6 +4,7 @@ import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { renderSurveyQuote } from "../ui/surveyQuote";
+import { renderProfileSummary, renderWindowTitlebar } from "../ui/windowChrome";
 import { createVisualScene } from "./createScene";
 
 export const deliberateWorkflowScene = createVisualScene({
@@ -18,12 +19,12 @@ export const deliberateWorkflowScene = createVisualScene({
     <div class="chyron"><span class="num">04</span><span class="sep">/</span><span>The Same Tool, Used Differently</span></div>
     <div class="scene-inner scene-inner--wide">
       <div class="window">
-        <div class="window-titlebar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <div class="mark"><span class="mark-dot"></span>study</div>
-          <div class="window-title">Module: SOC 240 - Coursework 2</div>
-          <div class="window-meta">Wed 15 May - 14:22</div>
-        </div>
+        ${renderWindowTitlebar({
+          mark: "study",
+          markClass: "dot",
+          title: "Module: SOC 240 - Coursework 2",
+          meta: "Wed 15 May - 14:22",
+        })}
         <div class="studio">
           <aside class="studio-files">
             <h5>Working folder</h5>
@@ -38,10 +39,12 @@ export const deliberateWorkflowScene = createVisualScene({
           </aside>
           <div class="studio-main">
             <div class="studio-header">
-              <div class="studio-profile">
-                <div class="ava">${copy.students.deliberate.initials}</div>
-                <div><div class="name">${copy.students.deliberate.displayName}</div><div class="status">${copy.students.deliberate.username} - signed in - institution profile</div></div>
-              </div>
+              ${renderProfileSummary({
+                className: "studio-profile",
+                initials: copy.students.deliberate.initials,
+                name: copy.students.deliberate.displayName,
+                status: `${copy.students.deliberate.username} - signed in - institution profile`,
+              })}
               <div class="mono small muted">draft autosaved - 14:21</div>
             </div>
             <div class="studio-stream">

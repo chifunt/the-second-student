@@ -2,24 +2,30 @@ import { animateDependencyScene } from "../animation/sceneTransitions";
 import { renderStackedBar } from "../charts/stackedBar";
 import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
+import { getSourceBalanceGroup } from "../data/statLookups";
 import { stats } from "../data/surveyStats";
 import { renderSurveyQuote } from "../ui/surveyQuote";
+import { renderProfileSummary, renderWindowTitlebar } from "../ui/windowChrome";
 import { createVisualScene } from "./createScene";
+
+const aiFirst = getSourceBalanceGroup("AI-first");
+const balanced = getSourceBalanceGroup("Balanced");
+const traditionalFirst = getSourceBalanceGroup("Traditional-first");
 
 const sourceBalanceSegments = [
   {
-    label: stats.sourceBalanceGrouped[0].label,
-    value: stats.sourceBalanceGrouped[0].value,
+    label: aiFirst.label,
+    value: aiFirst.value,
     tone: "risk" as const,
   },
   {
-    label: stats.sourceBalanceGrouped[1].label,
-    value: stats.sourceBalanceGrouped[1].value,
+    label: balanced.label,
+    value: balanced.value,
     tone: "neutral" as const,
   },
   {
-    label: stats.sourceBalanceGrouped[2].label,
-    value: stats.sourceBalanceGrouped[2].value,
+    label: traditionalFirst.label,
+    value: traditionalFirst.value,
     tone: "support" as const,
   },
 ];
@@ -36,20 +42,20 @@ export const dependencyScene = createVisualScene({
     <div class="chyron"><span class="num">08</span><span class="sep">/</span><span>When help starts thinking for you</span></div>
     <div class="scene-inner scene-inner--wide">
       <div class="window ai-chat">
-        <div class="window-titlebar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <div class="mark"><span class="mark-ring"></span>assist</div>
-          <div class="window-title">untitled chat - 14 of 14 today</div>
-          <div class="window-meta">01:08 - battery 4%</div>
-        </div>
+        ${renderWindowTitlebar({
+          mark: "assist",
+          title: "untitled chat - 14 of 14 today",
+          meta: "01:08 - battery 4%",
+        })}
         <div class="dep-chat">
           <div class="dep-main">
             <div class="chat-header">
               <div class="chat-model"><span class="glow"></span>assist - fast</div>
-              <div class="chat-profile">
-                <div class="ava">${copy.students.reactive.initials}</div>
-                <div><div class="name">${copy.students.reactive.displayName}</div><div class="status">${copy.students.reactive.username} - 14 chats today - tabs: 11 open</div></div>
-              </div>
+              ${renderProfileSummary({
+                initials: copy.students.reactive.initials,
+                name: copy.students.reactive.displayName,
+                status: `${copy.students.reactive.username} - 14 chats today - tabs: 11 open`,
+              })}
             </div>
             <div class="dep-stream">
               <div class="msg user">give me a thesis i can defend</div>

@@ -1,0 +1,19 @@
+.s10-outro {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.s10-outro h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(42px, 7vw, 86px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+  margin: 0;
+}
+
+.s10-outro .em,
+.s10-outro em {
+  color: #c25a3a;
+  font-style: italic;
+}

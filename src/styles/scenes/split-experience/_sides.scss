@@ -1,0 +1,138 @@
+.split-side {
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 590px;
+  overflow: hidden;
+  padding: 22px;
+}
+
+.split-side--deliberate {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(191, 233, 242, 0.72), transparent 34%),
+    rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(44, 74, 124, 0.12);
+  box-shadow: 0 24px 60px rgba(44, 74, 124, 0.12);
+  color: var(--dark-text);
+}
+
+.split-side--reactive {
+  background:
+    radial-gradient(circle at 84% 10%, rgba(107, 91, 138, 0.28), transparent 34%),
+    rgba(10, 19, 34, 0.86);
+  border: 1px solid rgba(216, 200, 255, 0.12);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+  color: #dfe7f4;
+}
+
+.split-profile {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.split-profile .name,
+.split-profile .status,
+.doc-label {
+  font-family: var(--font-mono);
+}
+
+.split-profile .name {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.split-profile .status {
+  color: currentColor;
+  font-size: 10px;
+  opacity: 0.56;
+}
+
+.split-workspace,
+.split-chat {
+  display: grid;
+  gap: 12px;
+}
+
+.split-doc,
+.split-note,
+.split-matrix,
+.split-chat .msg {
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.split-doc,
+.split-note,
+.split-matrix {
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(44, 74, 124, 0.1);
+}
+
+.doc-label {
+  color: var(--blue-ink);
+  font-size: 10px;
+  letter-spacing: 0;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.split-doc h3 {
+  font-size: 22px;
+  letter-spacing: 0;
+  line-height: 1.05;
+  margin: 0 0 8px;
+}
+
+.split-doc p,
+.split-note p {
+  color: #566579;
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.split-matrix {
+  display: grid;
+  gap: 8px 10px;
+  grid-template-columns: 0.8fr 1fr auto;
+}
+
+.split-matrix span,
+.split-matrix strong {
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.split-matrix span {
+  color: #7a8799;
+  text-transform: uppercase;
+}
+
+.split-matrix strong {
+  color: #2d3f57;
+  font-weight: 600;
+}
+
+.split-chat {
+  margin-top: auto;
+}
+
+.split-chat .msg {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #dfe7f4;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.split-chat .msg.user {
+  justify-self: end;
+  max-width: 82%;
+}
+
+.split-chat .msg.bot {
+  color: #cfc4ff;
+  max-width: 88%;
+}

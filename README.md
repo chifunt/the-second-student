@@ -44,9 +44,10 @@ Source metadata points to HEPI Report 199, `Student Generative Artificial Intell
 
 - `src/main.ts`: app bootstrap.
 - `src/scenes/`: scene registry and scene markup modules.
-- `src/data/`: survey stats, source metadata, and narrative copy.
+- `src/data/`: survey stats, named lookups, evidence metadata, and narrative copy.
 - `src/charts/`: chart helpers that render reusable chart markup/SVG.
 - `src/animation/`: GSAP setup, scene timelines, and focused interaction helpers.
+- `src/ui/`: small shared HTML helpers for quotes and repeated screen chrome.
 - `src/styles/base/`: tokens, base layout, responsive rules, accessibility.
 - `src/styles/chrome/`: shared window, chat, drawer, and navigation chrome.
 - `src/styles/scenes/`: scene-specific layouts.

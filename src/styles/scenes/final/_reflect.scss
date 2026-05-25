@@ -1,0 +1,57 @@
+.reflect {
+  background: #faf6ec;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 14px;
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.18),
+    0 10px 24px rgba(0, 0, 0, 0.06);
+  margin: 0 auto;
+  max-width: 800px;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.reflect-bar {
+  align-items: center;
+  background: #f3eee1;
+  border-bottom: 1px solid #ece4cf;
+  color: #8a7e5e;
+  display: flex;
+  font-size: 11px;
+  justify-content: space-between;
+  padding: 8px 18px;
+}
+
+.brand {
+  color: #c25a3a;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.reflect-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 330px;
+  overflow: hidden;
+  padding: 34px 48px 42px;
+}
+
+.reflect-body .msg.user {
+  background: #f0e8d2;
+  border-color: rgba(0, 0, 0, 0.04);
+  color: #2a261e;
+}
+
+.reflect-body .msg.bot {
+  color: #2a261e;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  max-width: 100%;
+}
+
+.reflect-body .first-line,
+.reflect-body em {
+  color: #c25a3a;
+}

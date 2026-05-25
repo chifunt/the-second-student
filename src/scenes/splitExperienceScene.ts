@@ -2,24 +2,28 @@ import { animateSplitExperienceScene } from "../animation/sceneTransitions";
 import { renderStackedBar } from "../charts/stackedBar";
 import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
-import { stats } from "../data/surveyStats";
+import { getExperienceGroup } from "../data/statLookups";
 import { renderInlineSurveyQuote } from "../ui/surveyQuote";
 import { createVisualScene } from "./createScene";
 
+const betterExperience = getExperienceGroup("Better");
+const noImpactExperience = getExperienceGroup("No significant impact");
+const worseExperience = getExperienceGroup("Worse");
+
 const experienceSegments = [
   {
-    label: stats.experienceGrouped[0].label,
-    value: stats.experienceGrouped[0].value,
+    label: betterExperience.label,
+    value: betterExperience.value,
     tone: "support" as const,
   },
   {
-    label: stats.experienceGrouped[1].label,
-    value: stats.experienceGrouped[1].value,
+    label: noImpactExperience.label,
+    value: noImpactExperience.value,
     tone: "neutral" as const,
   },
   {
-    label: stats.experienceGrouped[2].label,
-    value: stats.experienceGrouped[2].value,
+    label: worseExperience.label,
+    value: worseExperience.value,
     tone: "risk" as const,
   },
 ];
@@ -57,7 +61,7 @@ export const splitExperienceScene = createVisualScene({
           </div>
         </div>
         <div class="split-reading split-reading--better">
-          <strong>${stats.experience.better}% say AI made their student experience better.</strong>
+          <strong>${betterExperience.value}% say AI made their student experience better.</strong>
           <span>Faster understanding. Better structure. More confidence.</span>
           <em>Support, when judgement remains visible.</em>
         </div>
@@ -90,7 +94,7 @@ export const splitExperienceScene = createVisualScene({
           <div class="msg bot">I can help you slow down and separate the idea from the wording.</div>
         </div>
         <div class="split-reading split-reading--worse">
-          <strong>${stats.experience.worse}% say AI made their student experience worse.</strong>
+          <strong>${worseExperience.value}% say AI made their student experience worse.</strong>
           <span>More anxiety. More dependence. Less confidence.</span>
           ${renderInlineSurveyQuote(copy.quotes.noBrain)}
         </div>

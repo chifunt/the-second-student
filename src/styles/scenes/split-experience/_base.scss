@@ -1,0 +1,44 @@
+.s7 {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(247, 246, 242, 0.98) 0 50%,
+      rgba(7, 17, 31, 0.98) 50% 100%
+    ),
+    var(--off-white) !important;
+}
+
+.split-experience {
+  align-items: center;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 480px) minmax(0, 1fr);
+  min-height: min(78vh, 760px);
+  position: relative;
+}
+
+.split-experience::before {
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  content: "";
+  height: 90%;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 5%;
+  transform: translateX(-50%);
+  width: 1px;
+  z-index: 0;
+}
+
+.split-side,
+.split-chart-stage {
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-animation-ready .s7 .split-side,
+.scroll-animation-ready .s7 .split-final-caption {
+  opacity: 0;
+  transform: translateY(18px);
+  visibility: hidden;
+}

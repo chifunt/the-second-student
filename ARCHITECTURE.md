@@ -25,6 +25,8 @@ The stable contract is `SceneConfig` in `src/scenes/sceneTypes.ts`:
 
 Scene modules own narrative markup because the app is a scrollytelling piece, not a component library. Keeping markup near the story beat makes it easier to tune copy, rhythm, and data context together.
 
+The app is intentionally framework-free. D3 and GSAP both need direct access to rendered DOM, and the current complexity lives in narrative composition, survey interpretation, and scroll timing rather than reusable application state.
+
 ## DOM Ownership
 
 - Scene modules create scene layout and narrative interface markup.
@@ -38,9 +40,17 @@ Do not let animation code create core story DOM. Do not hardcode survey values i
 
 Survey values live in `src/data/surveyStats.ts`. Narrative copy and quotes live in `src/data/copy.ts`.
 
+Use named lookup helpers from `src/data/statLookups.ts` when a scene needs a specific survey row. Index-based reads such as `stats.assessmentUses[5]` are fragile because survey arrays are ordered for display, not for API stability.
+
 Chart helpers in `src/charts/` accept typed data and return markup. They may use D3 for scales, grouping, and SVG generation. Returning strings keeps scene composition simple while preserving a clear boundary: data in, chart structure out.
 
 Animation of chart elements lives in `src/animation/chartAnimations.ts`, where GSAP targets common hooks such as `.bar-fill`, `.dial-ring`, and pictogram items.
+
+## Evidence Details
+
+Details-on-demand metadata lives in `src/data/evidence.ts`. Chart helpers attach the metadata with `renderEvidenceAttributes`, and `src/animation/evidenceDetails.ts` owns the hover, focus, tap, pin, outside-click, and Escape behavior.
+
+This keeps the narrative surface clean while still exposing source table, survey wording, base, interpretation, and grouped/detailed breakdowns when the reader asks for them. Do not create per-scene tooltip code unless the shared helper cannot support the interaction.
 
 ## Animation Ownership
 
@@ -48,6 +58,10 @@ Animation of chart elements lives in `src/animation/chartAnimations.ts`, where G
 
 Focused helpers live beside it:
 
+- `timelineCore.ts`: shared scene timeline primitives.
+- `reactiveScenes.ts`: Arman/reactive-path scene timelines.
+- `deliberateScenes.ts`: title, Ben/deliberate-path, and institutional scene timelines.
+- `splitFinalScenes.ts`: mirror-scene and final paywall timelines.
 - `densityTicks.ts`: title density strips.
 - `progressNavigation.ts`: scene progress dots.
 - `titleOpen.ts`: opening handoff from title to email.
@@ -58,7 +72,7 @@ Focused helpers live beside it:
 - `runtimeEffects.ts`: timers and cancelable loops.
 - `motionPreference.ts`: reduced-motion and query override logic.
 
-Scene-specific timeline functions remain in `sceneTransitions.ts`.
+`sceneTransitions.ts` is a compatibility barrel that re-exports the scene timeline functions. Keep scene imports stable there, but add new implementation code to the focused modules above.
 
 ## Styling Organization
 
@@ -88,5 +102,6 @@ Expectations:
 - New scene: add `src/scenes/{name}Scene.ts`, export it from `src/scenes/index.ts`, and add `src/styles/scenes/_{name}.scss`.
 - New stat: add it to `src/data/surveyStats.ts` with source metadata; consume it from scenes/charts.
 - New chart: add `src/charts/{chartName}.ts`, style it in `src/styles/charts/_{chartName}.scss`, and import that partial from `src/styles/charts/index.scss`.
+- New evidence card: add metadata to `src/data/evidence.ts`, pass it through the chart helper, and render attributes with `renderEvidenceAttributes`.
 - New global interaction: add a focused helper in `src/animation/` and call it from `setupScroll.ts`.
-- New scene animation: add or extend a function in `sceneTransitions.ts`.
+- New scene animation: add or extend a function in the relevant focused animation module, then re-export it from `sceneTransitions.ts`.

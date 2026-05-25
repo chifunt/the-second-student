@@ -3,6 +3,7 @@ import { renderSupportSignalChart } from "../charts/supportSignalChart";
 import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
+import { renderProfileSummary, renderWindowTitlebar } from "../ui/windowChrome";
 import { createVisualScene } from "./createScene";
 
 export const panicChatScene = createVisualScene({
@@ -17,12 +18,11 @@ export const panicChatScene = createVisualScene({
     <div class="chyron"><span class="num">03</span><span class="sep">/</span><span>First, Breathe</span></div>
     <div class="scene-inner scene-inner--wide">
       <div class="window ai-chat">
-        <div class="window-titlebar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <div class="mark"><span class="mark-ring"></span>assist</div>
-          <div class="window-title">New chat - private</div>
-          <div class="window-meta">23:52</div>
-        </div>
+        ${renderWindowTitlebar({
+          mark: "assist",
+          title: "New chat - private",
+          meta: "23:52",
+        })}
         <div class="chat-window">
           <aside class="chat-side">
             <div class="new-thread">New chat</div>
@@ -38,10 +38,11 @@ export const panicChatScene = createVisualScene({
           <div class="chat-main">
             <div class="chat-header">
               <div class="chat-model"><span class="glow"></span>assist - large</div>
-              <div class="chat-profile">
-                <div class="ava">${copy.students.reactive.initials}</div>
-                <div><div class="name">${copy.students.reactive.displayName}</div><div class="status">${copy.students.reactive.username} - private - 02:13 - battery 8%</div></div>
-              </div>
+              ${renderProfileSummary({
+                initials: copy.students.reactive.initials,
+                name: copy.students.reactive.displayName,
+                status: `${copy.students.reactive.username} - private - 02:13 - battery 8%`,
+              })}
             </div>
             <div class="chat-stream">
               <div class="msg user">wtf do i do. i got accused of using ai. i used it to understand stuff but not to write the whole thing. help.</div>

@@ -1,0 +1,64 @@
+.split-reading {
+  border-radius: 14px;
+  display: grid;
+  gap: 8px;
+  margin-top: auto;
+  padding: 16px;
+}
+
+.split-reading strong {
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.split-reading span {
+  font-size: 13px;
+  opacity: 0.78;
+}
+
+.split-reading em {
+  font-family: var(--font-serif);
+  font-size: 20px;
+}
+
+.split-reading .survey-quote__source {
+  color: rgba(216, 200, 255, 0.88);
+  font-size: 8px;
+  margin-top: 2px;
+}
+
+.split-reading .survey-quote__source small {
+  opacity: 0.86;
+}
+
+.split-reading--better {
+  background: rgba(47, 142, 139, 0.1);
+  border: 1px solid rgba(47, 142, 139, 0.2);
+}
+
+.split-reading--better em {
+  color: var(--teal);
+}
+
+.split-reading--worse {
+  background: rgba(107, 91, 138, 0.16);
+  border: 1px solid rgba(216, 200, 255, 0.14);
+}
+
+.split-reading--worse em {
+  color: #d8c8ff;
+}
+
+.split-final-caption {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(7, 17, 31, 0.08);
+  border-radius: 999px;
+  box-shadow: 0 16px 42px rgba(7, 17, 31, 0.12);
+  color: #243044;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  line-height: 1.25;
+  margin: 22px auto 0;
+  max-width: 600px;
+  padding: 14px 20px;
+}
