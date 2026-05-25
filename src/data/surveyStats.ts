@@ -132,6 +132,38 @@ export const stats = {
     { label: "Significantly better", value: 9, sourceTable: "Table 37" },
   ],
 
+  sourceBalance: {
+    aiFirst: 37,
+    balanced: 29,
+    traditionalFirst: 34,
+  },
+
+  sourceBalanceGrouped: [
+    { label: "AI-first", value: 37, sourceTable: "Table 38" },
+    { label: "Balanced", value: 29, sourceTable: "Table 38" },
+    { label: "Traditional-first", value: 34, sourceTable: "Table 38" },
+  ],
+
+  sourceBalanceDetailed: [
+    {
+      label: "Mostly AI, rarely traditional sources",
+      value: 8,
+      sourceTable: "Table 38",
+    },
+    { label: "Both, but AI more", value: 29, sourceTable: "Table 38" },
+    { label: "Equal balance", value: 29, sourceTable: "Table 38" },
+    {
+      label: "Both, but traditional sources more",
+      value: 21,
+      sourceTable: "Table 38",
+    },
+    {
+      label: "Mostly traditional sources",
+      value: 13,
+      sourceTable: "Table 38",
+    },
+  ],
+
   loneliness: {
     companionshipUse: 15,
     lessLonely: 21,
@@ -156,6 +188,7 @@ export const sourceNotes = {
   barriers: "Workbook Table 23.",
   supportGap: "Workbook Tables 29 and 30.",
   experience: "Workbook Table 37.",
+  sourceBalance: "Workbook Table 38.",
   loneliness: "Workbook Tables 34 and 35.",
   quotes:
     "Short fragments are used as illustrative free-text-derived material, not attributed to identifiable respondents.",

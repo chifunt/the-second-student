@@ -1,6 +1,26 @@
 import { animateDependencyScene } from "../animation/sceneTransitions";
+import { renderStackedBar } from "../charts/stackedBar";
 import { copy } from "../data/copy";
+import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
+
+const sourceBalanceSegments = [
+  {
+    label: stats.sourceBalanceGrouped[0].label,
+    value: stats.sourceBalanceGrouped[0].value,
+    tone: "risk" as const,
+  },
+  {
+    label: stats.sourceBalanceGrouped[1].label,
+    value: stats.sourceBalanceGrouped[1].value,
+    tone: "neutral" as const,
+  },
+  {
+    label: stats.sourceBalanceGrouped[2].label,
+    value: stats.sourceBalanceGrouped[2].value,
+    tone: "support" as const,
+  },
+];
 
 export const dependencyScene = createVisualScene({
   id: "dependency-scene",
@@ -30,13 +50,14 @@ export const dependencyScene = createVisualScene({
               </div>
             </div>
             <div class="dep-stream">
-              <div class="msg user">make this sound smarter</div>
-              <div class="msg user">what am i trying to say</div>
-              <div class="msg user">decide my argument</div>
-              <div class="msg user">rewrite all of it</div>
+              <div class="msg user">give me a thesis i can defend</div>
+              <div class="msg user">turn these notes into an argument</div>
+              <div class="msg user">which source should this sound like</div>
+              <div class="msg user">write the first paragraph from this</div>
+              <div class="msg user">make it sound like my previous essay</div>
               <div class="msg user refused">make it undetectable</div>
               <div class="msg bot refuse">I can't help hide AI use or bypass academic rules. I can help you explain your process honestly.</div>
-              <div class="msg user">wait does this still sound like me</div>
+              <div class="msg user">then what part do i actually write</div>
               <div class="msg bot">
                 <div class="ai-tag"><span class="dot-anim"></span>assist - response</div>
                 <p class="first-line">Let me stop you here.</p>
@@ -48,14 +69,21 @@ export const dependencyScene = createVisualScene({
           <aside class="dep-side">
             <div class="dep-warning">
               <span class="eyebrow">after the mirror</span>
-              <h3>The darker reading starts here.</h3>
-              <p>The issue is no longer whether the tool can help. It is how quickly help becomes the place where judgement goes missing.</p>
+              <h3>Where the work starts</h3>
+              <p>Dependency starts when AI stops being one source among many and becomes the first place judgement goes.</p>
+            </div>
+            <div class="dep-balance">
+              ${renderStackedBar(sourceBalanceSegments, {
+                title: "How students combine AI and traditional sources",
+                tone: "mixed",
+                description: `${stats.sourceBalance.aiFirst}% are AI-first; ${stats.sourceBalance.traditionalFirst}% are traditional-source-first.`,
+              })}
             </div>
             <div class="dep-themes">
-              <div class="col worse"><h5>Risk signals</h5><div class="chip">over-reliance</div><div class="chip">less confidence</div><div class="chip">authorship doubts</div><div class="chip">harder to know rules</div></div>
-              <div class="col worse"><h5>Prompt drift</h5><div class="chip">make it smarter</div><div class="chip">decide my argument</div><div class="chip">rewrite all of it</div><div class="chip">does this sound like me?</div></div>
+              <div class="col worse"><h5>Risk signals</h5><div class="chip">AI-first workflow</div><div class="chip">source voice drifting</div><div class="chip">authorship doubts</div></div>
+              <div class="col worse"><h5>Prompt drift</h5><div class="chip">give me a thesis</div><div class="chip">turn notes into argument</div><div class="chip">what part do I write?</div></div>
             </div>
-            <div class="quote-card sharp">"${copy.quotes.noBrain}"</div>
+            <div class="quote-card sharp dep-private-note">${copy.dependency.privateNote}</div>
           </aside>
         </div>
       </div>

@@ -42,6 +42,9 @@ export const copy = {
     noBrain: "I'm not using my brain at all.",
     company: "It keeps me company.",
   },
+  dependency: {
+    privateNote: "I can't tell which parts are mine anymore.",
+  },
   finalResponse: [
     "I cannot answer it for your course, your assessment, or your future.",
     "But I can help you ask the better question: is this tool helping you practise thinking, or helping you avoid it?",

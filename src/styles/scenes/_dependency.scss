@@ -5,6 +5,10 @@
   min-height: 600px;
 }
 
+.s8 .dep-side {
+  padding: 16px;
+}
+
 .dep-stream .msg.user {
   padding: 10px 14px;
 }
@@ -30,7 +34,7 @@
     rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
-  padding: 16px;
+  padding: 14px;
 }
 
 .dep-warning .eyebrow {
@@ -45,7 +49,7 @@
 
 .dep-warning h3 {
   color: #f0f6fc;
-  font-size: 24px;
+  font-size: 22px;
   letter-spacing: 0;
   line-height: 1.05;
   margin: 0 0 10px;
@@ -53,27 +57,50 @@
 
 .dep-warning p {
   color: #aebbd0;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.45;
   margin: 0;
 }
 
+.dep-balance {
+  margin-top: 14px;
+}
+
+.dep-balance .chart figcaption {
+  color: #f0f6fc;
+}
+
+.dep-balance .chart__description {
+  color: #aebbd0;
+  margin-bottom: 10px;
+}
+
+.dep-balance .stack-100 {
+  height: 46px;
+}
+
+.dep-balance .stack-100 .seg {
+  font-size: 13px;
+}
+
 .dep-themes {
   display: grid;
-  gap: 12px;
-  margin-top: 20px;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 14px;
 }
 
 .dep-themes .col {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 8px;
-  padding: 12px;
+  padding: 10px;
 }
 
 .dep-themes h5 {
   color: #c9d1d9;
-  margin: 0 0 8px;
+  font-size: 12px;
+  margin: 0 0 7px;
 }
 
 .chip {
@@ -81,7 +108,12 @@
   border-radius: 999px;
   color: #9da8b8;
   display: inline-flex;
-  font-size: 11px;
-  margin: 0 4px 6px 0;
-  padding: 5px 8px;
+  font-size: 10px;
+  margin: 0 3px 5px 0;
+  padding: 4px 7px;
+}
+
+.dep-private-note {
+  border-left-color: var(--amber);
+  color: #f0d9b5;
 }

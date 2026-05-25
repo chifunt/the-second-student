@@ -24,9 +24,9 @@ Why: the first screen should communicate prevalence before the story narrows to 
 
 Primary point: fear of being accused is the leading barrier.
 
-Visual: `renderHeroConcernChart` with a dominant 42% concern dial and supporting ranked concern strips.
+Visual: `renderHeroConcernChart` with semantic concern dials for academic risk, information risk, and system cost.
 
-Why: the scene is about panic, so one large concern should dominate rather than presenting five equal dashboard rows.
+Why: the scene is about panic, so the leading concern should dominate while the supporting concerns still feel like part of the same anxious screen world.
 
 ### 02 Panic Button
 
@@ -40,9 +40,9 @@ Why: student icons make the prevalence legible as people in the same environment
 
 Primary point: students reach for AI because it is immediate, efficient, and reassuring.
 
-Visual: ranked motivation bars.
+Visual: `renderSupportSignalChart`, with 38% instant support as the hero stat, 28% after-hours use as a secondary beat, and true 0-100 tracks for the remaining motivations.
 
-Why: motivations compare well as a compact ranked list beside the chat stream.
+Why: this scene is about why the chat opens in a panic moment, so immediacy and availability should lead rather than a generic ranked list.
 
 ### 04 Deliberate Workflow
 
@@ -80,9 +80,9 @@ Why: this is the mirror moment; the chart belongs to both student worlds and sho
 
 Primary point: help can become dependence when the student asks the tool to carry judgement.
 
-Visual: dependent prompt sequence, risk chips, refusal beat, and sharp quote.
+Visual: dependent prompt sequence, refusal beat, risk chips, and 100% stacked source-balance chart for 37 AI-first, 29 balanced, 34 traditional-first.
 
-Why: the experience-impact distribution has already been established, so this scene can focus on the darker reading.
+Why: the experience-impact distribution has already been established, so this scene should show the mechanism: AI becoming the first place the work starts.
 
 ### 09 Companion
 
