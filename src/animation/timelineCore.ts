@@ -10,6 +10,9 @@ export type TimelineOptions = {
   scrub?: number | boolean;
   start?: string;
   end?: string;
+  onEnterBack?: () => void;
+  onLeave?: () => void;
+  onUpdate?: (self: { progress: number }) => void;
 };
 
 export function sceneTimeline(
@@ -26,6 +29,9 @@ export function sceneTimeline(
       start: options.start ?? "top 70%",
       end: options.end ?? "bottom 30%",
       once: !options.scrub,
+      onEnterBack: options.onEnterBack,
+      onLeave: options.onLeave,
+      onUpdate: options.onUpdate,
       pin: options.pin,
       scrub: options.scrub,
     },

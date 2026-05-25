@@ -42,3 +42,17 @@
   transform: translateY(18px);
   visibility: hidden;
 }
+
+.s7.split-experience-complete .split-side,
+.s7.split-experience-complete .split-final-caption {
+  filter: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+.s7.split-experience-complete .split-chart .seg {
+  filter: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
