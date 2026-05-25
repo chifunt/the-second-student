@@ -8,9 +8,7 @@ export function animateCharts(
   const gapDots = container.querySelectorAll(".gap-chart__actual, .gap-chart__expected");
   const ladderRungs = container.querySelectorAll(".ladder-chart__rung");
   const pictogramIcons = container.querySelectorAll(".pictogram__icon");
-  const heroConcernParts = container.querySelectorAll(
-    ".hero-concern__dial, .hero-concern__strip",
-  );
+  const heroConcernParts = container.querySelectorAll(".hero-concern__dial");
   const workflowItems = container.querySelectorAll(
     ".workflow-map__zone, .workflow-map__item",
   );

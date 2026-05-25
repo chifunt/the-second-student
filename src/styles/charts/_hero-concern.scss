@@ -10,35 +10,70 @@
   gap: 16px;
 }
 
+.hero-concern__grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .hero-concern__dial {
+  --dial-color: var(--amber);
+
   background: rgba(255, 255, 255, 0.58);
   border: 1px solid rgba(15, 58, 110, 0.08);
   border-radius: 12px;
   display: grid;
-  gap: 12px;
+  gap: 10px;
   justify-items: center;
-  padding: 20px 16px 18px;
+  min-width: 0;
+  padding: 14px 12px 13px;
   text-align: center;
+}
+
+.hero-concern__dial--primary {
+  grid-column: 1 / -1;
+  padding: 18px 16px 16px;
+}
+
+.hero-concern__dial--academic {
+  --dial-color: var(--amber);
+}
+
+.hero-concern__dial--information {
+  --dial-color: var(--red);
+}
+
+.hero-concern__dial--system {
+  --dial-color: #8069ad;
 }
 
 .hero-concern__ring {
   align-items: center;
   background:
     radial-gradient(circle at center, #faf9f7 0 57%, transparent 58%),
-    conic-gradient(var(--amber) var(--angle), rgba(15, 58, 110, 0.08) 0);
+    conic-gradient(var(--dial-color) var(--angle), rgba(15, 58, 110, 0.08) 0);
   border-radius: 50%;
   display: flex;
-  height: 126px;
+  height: 86px;
   justify-content: center;
+  width: 86px;
+}
+
+.hero-concern__dial--primary .hero-concern__ring {
+  height: 126px;
   width: 126px;
 }
 
 .hero-concern__ring span {
   color: #0f3a6e;
   font-family: var(--font-mono);
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.04em;
+}
+
+.hero-concern__dial--primary .hero-concern__ring span {
+  font-size: 32px;
 }
 
 .hero-concern__ring small {
@@ -49,9 +84,23 @@
 
 .hero-concern__label {
   color: #18202a;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 1.25;
+}
+
+.hero-concern__dial--primary .hero-concern__label {
+  font-size: 15px;
+}
+
+.hero-concern__kind {
+  color: var(--dial-color);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .hero-concern__note {
@@ -62,31 +111,4 @@
   font-style: italic;
   line-height: 1.4;
   padding-left: 12px;
-}
-
-.hero-concern__strips {
-  display: grid;
-  gap: 11px;
-}
-
-.hero-concern__strip {
-  display: grid;
-  gap: 6px;
-  grid-template-columns: minmax(0, 1fr) auto;
-}
-
-.hero-concern__strip span {
-  color: #2c3e50;
-  font-size: 12px;
-  line-height: 1.25;
-}
-
-.hero-concern__strip strong {
-  color: #0f3a6e;
-  font-family: var(--font-mono);
-  font-size: 11px;
-}
-
-.hero-concern__strip .bar-track {
-  grid-column: 1 / -1;
 }

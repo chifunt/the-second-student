@@ -2,41 +2,63 @@ import * as d3 from "d3";
 import type { ChartDatum, ChartOptions } from "./chartTypes";
 import { escapeHtml, renderFigure, toneClass } from "./chartUtils";
 
+type ConcernTone = "academic" | "information" | "system";
+
+type ConcernColor = {
+  label: string;
+  tone: ConcernTone;
+};
+
+function concernColorFor(label: string): ConcernColor {
+  const normalized = label.toLowerCase();
+
+  if (normalized.includes("accused") || normalized.includes("institution")) {
+    return { label: "Academic risk", tone: "academic" };
+  }
+
+  if (
+    normalized.includes("false") ||
+    normalized.includes("hallucination") ||
+    normalized.includes("biased")
+  ) {
+    return { label: "Information risk", tone: "information" };
+  }
+
+  return { label: "System cost", tone: "system" };
+}
+
 export function renderHeroConcernChart(
   data: readonly ChartDatum[],
   options: ChartOptions,
 ): string {
-  const [hero, ...rest] = data;
-
-  if (!hero) {
+  if (data.length === 0) {
     return "";
   }
 
   const angle = d3.scaleLinear().domain([0, 100]).range([0, 360]).clamp(true);
-  const max = Math.max(50, d3.max(rest, (datum) => datum.value) ?? 50);
-  const width = d3.scaleLinear().domain([0, max]).range([0, 100]).clamp(true);
-  const strips = rest
-    .map(
-      (datum) => `
-        <div class="hero-concern__strip" style="--w:${width(datum.value).toFixed(2)}%;">
-          <span>${escapeHtml(datum.label)}</span>
-          <strong>${datum.value}%</strong>
-          <div class="bar-track"><i class="bar-fill" aria-hidden="true"></i></div>
+  const dials = data
+    .map((datum, index) => {
+      const isHero = index === 0;
+      const color = concernColorFor(datum.label);
+
+      return `
+        <div class="hero-concern__dial hero-concern__dial--${color.tone}${
+          isHero ? " hero-concern__dial--primary" : ""
+        }" style="--angle:${angle(datum.value).toFixed(2)}deg;">
+          <div class="hero-concern__ring" aria-hidden="true">
+            <span>${datum.value}<small>%</small></span>
+          </div>
+          <div class="hero-concern__kind">${escapeHtml(color.label)}</div>
+          <div class="hero-concern__label">${escapeHtml(datum.label)}</div>
         </div>
-      `,
-    )
+      `;
+    })
     .join("");
 
   const body = `
     <div class="hero-concern">
-      <div class="hero-concern__dial" style="--angle:${angle(hero.value).toFixed(2)}deg;">
-        <div class="hero-concern__ring" aria-hidden="true">
-          <span>${hero.value}<small>%</small></span>
-        </div>
-        <div class="hero-concern__label">${escapeHtml(hero.label)}</div>
-      </div>
+      <div class="hero-concern__grid">${dials}</div>
       <div class="hero-concern__note">The email does not create the fear. It gives the fear a subject line.</div>
-      <div class="hero-concern__strips">${strips}</div>
     </div>
   `;
 
