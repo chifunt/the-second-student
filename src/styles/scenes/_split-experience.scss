@@ -206,8 +206,13 @@
 }
 
 .split-reading .survey-quote__source {
+  color: rgba(216, 200, 255, 0.88);
   font-size: 8px;
   margin-top: 2px;
+}
+
+.split-reading .survey-quote__source small {
+  opacity: 0.86;
 }
 
 .split-reading--better {

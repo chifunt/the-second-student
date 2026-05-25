@@ -26,14 +26,14 @@ const experienceSegments = [
 
 export const splitExperienceScene = createVisualScene({
   id: "split-experience-scene",
-  title: "The Same Chart, Two Lives",
+  title: "Where the Student Stands",
   mode: "ambiguous",
   sceneClass: "s7",
   mood: "paper-cold",
   screenLabel: "07 Same Chart Two Lives",
   animate: animateSplitExperienceScene,
   body: `
-    <div class="chyron"><span class="num">07</span><span class="sep">/</span><span>The Same Chart, Two Lives</span></div>
+    <div class="chyron"><span class="num">07</span><span class="sep">/</span><span>Where the Student Stands</span></div>
     <div class="scene-inner scene-inner--wide split-experience">
       <section class="split-side split-side--deliberate" aria-label="Deliberate student perspective">
         <div class="split-profile">
@@ -64,8 +64,8 @@ export const splitExperienceScene = createVisualScene({
       </section>
 
       <div class="split-chart-stage" aria-label="Shared student experience impact chart">
-        <p class="split-kicker">Same data. Same students. Different experiences.</p>
-        <h2 id="split-experience-scene-title">The Same Chart, Two Lives</h2>
+        <p class="split-kicker">Same data. Different conditions.</p>
+        <h2 id="split-experience-scene-title">Where the Student Stands</h2>
         <div class="split-chart">
           ${renderStackedBar(experienceSegments, {
             title: "Impact of AI on student experience",
