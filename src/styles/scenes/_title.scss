@@ -188,7 +188,7 @@
   box-shadow:
     0 28px 58px rgba(0, 0, 0, 0.52),
     0 0 30px rgba(255, 255, 255, 0.22);
-  transform: scale(1.06);
+  transform: translateY(-1px) rotate(-1.4deg) scale(1.06);
 }
 
 .open-btn::after {
