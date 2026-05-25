@@ -4,42 +4,42 @@ import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
 const ladderRows = [
-  [
-    stats.assessmentUses[0].zone,
-    stats.assessmentUses[0].label,
-    stats.assessmentUses[0].value,
-    "AI clarifies a definition, but the student still writes the claim.",
-  ],
-  [
-    stats.assessmentUses[1].zone,
-    stats.assessmentUses[1].label,
-    stats.assessmentUses[1].value,
-    "AI compresses a paper; the student decides what matters.",
-  ],
-  [
-    stats.assessmentUses[3].zone,
-    stats.assessmentUses[3].label,
-    stats.assessmentUses[3].value,
-    "AI helps order ideas; the argument remains visible.",
-  ],
-  [
-    "amber",
-    "Edit my writing",
-    null,
-    "Where help can become voice if every suggestion is accepted.",
-  ],
-  [
-    stats.assessmentUses[5].zone,
-    stats.assessmentUses[5].label,
-    stats.assessmentUses[5].value,
-    "A draft arrives before judgement has fully formed.",
-  ],
-  [
-    stats.assessmentUses[6].zone,
-    stats.assessmentUses[6].label,
-    stats.assessmentUses[6].value,
-    "The submitted words may no longer show the student's thinking.",
-  ],
+  {
+    zone: stats.assessmentUses[0].zone,
+    label: stats.assessmentUses[0].label,
+    value: stats.assessmentUses[0].value,
+    desc: "AI clarifies a definition, but the student still writes the claim.",
+  },
+  {
+    zone: stats.assessmentUses[1].zone,
+    label: stats.assessmentUses[1].label,
+    value: stats.assessmentUses[1].value,
+    desc: "AI compresses a paper; the student decides what matters.",
+  },
+  {
+    zone: stats.assessmentUses[3].zone,
+    label: stats.assessmentUses[3].label,
+    value: stats.assessmentUses[3].value,
+    desc: "AI helps order ideas; the argument remains visible.",
+  },
+  {
+    zone: "boundary",
+    label: "Edit my writing",
+    value: null,
+    desc: "Boundary marker: there is no survey value for this exact step.",
+  },
+  {
+    zone: stats.assessmentUses[5].zone,
+    label: stats.assessmentUses[5].label,
+    value: stats.assessmentUses[5].value,
+    desc: "A draft arrives before judgement has fully formed.",
+  },
+  {
+    zone: stats.assessmentUses[6].zone,
+    label: stats.assessmentUses[6].label,
+    value: stats.assessmentUses[6].value,
+    desc: "The submitted words may no longer show the student's thinking.",
+  },
 ] as const;
 
 export const boundaryScene = createVisualScene({
@@ -73,14 +73,22 @@ export const boundaryScene = createVisualScene({
             <p class="revision-note">revision history - 14 saved versions - last opened 14:21</p>
           </div>
           <aside class="writer-panel">
-            <h4>Support to substitution</h4>
-            <p class="sub">Where does AI use sit on the path to the submitted assignment?</p>
-            <div class="ladder">
+            <h4>The Authorship Threshold</h4>
+            <p class="sub">The same sequence changes meaning when generated words enter the draft.</p>
+            <div class="threshold-summary" aria-label="Boundary markers">
+              <div><strong>${stats.assessmentUses[5].value}%</strong><span>generate text, then edit</span></div>
+              <div><strong>${stats.assessmentUses[6].value}%</strong><span>include AI text directly</span></div>
+            </div>
+            <div class="threshold-note">Boundary: when generated words enter the submitted draft.</div>
+            <div class="ladder threshold-ladder">
               ${ladderRows
                 .map(
-                  ([zone, label, pct, desc], index) => `
-                    <button class="rung" data-zone="${zone}" type="button">
-                      <span>${index + 1}</span><span>${label}</span><span class="pct">${pct === null ? "voice" : `${pct}%`}<span class="toggle-ic">></span></span>
+                  ({ zone, label, value, desc }, index) => `
+                    <button class="rung" data-zone="${zone}" style="--w:${value ?? 0}%;" type="button">
+                      <span>${index + 1}</span>
+                      <span class="rung-label">${label}</span>
+                      <span class="pct">${value === null ? "boundary" : `${value}%`}<span class="toggle-ic">></span></span>
+                      <span class="rung-meter" aria-hidden="true"><i></i></span>
                       <span class="desc">${desc}</span>
                     </button>
                   `,

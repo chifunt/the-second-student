@@ -56,9 +56,9 @@ Why: the story needs a boundary map more than another ranked chart.
 
 Primary point: support can slide toward substitution.
 
-Visual: support-to-substitution ladder using the same assessment-use values and zones.
+Visual: authorship-threshold ladder using true-scale meters for measured survey values, with a separate non-survey boundary marker for writing voice.
 
-Why: a ladder makes escalation visible and ties directly to the document editor action.
+Why: this scene is not another distribution chart; it shows the moment the workflow crosses from support into generated words entering the draft.
 
 ### 06 Skill Gap
 

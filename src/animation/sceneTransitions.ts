@@ -191,7 +191,7 @@ export function animateBoundaryScene(container: HTMLElement): void {
       0.35,
     )
     .from(
-      container.querySelectorAll(".rung"),
+      container.querySelectorAll(".threshold-summary > div, .threshold-note, .rung"),
       {
         autoAlpha: 0,
         duration: 0.35,
