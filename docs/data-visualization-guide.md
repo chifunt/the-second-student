@@ -48,7 +48,7 @@ Why: this scene is about why the chat opens in a panic moment, so immediacy and 
 
 Primary point: the same tool changes meaning depending on where judgement remains.
 
-Visual: `renderWorkflowRiskMap`, grouping assessed-work uses into support, amber, and authorship-risk zones.
+Visual: `renderWorkflowRiskMap`, grouping assessed-work uses into understanding, drafting-boundary, and authorship-risk zones.
 
 Why: the story needs a boundary map more than another ranked chart.
 

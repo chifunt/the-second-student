@@ -64,9 +64,10 @@ export const deliberateWorkflowScene = createVisualScene({
           </div>
           <aside class="studio-data">
             ${renderWorkflowRiskMap(stats.assessmentUses, {
-              title: "Support to substitution",
+              title: "Where judgement stays visible",
               tone: "mixed",
-              description: "The same tool looks different when judgement stays visible.",
+              description:
+                "Most assessed-work uses sit before drafting. Direct insertion is much smaller, but it changes the authorship question.",
             })}
           </aside>
         </div>

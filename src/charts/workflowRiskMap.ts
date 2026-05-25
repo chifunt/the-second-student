@@ -6,12 +6,12 @@ type WorkflowZone = NonNullable<ChartDatum["zone"]>;
 
 const zoneCopy: Record<WorkflowZone, { label: string; caption: string }> = {
   support: {
-    label: "Support",
-    caption: "The student still decides what matters.",
+    label: "Understanding",
+    caption: "AI helps the student find, explain, and organise material.",
   },
   amber: {
-    label: "Amber",
-    caption: "The draft starts to arrive before judgement.",
+    label: "Drafting boundary",
+    caption: "The draft starts to arrive before judgement is fully settled.",
   },
   risk: {
     label: "Authorship risk",
@@ -21,13 +21,34 @@ const zoneCopy: Record<WorkflowZone, { label: string; caption: string }> = {
 
 const zoneOrder: WorkflowZone[] = ["support", "amber", "risk"];
 
+const summaryLabels = [
+  "Explain concepts",
+  "Summarise a relevant article",
+  "Include AI text directly",
+] as const;
+
 export function renderWorkflowRiskMap(
   data: readonly ChartDatum[],
   options: ChartOptions,
 ): string {
-  const width = d3.scaleLinear().domain([0, 70]).range([0, 100]).clamp(true);
+  const width = d3.scaleLinear().domain([0, 100]).range([0, 100]).clamp(true);
+  const summary = summaryLabels
+    .map((label) => data.find((datum) => datum.label === label))
+    .filter((datum): datum is ChartDatum => Boolean(datum));
   const body = `
     <div class="workflow-map">
+      <div class="workflow-map__summary">
+        ${summary
+          .map(
+            (datum) => `
+              <div class="workflow-map__summary-card workflow-map__summary-card--${datum.zone ?? "support"}">
+                <strong>${datum.value}<small>%</small></strong>
+                <span>${escapeHtml(datum.label)}</span>
+              </div>
+            `,
+          )
+          .join("")}
+      </div>
       ${zoneOrder
         .map((zone) => {
           const zoneItems = data.filter((datum) => datum.zone === zone);

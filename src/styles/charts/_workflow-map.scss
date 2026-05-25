@@ -7,7 +7,60 @@
 
 .workflow-map {
   display: grid;
-  gap: 13px;
+  gap: 12px;
+}
+
+.workflow-map__summary {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.workflow-map__summary-card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(47, 142, 139, 0.18);
+  border-radius: 10px;
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 10px;
+}
+
+.workflow-map__summary-card--amber {
+  border-color: rgba(230, 162, 60, 0.32);
+}
+
+.workflow-map__summary-card--risk {
+  border-color: rgba(185, 74, 72, 0.28);
+}
+
+.workflow-map__summary-card strong {
+  color: var(--teal);
+  font-family: var(--font-mono);
+  font-size: 27px;
+  letter-spacing: -0.07em;
+  line-height: 0.9;
+}
+
+.workflow-map__summary-card--amber strong {
+  color: var(--amber);
+}
+
+.workflow-map__summary-card--risk strong {
+  color: var(--red);
+}
+
+.workflow-map__summary-card small {
+  color: color-mix(in srgb, currentColor 62%, transparent);
+  font-size: 0.42em;
+  letter-spacing: 0;
+}
+
+.workflow-map__summary-card span {
+  color: #4c5d72;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .workflow-map__zone {
@@ -15,7 +68,7 @@
   border: 1px solid #e4e1d8;
   border-left: 4px solid var(--teal);
   border-radius: 10px;
-  padding: 13px;
+  padding: 11px;
 }
 
 .workflow-map__zone--amber {
@@ -29,7 +82,7 @@
 .workflow-map__head {
   display: grid;
   gap: 3px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .workflow-map__head strong {
@@ -45,7 +98,7 @@
 
 .workflow-map__items {
   display: grid;
-  gap: 9px;
+  gap: 8px;
 }
 
 .workflow-map__item {
@@ -70,6 +123,10 @@
   color: #18202a;
   font-family: var(--font-mono);
   font-size: 11px;
+}
+
+.workflow-map__item .bar-track {
+  height: 6px;
 }
 
 .workflow-map__zone--amber .bar-track .bar-fill {
