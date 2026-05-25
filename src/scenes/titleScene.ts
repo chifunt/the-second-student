@@ -1,6 +1,8 @@
 import { animateTitleScene } from "../animation/sceneTransitions";
+import { escapeHtml } from "../charts/chartUtils";
 import { copy } from "../data/copy";
 import { stats, surveySource } from "../data/surveyStats";
+import { getTitleQuoteLayout } from "../ui/titleQuoteLayout";
 import { createVisualScene } from "./createScene";
 
 const ghostRows = [
@@ -16,15 +18,18 @@ const ghostRows = [
   ["peer-mentoring", "Drop-in this week", "Sun"],
 ] as const;
 
-const quoteDepth = ["tq-far", "tq-near", "tq-mid"] as const;
-
 function renderFloatingQuotes(): string {
-  return copy.floatingQuotes
-    .map((quote, index) => {
-      const speaker = quote[0] === quote[0].toLowerCase() ? "tq-student" : "tq-ai";
-      const y = 8 + index * 7;
-      const duration = 24 + (index % 5) * 4;
-      return `<span class="tq ${speaker} ${quoteDepth[index % quoteDepth.length]}" style="--y:${y}%;--d:${index * 3}s;--dur:${duration}s;">${quote}</span>`;
+  return getTitleQuoteLayout(copy.floatingQuotes)
+    .map((quote) => {
+      const speaker = quote.voice === "ai" ? "tq-ai" : "tq-student";
+      const responsiveClass = [
+        quote.lane >= 9 ? "tq-mobile-hidden" : "",
+        quote.lane >= 12 ? "tq-tablet-hidden" : "",
+      ]
+        .filter(Boolean)
+        .join(" ");
+
+      return `<span class="tq ${speaker} tq-${quote.depth} ${responsiveClass}" data-lane="${quote.lane}" style="--y:${quote.y}%;--d:${quote.delay}s;--dur:${quote.duration}s;">${escapeHtml(quote.text)}</span>`;
     })
     .join("");
 }
