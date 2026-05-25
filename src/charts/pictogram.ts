@@ -1,5 +1,10 @@
 import type { ChartOptions } from "./chartTypes";
-import { escapeHtml, renderFigure, toneClass } from "./chartUtils";
+import {
+  escapeHtml,
+  renderEvidenceAttributes,
+  renderFigure,
+  toneClass,
+} from "./chartUtils";
 
 export type PictogramOptions = ChartOptions & {
   label: string;
@@ -30,7 +35,7 @@ export function renderPictogram(options: PictogramOptions): string {
   const body = `
     <div class="pictogram" aria-label="${escapeHtml(
       `${options.value} of ${total} students ${options.label}`,
-    )}">
+    )}" ${renderEvidenceAttributes(options.title, `${options.value} of ${total}`, options.evidence)}>
       <div class="pictogram__headline">
         <span>${options.value}</span><small>of ${total}</small>
       </div>

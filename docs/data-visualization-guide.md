@@ -8,6 +8,7 @@ The visualizations should make the narrative point immediately. A chart is part 
 - Put labels, visible values, source notes, and zone metadata in data/copy files.
 - Label any real student excerpt with the shared survey free-text quote treatment.
 - Treat the Excel workbook as canonical for percentages, but not for quotes: the workbook contains weighted aggregate tables, while quote excerpts come from HEPI Report 199 open-text response sections.
+- Use the shared evidence-detail layer for details on demand: hover/focus/tap reveals source table, survey wording, base, interpretation, and grouped/detailed breakdowns where useful.
 - Use D3 for scale calculations or SVG structure when a chart needs quantitative layout.
 - Use GSAP only after the chart structure exists.
 - Do not rely on color alone; every visual needs text labels or positional encoding.
@@ -30,6 +31,8 @@ Visual: `renderHeroConcernChart` with semantic concern dials for academic risk, 
 
 Why: the scene is about panic, so the leading concern should dominate while the supporting concerns still feel like part of the same anxious screen world.
 
+Details on demand: each concern dial exposes the exact workbook table, survey question, and concern category interpretation.
+
 ### 02 Panic Button
 
 Primary point: 94% is a population-scale behavior, not an abstract percentage.
@@ -37,6 +40,8 @@ Primary point: 94% is a population-scale behavior, not an abstract percentage.
 Visual: pictogram/icon array for assessed-work AI use.
 
 Why: student icons make the prevalence legible as people in the same environment as the protagonist.
+
+Details on demand: the pictogram explains what "94 of 100" represents and where the assessed-work prevalence comes from.
 
 ### 03 Panic Chat
 
@@ -46,6 +51,8 @@ Visual: `renderSupportSignalChart`, with 38% instant support as the hero stat, 2
 
 Why: this scene is about why the chat opens in a panic moment, so immediacy and availability should lead rather than a generic ranked list.
 
+Details on demand: each motivation reveals its source table and why it matters in the panic-chat moment.
+
 ### 04 Deliberate Workflow
 
 Primary point: the same tool changes meaning depending on where judgement remains.
@@ -53,6 +60,8 @@ Primary point: the same tool changes meaning depending on where judgement remain
 Visual: `renderWorkflowRiskMap`, grouping assessed-work uses into understanding, drafting-boundary, and authorship-risk zones.
 
 Why: the story needs a boundary map more than another ranked chart.
+
+Details on demand: each mapped use reveals the survey wording plus the zone interpretation.
 
 Quote treatment: the study-buddy excerpt is a real free-text quote and should remain labeled as survey source material.
 
@@ -64,6 +73,8 @@ Visual: authorship-threshold ladder using true-scale meters for measured survey 
 
 Why: this scene is not another distribution chart; it shows the moment the workflow crosses from support into generated words entering the draft.
 
+Details on demand: measured rungs use evidence cards; the boundary marker remains a narrative marker rather than a survey value.
+
 ### 06 Skill Gap
 
 Primary point: institutions say skills matter more than students feel supported.
@@ -72,6 +83,8 @@ Visual: paired dumbbell/gap charts for 68 vs 48 and 50 vs 38.
 
 Why: gaps are the story; paired points communicate distance more directly than separate bars.
 
+Details on demand: each gap exposes the compared statement family and workbook table set.
+
 ### 07 Split Experience
 
 Primary point: the same population distribution can read as support or harm depending on the student's conditions.
@@ -79,6 +92,8 @@ Primary point: the same population distribution can read as support or harm depe
 Visual: theatrical 100% stacked bar for 49 better, 35 no impact, 16 worse.
 
 Why: this is the mirror moment; the chart belongs to both student worlds and should sit between them.
+
+Details on demand: the grouped bar reveals the five-category response breakdown.
 
 Quote treatment: the worse-side excerpt is a real free-text quote and should use the shared survey quote label.
 
@@ -90,6 +105,8 @@ Visual: dependent prompt sequence, refusal beat, risk chips, and 100% stacked so
 
 Why: the experience-impact distribution has already been established, so this scene should show the mechanism: AI becoming the first place the work starts.
 
+Details on demand: the grouped source-balance bar reveals the five original response options.
+
 Quote treatment: use a different real skill-erosion excerpt here so the scene does not repeat Scene 07.
 
 ### 09 Companion
@@ -100,6 +117,8 @@ Visual: compact student pictogram for 15% plus diverging loneliness bar for less
 
 Why: the pictogram makes the companionship group feel human and intimate, while the diverging bar shows the mixed emotional effect.
 
+Details on demand: the pictogram exposes the companionship-use source, and the loneliness bar exposes the five-category less/no/more breakdown.
+
 Quote treatment: the companion headline is a real free-text quote and should remain source-labeled.
 
 ### 10 Final Paywall
@@ -109,3 +128,5 @@ Primary point: the survey recap collapses into one unresolved question.
 Visual: ghosted recap stat cards behind the paywall.
 
 Why: data should feel present but interrupted, matching the final interaction beat.
+
+Details on demand: each recap card exposes the workbook-backed source note without cluttering the ending.

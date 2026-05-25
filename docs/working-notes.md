@@ -8,6 +8,7 @@ This file is for fast orientation during maintenance and refactors.
 - `src/scenes/index.ts`: canonical scene order.
 - `src/scenes/createScene.ts`: shared scene factory.
 - `src/data/surveyStats.ts`: canonical survey values and source metadata.
+- `src/data/evidence.ts`: details-on-demand metadata for chart evidence cards.
 - `src/data/copy.ts`: narrative copy and quotes.
 - `src/ui/surveyQuote.ts`: shared treatment for real free-text excerpts.
 - `src/charts/chartUtils.ts`: chart escaping, figure wrapper, SVG helper.
@@ -19,6 +20,7 @@ This file is for fast orientation during maintenance and refactors.
 
 - Preserve `createVisualScene` and `SceneConfig` unless doing a deliberate architecture change.
 - Keep data centralized; do not introduce duplicate visible survey values in scene files.
+- Route new chart evidence through `src/data/evidence.ts` and `renderEvidenceAttributes`; do not create per-scene tooltip logic.
 - Use the shared survey quote component for real student excerpts; leave fictional interface chatter untagged.
 - The local Excel workbook is the canonical source for displayed percentages. It has weighted aggregate tables, not respondent-level quote text.
 - Keep chart helpers reusable and typed.

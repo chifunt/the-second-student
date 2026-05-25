@@ -1,6 +1,11 @@
 import * as d3 from "d3";
 import type { ChartOptions } from "./chartTypes";
-import { escapeHtml, renderFigure, toneClass } from "./chartUtils";
+import {
+  escapeHtml,
+  renderEvidenceAttributes,
+  renderFigure,
+  toneClass,
+} from "./chartUtils";
 
 export type DivergingDatum = {
   lessLabel: string;
@@ -18,13 +23,13 @@ export function renderDivergingBar(data: DivergingDatum, options: ChartOptions):
       <div class="diverging-bar">
         <div class="seg less" style="--w:${width(data.lessValue).toFixed(
           2,
-        )}%;">Less ${data.lessValue}%</div>
+        )}%;" ${renderEvidenceAttributes(data.lessLabel, data.lessValue, options.evidence)}>Less ${data.lessValue}%</div>
         <div class="seg no" style="--w:${width(data.neutralValue).toFixed(
           2,
-        )}%;">No impact ${data.neutralValue}%</div>
+        )}%;" ${renderEvidenceAttributes(data.neutralLabel, data.neutralValue, options.evidence)}>No impact ${data.neutralValue}%</div>
         <div class="seg more" style="--w:${width(data.moreValue).toFixed(
           2,
-        )}%;">More ${data.moreValue}%</div>
+        )}%;" ${renderEvidenceAttributes(data.moreLabel, data.moreValue, options.evidence)}>More ${data.moreValue}%</div>
       </div>
       <div class="diverging-axis">
         <span>${escapeHtml(data.lessLabel)}</span>

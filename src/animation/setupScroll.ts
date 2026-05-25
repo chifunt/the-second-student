@@ -3,6 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { SceneConfig } from "../scenes/sceneTypes";
 import { setupCountUps } from "./countUp";
 import { setupDensityTicks } from "./densityTicks";
+import { setupEvidenceDetails } from "./evidenceDetails";
 import { setupFakeTyping } from "./fakeTyping";
 import { getShouldReduceMotion } from "./motionPreference";
 import { setupProgressDots } from "./progressNavigation";
@@ -25,6 +26,7 @@ export function setupScroll(scenes: readonly SceneConfig[]): void {
 
   setupDensityTicks();
   setupAboutDrawer();
+  setupEvidenceDetails();
   setupInteractiveDetails();
   setupFakeTyping();
   setupProgressDots(scenes, shouldReduceMotion);

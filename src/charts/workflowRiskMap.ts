@@ -1,6 +1,11 @@
 import * as d3 from "d3";
 import type { ChartDatum, ChartOptions } from "./chartTypes";
-import { escapeHtml, renderFigure, toneClass } from "./chartUtils";
+import {
+  escapeHtml,
+  renderEvidenceAttributes,
+  renderFigure,
+  toneClass,
+} from "./chartUtils";
 
 type WorkflowZone = NonNullable<ChartDatum["zone"]>;
 
@@ -41,7 +46,9 @@ export function renderWorkflowRiskMap(
         ${summary
           .map(
             (datum) => `
-              <div class="workflow-map__summary-card workflow-map__summary-card--${datum.zone ?? "support"}">
+              <div class="workflow-map__summary-card workflow-map__summary-card--${
+                datum.zone ?? "support"
+              }" ${renderEvidenceAttributes(datum.label, datum.value, options.evidence)}>
                 <strong>${datum.value}<small>%</small></strong>
                 <span>${escapeHtml(datum.label)}</span>
               </div>
@@ -65,7 +72,11 @@ export function renderWorkflowRiskMap(
                     (datum) => `
                       <div class="workflow-map__item" style="--w:${width(
                         datum.value,
-                      ).toFixed(2)}%;">
+                      ).toFixed(2)}%;" ${renderEvidenceAttributes(
+                        datum.label,
+                        datum.value,
+                        options.evidence,
+                      )}>
                         <div class="workflow-map__meta">
                           <span>${escapeHtml(datum.label)}</span>
                           <strong>${datum.value}%</strong>

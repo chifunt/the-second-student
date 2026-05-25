@@ -1,6 +1,7 @@
 import { animateDeliberateWorkflowScene } from "../animation/sceneTransitions";
 import { renderWorkflowRiskMap } from "../charts/workflowRiskMap";
 import { copy } from "../data/copy";
+import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { renderSurveyQuote } from "../ui/surveyQuote";
 import { createVisualScene } from "./createScene";
@@ -69,6 +70,7 @@ export const deliberateWorkflowScene = createVisualScene({
               tone: "mixed",
               description:
                 "Most assessed-work uses sit before drafting. Direct insertion is much smaller, but it changes the authorship question.",
+              evidence: evidence.assessmentUses,
             })}
           </aside>
         </div>

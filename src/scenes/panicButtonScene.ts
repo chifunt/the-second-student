@@ -1,6 +1,7 @@
 import { animatePanicButtonScene } from "../animation/sceneTransitions";
 import { renderPictogram } from "../charts/pictogram";
 import { copy } from "../data/copy";
+import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -73,6 +74,7 @@ export const panicButtonScene = createVisualScene({
             label: "use GenAI to help with assessed work",
             description:
               "A near-full room of students makes the panic feel less exceptional.",
+            evidence: evidence.assessmentPrevalence,
           })}
         </aside>
       </div>

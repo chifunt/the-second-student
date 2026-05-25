@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import type { ChartTone } from "./chartTypes";
+import type { ChartTone, EvidenceContext } from "./chartTypes";
 
 const htmlEntities: Record<string, string> = {
   "&": "&amp;",
@@ -33,6 +33,43 @@ export function createSvgChart(
 
   svg.append("title").text(title);
   return svg;
+}
+
+function formatBreakdown(context: EvidenceContext): string | undefined {
+  if (!context.breakdown || context.breakdown.length === 0) {
+    return undefined;
+  }
+
+  return context.breakdown.map((datum) => `${datum.label}: ${datum.value}%`).join(" | ");
+}
+
+export function renderEvidenceAttributes(
+  title: string,
+  value: number | string,
+  context: EvidenceContext | undefined,
+): string {
+  if (!context) {
+    return "";
+  }
+
+  const payload = {
+    title,
+    value: typeof value === "number" ? `${value}%` : value,
+    source: context.source,
+    question: context.question,
+    base: context.base,
+    note: context.interpretations?.[title] ?? context.note,
+    breakdown: formatBreakdown(context),
+  };
+
+  const dataAttributes = Object.entries(payload)
+    .filter((entry): entry is [string, string] => Boolean(entry[1]))
+    .map(([key, datum]) => `data-evidence-${key}="${escapeHtml(datum)}"`)
+    .join(" ");
+
+  return `${dataAttributes} tabindex="0" role="button" aria-describedby="evidence-detail-card" aria-label="Show evidence for ${escapeHtml(
+    title,
+  )}"`;
 }
 
 export function renderFigure(

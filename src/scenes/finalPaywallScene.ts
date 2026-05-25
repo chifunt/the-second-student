@@ -1,5 +1,7 @@
 import { animateFinalPaywallScene } from "../animation/sceneTransitions";
+import { renderEvidenceAttributes } from "../charts/chartUtils";
 import { copy } from "../data/copy";
+import { evidence } from "../data/evidence";
 import { createVisualScene } from "./createScene";
 
 const recapCards = [
@@ -54,7 +56,11 @@ export const finalPaywallScene = createVisualScene({
         ${recapCards
           .map(
             ([icon, value, label], index) => `
-              <div class="ghost-card">
+              <div class="ghost-card" ${renderEvidenceAttributes(
+                label,
+                `${value}%`,
+                evidence.finalRecap[icon],
+              )}>
                 <div class="ghost-icon ghost-icon--${icon}" aria-hidden="true"></div>
                 <div class="v"><span data-countup data-target="${value}" data-suffix="%" data-delay="${200 + index * 100}">${value}%</span></div>
                 <div class="l">${label}</div>

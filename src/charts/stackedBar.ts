@@ -1,6 +1,11 @@
 import * as d3 from "d3";
 import type { ChartOptions, StackDatum } from "./chartTypes";
-import { escapeHtml, renderFigure, toneClass } from "./chartUtils";
+import {
+  escapeHtml,
+  renderEvidenceAttributes,
+  renderFigure,
+  toneClass,
+} from "./chartUtils";
 
 export function renderStackedBar(
   data: readonly StackDatum[],
@@ -14,7 +19,7 @@ export function renderStackedBar(
           (datum) => `
             <div class="seg seg--${datum.tone}" style="--w:${width(datum.value).toFixed(
               2,
-            )}%;">
+            )}%;" ${renderEvidenceAttributes(datum.label, datum.value, options.evidence)}>
               <span>${datum.value}%</span>
               <small>${escapeHtml(datum.label)}</small>
             </div>

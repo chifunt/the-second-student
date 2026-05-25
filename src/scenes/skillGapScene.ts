@@ -1,5 +1,6 @@
 import { animateSkillGapScene } from "../animation/sceneTransitions";
 import { renderGapChart } from "../charts/gapChart";
+import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -57,6 +58,7 @@ export const skillGapScene = createVisualScene({
                 tone: "mixed",
                 description:
                   "What students need compared with what they say they are getting.",
+                evidence: evidence.supportGap,
               },
             )}
           </aside>

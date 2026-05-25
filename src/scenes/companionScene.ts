@@ -2,6 +2,7 @@ import { animateCompanionScene } from "../animation/sceneTransitions";
 import { renderDivergingBar } from "../charts/divergingBar";
 import { renderPictogram } from "../charts/pictogram";
 import { copy } from "../data/copy";
+import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { renderInlineSurveyQuote } from "../ui/surveyQuote";
 import { createVisualScene } from "./createScene";
@@ -47,6 +48,7 @@ export const companionScene = createVisualScene({
             tone: "mixed",
             value: stats.loneliness.companionshipUse,
             label: "use AI for friendship, company, advice or tackling loneliness",
+            evidence: evidence.companionshipUse,
           })}
           ${renderDivergingBar(
             {
@@ -60,6 +62,7 @@ export const companionScene = createVisualScene({
             {
               title: "Effect of AI use on loneliness",
               tone: "mixed",
+              evidence: evidence.lonelinessImpact,
             },
           )}
           <div class="small-data"><span>${stats.loneliness.companionshipUse}% use AI for friendship / company / advice</span><span>n = 1,054</span></div>

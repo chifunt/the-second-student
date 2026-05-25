@@ -1,5 +1,7 @@
 import { animateBoundaryScene } from "../animation/sceneTransitions";
+import { renderEvidenceAttributes } from "../charts/chartUtils";
 import { copy } from "../data/copy";
+import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -84,7 +86,11 @@ export const boundaryScene = createVisualScene({
               ${ladderRows
                 .map(
                   ({ zone, label, value, desc }, index) => `
-                    <button class="rung" data-zone="${zone}" style="--w:${value ?? 0}%;" type="button">
+                    <button class="rung" data-zone="${zone}" style="--w:${value ?? 0}%;" type="button" ${renderEvidenceAttributes(
+                      label,
+                      value === null ? "boundary marker" : value,
+                      value === null ? undefined : evidence.assessmentUses,
+                    )}>
                       <span>${index + 1}</span>
                       <span class="rung-label">${label}</span>
                       <span class="pct">${value === null ? "boundary" : `${value}%`}<span class="toggle-ic">></span></span>

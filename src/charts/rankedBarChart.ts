@@ -1,6 +1,11 @@
 import * as d3 from "d3";
 import type { ChartDatum, ChartOptions } from "./chartTypes";
-import { escapeHtml, renderFigure, toneClass } from "./chartUtils";
+import {
+  escapeHtml,
+  renderEvidenceAttributes,
+  renderFigure,
+  toneClass,
+} from "./chartUtils";
 
 export function renderRankedBarChart(
   data: readonly ChartDatum[],
@@ -13,7 +18,9 @@ export function renderRankedBarChart(
       ${data
         .map(
           (datum) => `
-            <div class="bar-row" style="--w:${width(datum.value).toFixed(2)}%;">
+            <div class="bar-row" style="--w:${width(datum.value).toFixed(
+              2,
+            )}%;" ${renderEvidenceAttributes(datum.label, datum.value, options.evidence)}>
               <div class="bar-row__top">
                 <span class="label">${escapeHtml(datum.label)}</span>
                 <span class="val">${datum.value}%</span>

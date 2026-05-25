@@ -1,6 +1,7 @@
 import { animateDependencyScene } from "../animation/sceneTransitions";
 import { renderStackedBar } from "../charts/stackedBar";
 import { copy } from "../data/copy";
+import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { renderSurveyQuote } from "../ui/surveyQuote";
 import { createVisualScene } from "./createScene";
@@ -78,6 +79,7 @@ export const dependencyScene = createVisualScene({
                 title: "How students combine AI and traditional sources",
                 tone: "mixed",
                 description: `${stats.sourceBalance.aiFirst}% are AI-first; ${stats.sourceBalance.traditionalFirst}% are traditional-source-first.`,
+                evidence: evidence.sourceBalance,
               })}
             </div>
             <div class="dep-themes">

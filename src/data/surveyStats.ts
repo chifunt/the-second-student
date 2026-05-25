@@ -37,26 +37,26 @@ export const stats = {
   },
 
   barriers: [
-    { label: "Being accused of cheating", value: 42, sourceTable: "Table 23" },
-    { label: "False results / hallucinations", value: 35, sourceTable: "Table 23" },
-    { label: "Biased results", value: 32, sourceTable: "Table 23" },
-    { label: "Environmental impact", value: 23, sourceTable: "Table 23" },
+    { label: "Being accused of cheating", value: 42, sourceTable: "Table 34" },
+    { label: "False results / hallucinations", value: 35, sourceTable: "Table 34" },
+    { label: "Biased results", value: 32, sourceTable: "Table 34" },
+    { label: "Environmental impact", value: 23, sourceTable: "Table 34" },
     {
       label: "Institution discourages or bans AI",
       value: 21,
-      sourceTable: "Table 23",
+      sourceTable: "Table 34",
     },
   ],
 
   motivations: [
-    { label: "Improve quality of work", value: 47, sourceTable: "Table 22" },
-    { label: "Save time", value: 45, sourceTable: "Table 22" },
-    { label: "Instant support", value: 38, sourceTable: "Table 22" },
-    { label: "Personalised support", value: 31, sourceTable: "Table 22" },
+    { label: "Improve quality of work", value: 47, sourceTable: "Table 33" },
+    { label: "Save time", value: 45, sourceTable: "Table 33" },
+    { label: "Instant support", value: 38, sourceTable: "Table 33" },
+    { label: "Personalised support", value: 31, sourceTable: "Table 33" },
     {
       label: "Outside traditional study hours",
       value: 28,
-      sourceTable: "Table 22",
+      sourceTable: "Table 33",
     },
   ],
 
@@ -184,9 +184,9 @@ export const stats = {
 export const sourceNotes = {
   adoption: "Workbook prevalence tables and HEPI/Kortext report summary.",
   assessmentUses: "Workbook Table 18, Q2a.",
-  motivations: "Workbook Table 22.",
-  barriers: "Workbook Table 23.",
-  supportGap: "Workbook Tables 29 and 30.",
+  motivations: "Workbook Table 33.",
+  barriers: "Workbook Table 34.",
+  supportGap: "Workbook Tables 28, 29, 30, 31, and 32.",
   experience: "Workbook Table 37.",
   sourceBalance: "Workbook Table 38.",
   loneliness: "Workbook Tables 34 and 35.",

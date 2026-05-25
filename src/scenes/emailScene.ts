@@ -1,6 +1,7 @@
 import { animateEmailScene } from "../animation/sceneTransitions";
 import { renderHeroConcernChart } from "../charts/heroConcernChart";
 import { copy } from "../data/copy";
+import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -121,6 +122,7 @@ export const emailScene = createVisualScene({
               tone: "risk",
               description:
                 "Top concerns students report around using AI for assessed work.",
+              evidence: evidence.barriers,
             })}
           </aside>
         </div>

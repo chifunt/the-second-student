@@ -1,6 +1,11 @@
 import * as d3 from "d3";
 import type { ChartDatum, ChartOptions } from "./chartTypes";
-import { escapeHtml, renderFigure, toneClass } from "./chartUtils";
+import {
+  escapeHtml,
+  renderEvidenceAttributes,
+  renderFigure,
+  toneClass,
+} from "./chartUtils";
 
 export function renderProgressBars(
   data: readonly ChartDatum[],
@@ -12,7 +17,9 @@ export function renderProgressBars(
       ${data
         .map(
           (datum) => `
-            <div class="progress-stat" style="--w:${width(datum.value).toFixed(2)}%;">
+            <div class="progress-stat" style="--w:${width(datum.value).toFixed(
+              2,
+            )}%;" ${renderEvidenceAttributes(datum.label, datum.value, options.evidence)}>
               <div class="progress-stat__num">${datum.value}<span>%</span></div>
               <div class="progress-stat__label">${escapeHtml(datum.label)}</div>
               <div class="bar-track">

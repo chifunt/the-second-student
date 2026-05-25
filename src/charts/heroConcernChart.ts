@@ -1,6 +1,11 @@
 import * as d3 from "d3";
 import type { ChartDatum, ChartOptions } from "./chartTypes";
-import { escapeHtml, renderFigure, toneClass } from "./chartUtils";
+import {
+  escapeHtml,
+  renderEvidenceAttributes,
+  renderFigure,
+  toneClass,
+} from "./chartUtils";
 
 type ConcernTone = "academic" | "information" | "system";
 
@@ -44,7 +49,11 @@ export function renderHeroConcernChart(
       return `
         <div class="hero-concern__dial hero-concern__dial--${color.tone}${
           isHero ? " hero-concern__dial--primary" : ""
-        }" style="--angle:${angle(datum.value).toFixed(2)}deg;">
+        }" style="--angle:${angle(datum.value).toFixed(2)}deg;" ${renderEvidenceAttributes(
+          datum.label,
+          datum.value,
+          options.evidence,
+        )}>
           <div class="hero-concern__ring" aria-hidden="true">
             <span>${datum.value}<small>%</small></span>
           </div>

@@ -1,6 +1,7 @@
 import { animatePanicChatScene } from "../animation/sceneTransitions";
 import { renderSupportSignalChart } from "../charts/supportSignalChart";
 import { copy } from "../data/copy";
+import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
 
@@ -64,6 +65,7 @@ export const panicChatScene = createVisualScene({
               title: "Why the chat opens now",
               tone: "support",
               description: "Motivations that make AI feel available in the moment.",
+              evidence: evidence.motivations,
             })}
           </aside>
         </div>

@@ -1,14 +1,25 @@
 import * as d3 from "d3";
 import type { ChartDatum, ChartOptions } from "./chartTypes";
-import { escapeHtml, renderFigure, toneClass } from "./chartUtils";
+import {
+  escapeHtml,
+  renderEvidenceAttributes,
+  renderFigure,
+  toneClass,
+} from "./chartUtils";
 
 function findDatum(data: readonly ChartDatum[], label: string): ChartDatum | undefined {
   return data.find((datum) => datum.label === label);
 }
 
-function renderTrack(datum: ChartDatum, width: d3.ScaleLinear<number, number>): string {
+function renderTrack(
+  datum: ChartDatum,
+  width: d3.ScaleLinear<number, number>,
+  options: ChartOptions,
+): string {
   return `
-    <div class="support-signal__track" style="--w:${width(datum.value).toFixed(2)}%;">
+    <div class="support-signal__track" style="--w:${width(datum.value).toFixed(
+      2,
+    )}%;" ${renderEvidenceAttributes(datum.label, datum.value, options.evidence)}>
       <div>
         <span>${escapeHtml(datum.label)}</span>
         <strong>${datum.value}%</strong>
@@ -37,11 +48,19 @@ export function renderSupportSignalChart(
   }
 
   const width = d3.scaleLinear().domain([0, 100]).range([0, 100]).clamp(true);
-  const tracks = supportingMotives.map((datum) => renderTrack(datum, width)).join("");
+  const tracks = supportingMotives
+    .map((datum) => renderTrack(datum, width, options))
+    .join("");
 
   const body = `
     <div class="support-signal">
-      <div class="support-signal__hero" style="--w:${width(instantSupport.value).toFixed(2)}%;">
+      <div class="support-signal__hero" style="--w:${width(instantSupport.value).toFixed(
+        2,
+      )}%;" ${renderEvidenceAttributes(
+        instantSupport.label,
+        instantSupport.value,
+        options.evidence,
+      )}>
         <span class="support-signal__kicker">Immediate reply</span>
         <strong>${instantSupport.value}<small>%</small></strong>
         <p>Instant support</p>
@@ -50,7 +69,13 @@ export function renderSupportSignalChart(
           <i></i>
         </div>
       </div>
-      <div class="support-signal__night" style="--w:${width(outsideHours.value).toFixed(2)}%;">
+      <div class="support-signal__night" style="--w:${width(outsideHours.value).toFixed(
+        2,
+      )}%;" ${renderEvidenceAttributes(
+        outsideHours.label,
+        outsideHours.value,
+        options.evidence,
+      )}>
         <strong>${outsideHours.value}<small>%</small></strong>
         <div>
           <span class="support-signal__kicker">After-hours support</span>

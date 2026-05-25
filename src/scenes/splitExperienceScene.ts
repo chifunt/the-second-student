@@ -1,6 +1,7 @@
 import { animateSplitExperienceScene } from "../animation/sceneTransitions";
 import { renderStackedBar } from "../charts/stackedBar";
 import { copy } from "../data/copy";
+import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { renderInlineSurveyQuote } from "../ui/surveyQuote";
 import { createVisualScene } from "./createScene";
@@ -71,6 +72,7 @@ export const splitExperienceScene = createVisualScene({
             tone: "mixed",
             description:
               "Grouped responses to whether generative AI made the student experience better, the same, or worse.",
+            evidence: evidence.experience,
           })}
         </div>
         <p class="split-final-caption">The same chart does not tell one student story. It depends where the student stands.</p>

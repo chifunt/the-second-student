@@ -1,6 +1,11 @@
 import * as d3 from "d3";
 import type { ChartOptions, GapDatum } from "./chartTypes";
-import { escapeHtml, renderFigure, toneClass } from "./chartUtils";
+import {
+  escapeHtml,
+  renderEvidenceAttributes,
+  renderFigure,
+  toneClass,
+} from "./chartUtils";
 
 export function renderGapChart(data: readonly GapDatum[], options: ChartOptions): string {
   const position = d3.scaleLinear().domain([0, 100]).range([0, 100]).clamp(true);
@@ -11,7 +16,11 @@ export function renderGapChart(data: readonly GapDatum[], options: ChartOptions)
           const low = Math.min(datum.actual, datum.expected);
           const high = Math.max(datum.actual, datum.expected);
           return `
-            <div class="dumbbell">
+            <div class="dumbbell" ${renderEvidenceAttributes(
+              datum.label,
+              `${Math.abs(datum.expected - datum.actual)} pt gap`,
+              options.evidence,
+            )}>
               <div class="dumbbell__title">${escapeHtml(datum.label)}</div>
               <div
                 class="dumbbell-axis"
