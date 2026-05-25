@@ -66,6 +66,23 @@ function revealMessages(
   }
 }
 
+function getCursorTarget(container: HTMLElement): { left: number; top: number } {
+  const reader = container.querySelector<HTMLElement>(".s2-reader");
+  const copyItem = container.querySelector<HTMLElement>(".context-menu .copy");
+
+  if (!reader || !copyItem) {
+    return { left: 0, top: 0 };
+  }
+
+  const readerBox = reader.getBoundingClientRect();
+  const copyBox = copyItem.getBoundingClientRect();
+
+  return {
+    left: copyBox.left - readerBox.left + Math.min(58, copyBox.width * 0.34),
+    top: copyBox.top - readerBox.top + copyBox.height / 2 - 2,
+  };
+}
+
 export function animateTitleScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
 
@@ -108,26 +125,33 @@ export function animateEmailScene(container: HTMLElement): void {
 
 export function animatePanicButtonScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
+  const cursor = container.querySelector(".cursor");
+  const contextMenu = container.querySelector(".context-menu");
+  const copyItem = container.querySelector(".context-menu .copy");
 
   timeline
     .fromTo(
-      container.querySelector(".cursor"),
+      cursor,
       { autoAlpha: 0, x: -24, y: -18 },
       { autoAlpha: 1, duration: 0.25, x: 0, y: 0 },
       0.15,
     )
     .to(
-      container.querySelector(".cursor"),
+      cursor,
       {
         duration: 1.9,
         ease: "power1.inOut",
-        left: "86%",
-        top: "72%",
+        left: () => `${getCursorTarget(container).left}px`,
+        top: () => `${getCursorTarget(container).top}px`,
       },
       0.45,
     )
-    .to(
-      container.querySelector(".context-menu"),
+    .fromTo(
+      contextMenu,
+      {
+        autoAlpha: 0,
+        y: 8,
+      },
       {
         autoAlpha: 1,
         duration: 0.35,
@@ -135,6 +159,8 @@ export function animatePanicButtonScene(container: HTMLElement): void {
       },
       2.35,
     )
+    .to(copyItem, { duration: 0.12, scale: 0.985, transformOrigin: "center" }, 2.62)
+    .to(copyItem, { duration: 0.18, scale: 1 }, 2.74)
     .to(
       container.querySelector(".s2-overlay .callout"),
       {
