@@ -1,5 +1,5 @@
 import { animatePanicChatScene } from "../animation/sceneTransitions";
-import { renderRankedBarChart } from "../charts/rankedBarChart";
+import { renderSupportSignalChart } from "../charts/supportSignalChart";
 import { copy } from "../data/copy";
 import { stats } from "../data/surveyStats";
 import { createVisualScene } from "./createScene";
@@ -60,10 +60,10 @@ export const panicChatScene = createVisualScene({
             </div>
           </div>
           <aside class="chat-data-panel">
-            ${renderRankedBarChart(stats.motivations, {
-              title: "Why they reach for it",
+            ${renderSupportSignalChart(stats.motivations, {
+              title: "Why the chat opens now",
               tone: "support",
-              description: "Top reasons students give for using AI.",
+              description: "Motivations that make AI feel available in the moment.",
             })}
           </aside>
         </div>

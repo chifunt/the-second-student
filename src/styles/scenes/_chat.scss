@@ -21,6 +21,10 @@
   min-height: 590px;
 }
 
+.s3 .chat-window {
+  grid-template-columns: 240px minmax(390px, 1fr) 360px;
+}
+
 .chat-side,
 .dep-side {
   background: #0d1117;

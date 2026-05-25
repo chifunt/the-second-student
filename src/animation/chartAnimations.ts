@@ -9,6 +9,9 @@ export function animateCharts(
   const ladderRungs = container.querySelectorAll(".ladder-chart__rung");
   const pictogramIcons = container.querySelectorAll(".pictogram__icon");
   const heroConcernParts = container.querySelectorAll(".hero-concern__dial");
+  const supportSignalParts = container.querySelectorAll(
+    ".support-signal__hero, .support-signal__night, .support-signal__note",
+  );
   const workflowItems = container.querySelectorAll(
     ".workflow-map__zone, .workflow-map__item",
   );
@@ -86,6 +89,19 @@ export function animateCharts(
   if (heroConcernParts.length > 0) {
     timeline.from(
       heroConcernParts,
+      {
+        autoAlpha: 0,
+        duration: 0.45,
+        stagger: 0.08,
+        y: 14,
+      },
+      position,
+    );
+  }
+
+  if (supportSignalParts.length > 0) {
+    timeline.from(
+      supportSignalParts,
       {
         autoAlpha: 0,
         duration: 0.45,
