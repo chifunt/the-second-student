@@ -30,9 +30,9 @@ Use `npm run format` for a project-wide Prettier write.
 
 ## Deployment
 
-GitHub Pages serves the built site from the `gh-pages` branch root. The Vite base path is configured in `vite.config.ts` for the project-page URL.
-
-Until the GitHub CLI token is re-authenticated with `workflow` scope, deploy by building locally and publishing `dist/` to `gh-pages`.
+GitHub Pages deploys from `master` through `.github/workflows/deploy-pages.yml`.
+The workflow runs `npm ci`, builds the Vite app, and publishes `dist/` as the Pages artifact.
+The Vite base path is configured in `vite.config.ts` for the project-page URL.
 
 ## Data Source
 
