@@ -57,6 +57,7 @@ export const boundaryScene = createVisualScene({
   sceneClass: "s5",
   mood: "bright",
   screenLabel: "05 The Boundary",
+  dataFocus: true,
   animate: animateBoundaryScene,
   body: `
     <div class="chyron"><span class="num">05</span><span class="sep">/</span><span>Help, Edit, Hand-In</span></div>
@@ -80,7 +81,7 @@ export const boundaryScene = createVisualScene({
             <p><span class="sug">The question is no longer whether students use AI in their work, but where their own judgement remains visible inside it.</span></p>
             <p class="revision-note">revision history - 14 saved versions - last opened 14:21</p>
           </div>
-          <aside class="writer-panel">
+          <aside class="writer-panel" data-focus-target>
             <h4>The Authorship Threshold</h4>
             <p class="sub">The same sequence changes meaning when generated words enter the draft.</p>
             <div class="threshold-summary" aria-label="Boundary markers">

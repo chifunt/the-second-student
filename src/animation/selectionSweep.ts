@@ -1,11 +1,9 @@
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { schedule } from "./runtimeEffects";
 
-export function setupSelectionSweep(reduceMotion: boolean): void {
-  const scene = document.querySelector<HTMLElement>(".s2");
-  const body = scene?.querySelector<HTMLElement>(".email-body");
+const CHARACTER_DELAY_MS = 1.2;
 
-  if (!scene || !body || body.dataset.prepped === "true") {
+function prepareSelectionBody(body: HTMLElement): void {
+  if (body.dataset.prepped === "true") {
     return;
   }
 
@@ -32,29 +30,40 @@ export function setupSelectionSweep(reduceMotion: boolean): void {
   });
 
   body.dataset.prepped = "true";
+}
 
-  ScrollTrigger.create({
-    trigger: scene,
-    start: "top 45%",
-    once: true,
-    onEnter: () => {
-      const chars = Array.from(body.querySelectorAll<HTMLElement>(".s2-char"));
+export function playSelectionSweep(container: HTMLElement): void {
+  const body = container.querySelector<HTMLElement>(".email-body");
 
-      if (reduceMotion) {
-        body.classList.add("is-selected");
-        return;
-      }
+  if (!body) {
+    return;
+  }
 
-      const startDelay = 350;
-      const characterDelay = 1.2;
+  prepareSelectionBody(body);
+  body.classList.remove("is-selected");
+  body
+    .querySelectorAll<HTMLElement>(".s2-char.sel")
+    .forEach((char) => char.classList.remove("sel"));
 
-      chars.forEach((char, index) => {
-        schedule(() => char.classList.add("sel"), startDelay + index * characterDelay);
-      });
-      schedule(
-        () => body.classList.add("is-selected"),
-        startDelay + chars.length * characterDelay,
-      );
-    },
+  const chars = Array.from(body.querySelectorAll<HTMLElement>(".s2-char"));
+
+  chars.forEach((char, index) => {
+    schedule(() => char.classList.add("sel"), index * CHARACTER_DELAY_MS);
   });
+  schedule(() => body.classList.add("is-selected"), chars.length * CHARACTER_DELAY_MS);
+}
+
+export function setupSelectionSweep(reduceMotion: boolean): void {
+  const scene = document.querySelector<HTMLElement>(".s2");
+  const body = scene?.querySelector<HTMLElement>(".email-body");
+
+  if (!body) {
+    return;
+  }
+
+  prepareSelectionBody(body);
+  body
+    .querySelectorAll<HTMLElement>(".s2-char.sel")
+    .forEach((char) => char.classList.remove("sel"));
+  body.classList.toggle("is-selected", reduceMotion);
 }

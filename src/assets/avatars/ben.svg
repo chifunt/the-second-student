@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Ben Carter avatar</title>
+  <desc id="desc">A simple blue-green illustrated student avatar.</desc>
+  <defs>
+    <linearGradient id="bg" x1="18" x2="112" y1="12" y2="118" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#bfe9f2"/>
+      <stop offset="1" stop-color="#4f9c82"/>
+    </linearGradient>
+    <linearGradient id="face" x1="41" x2="87" y1="36" y2="94" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f0c5a4"/>
+      <stop offset="1" stop-color="#ce9274"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="64" fill="url(#bg)"/>
+  <path fill="#f5f8f5" d="M29 112c5-24 17-36 35-36s30 12 35 36H29Z"/>
+  <path fill="#224f66" d="M35 48c1-18 14-30 30-30 17 0 30 12 31 30l-5 17H40l-5-17Z"/>
+  <path fill="url(#face)" d="M41 55c0-16 10-27 24-27s24 11 24 27v10c0 16-10 29-24 29S41 81 41 65V55Z"/>
+  <path fill="#173b50" d="M41 50c5-15 17-23 34-20 9 2 16 8 18 17-9-4-18-5-28-4-9 1-17 3-24 7Z"/>
+  <circle cx="56" cy="62" r="3" fill="#173b50"/>
+  <circle cx="75" cy="62" r="3" fill="#173b50"/>
+  <path d="M57 78c5 5 12 5 17 0" fill="none" stroke="#7c4b3e" stroke-linecap="round" stroke-width="3"/>
+  <path fill="#dff4ef" d="M47 94h36l8 18H39l8-18Z"/>
+  <path fill="#3b82a0" d="m47 94 18 13 18-13 5 18H42l5-18Z"/>
+</svg>

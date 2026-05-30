@@ -1,3 +1,6 @@
+const armanAvatar = new URL("../assets/avatars/arman.svg", import.meta.url).href;
+const benAvatar = new URL("../assets/avatars/ben.svg", import.meta.url).href;
+
 export const copy = {
   title: {
     eyebrow: "HEPI / Kortext Student Generative AI Survey 2026",
@@ -13,6 +16,7 @@ export const copy = {
       username: "arman.a",
       email: "arman.a@university.ac.uk",
       initials: "AA",
+      avatar: armanAvatar,
     },
     deliberate: {
       fullName: "Ben Carter",
@@ -21,6 +25,7 @@ export const copy = {
       username: "ben.c",
       email: "ben.c@university.ac.uk",
       initials: "BC",
+      avatar: benAvatar,
     },
   },
   floatingQuotes: [

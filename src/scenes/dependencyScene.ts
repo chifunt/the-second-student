@@ -37,6 +37,18 @@ export const dependencyScene = createVisualScene({
   sceneClass: "s8",
   mood: "dark",
   screenLabel: "08 When Help Starts Thinking",
+  dataFocus: true,
+  entryOverlay: {
+    title: "Back to the window that never closed.",
+    subject: copy.students.reactive.displayName,
+    meta: "chat restored - 01:08",
+    avatars: [
+      {
+        src: copy.students.reactive.avatar,
+        alt: copy.students.reactive.fullName,
+      },
+    ],
+  },
   animate: animateDependencyScene,
   body: `
     <div class="chyron"><span class="num">08</span><span class="sep">/</span><span>When help starts thinking for you</span></div>
@@ -53,6 +65,8 @@ export const dependencyScene = createVisualScene({
               <div class="chat-model"><span class="glow"></span>assist - fast</div>
               ${renderProfileSummary({
                 initials: copy.students.reactive.initials,
+                avatarSrc: copy.students.reactive.avatar,
+                avatarAlt: copy.students.reactive.fullName,
                 name: copy.students.reactive.displayName,
                 status: `${copy.students.reactive.username} - 14 chats today - tabs: 11 open`,
               })}
@@ -80,7 +94,7 @@ export const dependencyScene = createVisualScene({
               <h3>Where the work starts</h3>
               <p>Dependency starts when AI stops being one source among many and becomes the first place judgement goes.</p>
             </div>
-            <div class="dep-balance">
+            <div class="dep-balance" data-focus-target>
               ${renderStackedBar(sourceBalanceSegments, {
                 title: "How students combine AI and traditional sources",
                 tone: "mixed",

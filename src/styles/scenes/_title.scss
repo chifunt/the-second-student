@@ -288,6 +288,12 @@
   text-align: left;
 }
 
+.s0-stats--single {
+  grid-template-columns: 1fr;
+  max-width: 760px;
+  text-align: center;
+}
+
 .s0-stat-num {
   align-items: baseline;
   color: #f0f6fc;
@@ -300,6 +306,15 @@
 .s0-stat-num .big {
   font-size: clamp(72px, 10vw, 112px);
   font-weight: 300;
+}
+
+.s0-stats--single .s0-stat-num {
+  justify-content: center;
+}
+
+.s0-stats--single .s0-stat-num .big {
+  font-size: clamp(104px, 15vw, 172px);
+  line-height: 0.82;
 }
 
 .s0-stat-num .pct {
@@ -320,6 +335,10 @@
   gap: 2px;
   grid-template-columns: repeat(100, 1fr);
   height: 34px;
+}
+
+.s0-stats--single .s0-density {
+  height: 44px;
 }
 
 .s0-density .tick {

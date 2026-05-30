@@ -7,14 +7,16 @@ html {
   color: var(--dark-text);
   font-family: var(--font-sans);
   line-height: 1.5;
+  overflow-x: hidden;
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 body.scroll-locked {
@@ -73,6 +75,7 @@ button {
 .scene {
   align-items: center;
   display: flex;
+  height: 100svh;
   isolation: isolate;
   justify-content: center;
   min-height: 100svh;

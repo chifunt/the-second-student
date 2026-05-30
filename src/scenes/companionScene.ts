@@ -14,6 +14,7 @@ export const companionScene = createVisualScene({
   sceneClass: "s9",
   mood: "dark",
   screenLabel: "09 Company at 2AM",
+  dataFocus: true,
   animate: animateCompanionScene,
   body: `
     <div class="chyron"><span class="num">09</span><span class="sep">/</span><span>Company at 2AM</span></div>
@@ -24,7 +25,7 @@ export const companionScene = createVisualScene({
           <div class="phone-screen">
             <div class="phone-status"><span>${copy.students.reactive.displayName}</span><span>02:13 - 4%</span></div>
             <div class="phone-header">
-              <div class="ava">A</div>
+              <img class="ava ava--image" src="${copy.students.reactive.avatar}" alt="${copy.students.reactive.fullName}" />
               <div class="name">assist</div>
               <div class="status">always on - always here</div>
             </div>
@@ -43,29 +44,31 @@ export const companionScene = createVisualScene({
             ${renderInlineSurveyQuote(copy.quotes.company)}
           </div>
           <p class="lead">${stats.loneliness.companionshipUse}% of students use AI for friendship, company, advice, or tackling loneliness. The effect on how lonely they feel is almost evenly split.</p>
-          ${renderPictogram({
-            title: "Companionship use",
-            tone: "mixed",
-            value: stats.loneliness.companionshipUse,
-            label: "use AI for friendship, company, advice or tackling loneliness",
-            evidence: evidence.companionshipUse,
-          })}
-          ${renderDivergingBar(
-            {
-              lessLabel: "less lonely",
-              lessValue: stats.loneliness.lessLonely,
-              neutralLabel: "no impact",
-              neutralValue: stats.loneliness.noImpact,
-              moreLabel: "more lonely",
-              moreValue: stats.loneliness.moreLonely,
-            },
-            {
-              title: "Effect of AI use on loneliness",
+          <div class="s9-data-stack" data-focus-target>
+            ${renderPictogram({
+              title: "Companionship use",
               tone: "mixed",
-              evidence: evidence.lonelinessImpact,
-            },
-          )}
-          <div class="small-data"><span>${stats.loneliness.companionshipUse}% use AI for friendship / company / advice</span><span>n = 1,054</span></div>
+              value: stats.loneliness.companionshipUse,
+              label: "use AI for friendship, company, advice or tackling loneliness",
+              evidence: evidence.companionshipUse,
+            })}
+            ${renderDivergingBar(
+              {
+                lessLabel: "less lonely",
+                lessValue: stats.loneliness.lessLonely,
+                neutralLabel: "no impact",
+                neutralValue: stats.loneliness.noImpact,
+                moreLabel: "more lonely",
+                moreValue: stats.loneliness.moreLonely,
+              },
+              {
+                title: "Effect of AI use on loneliness",
+                tone: "mixed",
+                evidence: evidence.lonelinessImpact,
+              },
+            )}
+            <div class="small-data"><span>${stats.loneliness.companionshipUse}% use AI for friendship / company / advice</span><span>n = 1,054</span></div>
+          </div>
         </div>
       </div>
     </div>

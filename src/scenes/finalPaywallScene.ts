@@ -20,10 +20,33 @@ export const finalPaywallScene = createVisualScene({
   sceneClass: "s10",
   mood: "paper",
   screenLabel: "10 Critical Thinking",
+  dataFocus: "soft",
+  entryOverlay: {
+    title: "The last window belongs to no one in particular.",
+    subject: "Unresolved.",
+    meta: "thread #14 - 02:46",
+  },
   animate: animateFinalPaywallScene,
   body: `
     <div class="chyron"><span class="num">10</span><span class="sep">/</span><span>Is my critical thinking gone?</span></div>
     <div class="scene-inner">
+      <div class="ghost-stats" aria-label="Recap statistics" data-focus-target>
+        ${recapCards
+          .map(
+            ([icon, value, label], index) => `
+              <div class="ghost-card" ${renderEvidenceAttributes(
+                label,
+                `${value}%`,
+                evidence.finalRecap[icon],
+              )}>
+                <div class="ghost-icon ghost-icon--${icon}" aria-hidden="true"></div>
+                <div class="v"><span data-countup data-target="${value}" data-suffix="%" data-delay="${200 + index * 100}">${value}%</span></div>
+                <div class="l">${label}</div>
+              </div>
+            `,
+          )
+          .join("")}
+      </div>
       <div class="reflect">
         <div class="reflect-bar">
           <div class="brand">reflect</div>
@@ -51,23 +74,6 @@ export const finalPaywallScene = createVisualScene({
             <button class="later" type="button">Maybe later</button>
           </div>
         </div>
-      </div>
-      <div class="ghost-stats" aria-label="Recap statistics">
-        ${recapCards
-          .map(
-            ([icon, value, label], index) => `
-              <div class="ghost-card" ${renderEvidenceAttributes(
-                label,
-                `${value}%`,
-                evidence.finalRecap[icon],
-              )}>
-                <div class="ghost-icon ghost-icon--${icon}" aria-hidden="true"></div>
-                <div class="v"><span data-countup data-target="${value}" data-suffix="%" data-delay="${200 + index * 100}">${value}%</span></div>
-                <div class="l">${label}</div>
-              </div>
-            `,
-          )
-          .join("")}
       </div>
       <div class="s10-outro">
         <h1 id="final-paywall-scene-title">What's in your <span class="em">last chat window?</span></h1>

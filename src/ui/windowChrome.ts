@@ -9,6 +9,8 @@ export type WindowTitlebarOptions = {
 
 export type ProfileSummaryOptions = {
   initials: string;
+  avatarSrc?: string;
+  avatarAlt?: string;
   name: string;
   status: string;
   className?: string;
@@ -34,9 +36,15 @@ export function renderWindowTitlebar(options: WindowTitlebarOptions): string {
 }
 
 export function renderProfileSummary(options: ProfileSummaryOptions): string {
+  const avatar = options.avatarSrc
+    ? `<img class="ava ava--image" src="${escapeHtml(options.avatarSrc)}" alt="${escapeHtml(
+        options.avatarAlt ?? options.name,
+      )}" />`
+    : `<div class="ava">${escapeHtml(options.initials)}</div>`;
+
   return `
     <div class="${escapeHtml(options.className ?? "chat-profile")}">
-      <div class="ava">${escapeHtml(options.initials)}</div>
+      ${avatar}
       <div>
         <div class="name">${escapeHtml(options.name)}</div>
         <div class="status">${escapeHtml(options.status)}</div>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Arman Aziz avatar</title>
+  <desc id="desc">A simple grey-blue illustrated student avatar.</desc>
+  <defs>
+    <linearGradient id="bg" x1="20" x2="108" y1="14" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4f647e"/>
+      <stop offset="1" stop-color="#162338"/>
+    </linearGradient>
+    <linearGradient id="face" x1="41" x2="87" y1="36" y2="93" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d7b59a"/>
+      <stop offset="1" stop-color="#b4866d"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="64" fill="url(#bg)"/>
+  <path fill="#0d1727" d="M31 111c4-24 16-36 33-36s29 12 33 36H31Z"/>
+  <path fill="#20334d" d="M30 50c0-18 14-31 34-31s34 13 34 31c0 13-6 24-12 31H42C36 74 30 63 30 50Z"/>
+  <path fill="url(#face)" d="M40 55c0-16 10-27 24-27s24 11 24 27v10c0 16-10 29-24 29S40 81 40 65V55Z"/>
+  <path fill="#162338" d="M39 51c2-16 13-25 29-25 11 0 20 5 24 14-8-2-16-2-25-1-11 1-20 5-28 12Z"/>
+  <circle cx="55" cy="61" r="3" fill="#273142"/>
+  <circle cx="74" cy="61" r="3" fill="#273142"/>
+  <path d="M56 77c5 4 12 4 17 0" fill="none" stroke="#6b3f35" stroke-linecap="round" stroke-width="3"/>
+  <path fill="#6c819b" d="M47 94h34l8 18H39l8-18Z"/>
+  <path fill="#26364d" d="m47 94 17 14 17-14 5 18H42l5-18Z"/>
+</svg>

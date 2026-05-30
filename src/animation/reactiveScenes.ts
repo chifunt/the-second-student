@@ -1,4 +1,6 @@
-import { baseReveal, revealMessages } from "./timelineCore";
+import { addProgressiveChat } from "./progressiveChat";
+import { playSelectionSweep } from "./selectionSweep";
+import { baseReveal, sceneContentPosition } from "./timelineCore";
 
 function getCursorTarget(container: HTMLElement): { left: number; top: number } {
   const reader = container.querySelector<HTMLElement>(".s2-reader");
@@ -19,6 +21,7 @@ function getCursorTarget(container: HTMLElement): { left: number; top: number } 
 
 export function animateEmailScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
+  const contentStart = sceneContentPosition(container);
 
   timeline
     .from(
@@ -29,7 +32,7 @@ export function animateEmailScene(container: HTMLElement): void {
         stagger: 0.05,
         x: -18,
       },
-      0.18,
+      contentStart + 0.18,
     )
     .from(
       container.querySelector(".email-reader"),
@@ -38,12 +41,13 @@ export function animateEmailScene(container: HTMLElement): void {
         duration: 0.55,
         x: 24,
       },
-      0.32,
+      contentStart + 0.32,
     );
 }
 
 export function animatePanicButtonScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
+  const contentStart = sceneContentPosition(container);
   const cursor = container.querySelector(".cursor");
   const contextMenu = container.querySelector(".context-menu");
   const copyItem = container.querySelector(".context-menu .copy");
@@ -53,7 +57,7 @@ export function animatePanicButtonScene(container: HTMLElement): void {
       cursor,
       { autoAlpha: 0, x: -24, y: -18 },
       { autoAlpha: 1, duration: 0.25, x: 0, y: 0 },
-      0.15,
+      contentStart + 0.15,
     )
     .to(
       cursor,
@@ -63,8 +67,9 @@ export function animatePanicButtonScene(container: HTMLElement): void {
         left: () => `${getCursorTarget(container).left}px`,
         top: () => `${getCursorTarget(container).top}px`,
       },
-      0.45,
+      contentStart + 0.45,
     )
+    .add(() => playSelectionSweep(container), contentStart + 0.45)
     .fromTo(
       contextMenu,
       {
@@ -76,10 +81,14 @@ export function animatePanicButtonScene(container: HTMLElement): void {
         duration: 0.35,
         y: 0,
       },
-      2.35,
+      contentStart + 2.35,
     )
-    .to(copyItem, { duration: 0.12, scale: 0.985, transformOrigin: "center" }, 2.62)
-    .to(copyItem, { duration: 0.18, scale: 1 }, 2.74)
+    .to(
+      copyItem,
+      { duration: 0.12, scale: 0.985, transformOrigin: "center" },
+      contentStart + 2.62,
+    )
+    .to(copyItem, { duration: 0.18, scale: 1 }, contentStart + 2.74)
     .to(
       container.querySelector(".s2-overlay .callout"),
       {
@@ -87,18 +96,29 @@ export function animatePanicButtonScene(container: HTMLElement): void {
         duration: 0.45,
         y: 0,
       },
-      2.7,
+      contentStart + 2.7,
     );
 }
 
 export function animatePanicChatScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
-  revealMessages(timeline, container, ".chat-stream .msg", 0.32);
+  addProgressiveChat(
+    timeline,
+    container,
+    ".chat-stream",
+    sceneContentPosition(container, 0.32),
+  );
 }
 
 export function animateDependencyScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
-  revealMessages(timeline, container, ".dep-stream .msg", 0.28);
+  const contentStart = sceneContentPosition(container);
+  const chatDuration = addProgressiveChat(
+    timeline,
+    container,
+    ".dep-stream",
+    contentStart + 0.28,
+  );
 
   timeline.from(
     container.querySelectorAll(".chip, .quote-card"),
@@ -108,32 +128,24 @@ export function animateDependencyScene(container: HTMLElement): void {
       stagger: 0.05,
       y: 12,
     },
-    0.82,
+    contentStart + chatDuration + 0.5,
   );
 }
 
 export function animateCompanionScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
+  const contentStart = sceneContentPosition(container);
 
-  timeline
-    .from(
-      container.querySelector(".phone"),
-      {
-        autoAlpha: 0,
-        duration: 0.75,
-        filter: "blur(12px)",
-        y: 32,
-      },
-      0.14,
-    )
-    .from(
-      container.querySelectorAll(".phone-bubble"),
-      {
-        autoAlpha: 0,
-        duration: 0.45,
-        stagger: 0.18,
-        y: 18,
-      },
-      0.48,
-    );
+  timeline.from(
+    container.querySelector(".phone"),
+    {
+      autoAlpha: 0,
+      duration: 0.75,
+      filter: "blur(12px)",
+      y: 32,
+    },
+    contentStart + 0.14,
+  );
+
+  addProgressiveChat(timeline, container, ".phone-stream", contentStart + 0.58);
 }

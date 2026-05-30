@@ -1,4 +1,5 @@
-import { baseReveal } from "./timelineCore";
+import { addProgressiveChat } from "./progressiveChat";
+import { baseReveal, sceneContentPosition } from "./timelineCore";
 
 export function animateTitleScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
@@ -17,6 +18,14 @@ export function animateTitleScene(container: HTMLElement): void {
 
 export function animateDeliberateWorkflowScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
+  const contentStart = sceneContentPosition(container);
+  const chatStart = contentStart + 0.32;
+  const chatDuration = addProgressiveChat(
+    timeline,
+    container,
+    ".studio-stream",
+    chatStart,
+  );
 
   timeline
     .from(
@@ -27,22 +36,22 @@ export function animateDeliberateWorkflowScene(container: HTMLElement): void {
         stagger: 0.04,
         x: -12,
       },
-      0.18,
+      contentStart + 0.18,
     )
     .from(
-      container.querySelectorAll(".studio-stream .msg, .quote-note"),
+      container.querySelector(".quote-note"),
       {
         autoAlpha: 0,
         duration: 0.45,
-        stagger: 0.14,
         y: 18,
       },
-      0.32,
+      chatStart + chatDuration + 0.22,
     );
 }
 
 export function animateBoundaryScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
+  const contentStart = sceneContentPosition(container);
 
   timeline
     .from(
@@ -52,7 +61,7 @@ export function animateBoundaryScene(container: HTMLElement): void {
         duration: 0.5,
         stagger: 0.08,
       },
-      0.35,
+      contentStart + 0.35,
     )
     .from(
       container.querySelectorAll(".threshold-summary > div, .threshold-note, .rung"),
@@ -62,12 +71,13 @@ export function animateBoundaryScene(container: HTMLElement): void {
         stagger: 0.07,
         x: 18,
       },
-      0.48,
+      contentStart + 0.48,
     );
 }
 
 export function animateSkillGapScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
+  const contentStart = sceneContentPosition(container);
 
   timeline.from(
     container.querySelectorAll(".vle-card"),
@@ -77,6 +87,6 @@ export function animateSkillGapScene(container: HTMLElement): void {
       stagger: 0.06,
       y: 16,
     },
-    0.28,
+    contentStart + 0.28,
   );
 }

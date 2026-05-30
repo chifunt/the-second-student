@@ -1,4 +1,5 @@
-import { sceneTimeline } from "./timelineCore";
+import { addProgressiveChat } from "./progressiveChat";
+import { playDataFocus, sceneContentPosition, sceneTimeline } from "./timelineCore";
 
 export function animateSplitExperienceScene(container: HTMLElement): void {
   let hasCompleted = false;
@@ -10,14 +11,7 @@ export function animateSplitExperienceScene(container: HTMLElement): void {
 
     hasCompleted = true;
     container.classList.add("split-experience-complete");
-    timelineRef.current?.progress(1).pause();
-
-    requestAnimationFrame(() => {
-      // Once the mirror scene has landed, remove the long pinned spacer so
-      // backward scrolling returns to normal page movement instead of replaying
-      // an invisible scrub range.
-      timelineRef.current?.scrollTrigger?.kill(true);
-    });
+    timelineRef.current?.progress(1);
   };
 
   const timeline = sceneTimeline(container, {
@@ -35,7 +29,7 @@ export function animateSplitExperienceScene(container: HTMLElement): void {
     },
     pin: true,
     scrub: 0.8,
-    start: "top top",
+    start: "top 2%",
   });
   timelineRef.current = timeline;
 
@@ -137,26 +131,26 @@ export function animateSplitExperienceScene(container: HTMLElement): void {
 
 export function animateFinalPaywallScene(container: HTMLElement): void {
   const timeline = sceneTimeline(container);
+  const contentStart = sceneContentPosition(container);
+  const chatDuration = addProgressiveChat(
+    timeline,
+    container,
+    ".reflect-body",
+    contentStart,
+    { completeClass: "chat-progressive-complete" },
+  );
+
+  playDataFocus(timeline, container, 0);
 
   timeline
     .from(
-      container.querySelectorAll(".reflect-body .msg"),
-      {
-        autoAlpha: 0,
-        duration: 0.45,
-        stagger: 0.15,
-        y: 18,
-      },
-      0,
-    )
-    .to(
       container.querySelector(".continue-btn"),
       {
-        autoAlpha: 1,
-        duration: 0.3,
-        y: 0,
+        duration: 0.34,
+        scale: 0.96,
+        y: 12,
       },
-      0.32,
+      contentStart + chatDuration + 0.18,
     )
     .from(
       container.querySelectorAll(".ghost-card"),
@@ -166,7 +160,7 @@ export function animateFinalPaywallScene(container: HTMLElement): void {
         stagger: 0.04,
         y: 12,
       },
-      0.45,
+      0.18,
     )
     .from(
       container.querySelector(".s10-outro"),
@@ -175,6 +169,6 @@ export function animateFinalPaywallScene(container: HTMLElement): void {
         duration: 0.35,
         y: 18,
       },
-      0.6,
+      contentStart + chatDuration + 0.6,
     );
 }

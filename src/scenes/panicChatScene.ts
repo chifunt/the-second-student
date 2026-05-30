@@ -13,6 +13,7 @@ export const panicChatScene = createVisualScene({
   sceneClass: "s3",
   mood: "dark",
   screenLabel: "03 First Breathe",
+  dataFocus: true,
   animate: animatePanicChatScene,
   body: `
     <div class="chyron"><span class="num">03</span><span class="sep">/</span><span>First, Breathe</span></div>
@@ -40,6 +41,8 @@ export const panicChatScene = createVisualScene({
               <div class="chat-model"><span class="glow"></span>assist - large</div>
               ${renderProfileSummary({
                 initials: copy.students.reactive.initials,
+                avatarSrc: copy.students.reactive.avatar,
+                avatarAlt: copy.students.reactive.fullName,
                 name: copy.students.reactive.displayName,
                 status: `${copy.students.reactive.username} - private - 02:13 - battery 8%`,
               })}
@@ -61,7 +64,7 @@ export const panicChatScene = createVisualScene({
               <span class="send">up</span>
             </div>
           </div>
-          <aside class="chat-data-panel">
+          <aside class="chat-data-panel" data-focus-target>
             ${renderSupportSignalChart(stats.motivations, {
               title: "Why the chat opens now",
               tone: "support",

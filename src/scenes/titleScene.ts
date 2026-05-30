@@ -1,6 +1,7 @@
 import { animateTitleScene } from "../animation/sceneTransitions";
-import { escapeHtml } from "../charts/chartUtils";
+import { escapeHtml, renderEvidenceAttributes } from "../charts/chartUtils";
 import { copy } from "../data/copy";
+import { evidence } from "../data/evidence";
 import { stats, surveySource } from "../data/surveyStats";
 import { getTitleQuoteLayout } from "../ui/titleQuoteLayout";
 import { createVisualScene } from "./createScene";
@@ -80,18 +81,16 @@ export const titleScene = createVisualScene({
           <span class="open-btn-arrow" aria-hidden="true">-&gt;</span>
         </span>
       </button>
-      <div class="s0-stats" aria-label="Headline survey statistics">
-        <div class="s0-stat" data-target="${stats.adoption.aiUse}">
+      <div class="s0-stats s0-stats--single" aria-label="Headline survey statistics">
+        <div class="s0-stat" data-target="${stats.adoption.aiUse}" ${renderEvidenceAttributes(
+          "AI use in at least one way",
+          stats.adoption.aiUse,
+          evidence.adoption,
+        )}>
           <div class="s0-stat-num"><span class="big" data-countup data-target="${stats.adoption.aiUse}" data-delay="300" data-duration="1400">${stats.adoption.aiUse}</span><span class="pct">%</span></div>
           <div class="s0-stat-label">use AI in at least one way</div>
           <div class="s0-density" data-fill="${stats.adoption.aiUse}"></div>
           <div class="s0-stat-marker"><span class="lit-label">${stats.adoption.aiUse} of 100</span><span class="of">n=1,054</span></div>
-        </div>
-        <div class="s0-stat" data-target="${stats.adoption.genAiAssessment}">
-          <div class="s0-stat-num"><span class="big" data-countup data-target="${stats.adoption.genAiAssessment}" data-delay="600" data-duration="1400">${stats.adoption.genAiAssessment}</span><span class="pct">%</span></div>
-          <div class="s0-stat-label">use it on assessed work</div>
-          <div class="s0-density" data-fill="${stats.adoption.genAiAssessment}"></div>
-          <div class="s0-stat-marker"><span class="lit-label">${stats.adoption.genAiAssessment} of 100</span><span class="of">UK undergrads</span></div>
         </div>
       </div>
       <p class="dataset-note">Based on the HEPI / Kortext <span class="mono">${surveySource.title}</span><br />${surveySource.sample} - Savanta, ${surveySource.fieldwork}</p>

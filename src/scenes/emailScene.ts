@@ -27,6 +27,18 @@ export const emailScene = createVisualScene({
   sceneClass: "s1",
   mood: "dark",
   screenLabel: "01 The Email",
+  dataFocus: true,
+  entryOverlay: {
+    title: "The laptop opens at 23:47.",
+    subject: copy.students.reactive.displayName,
+    meta: "mail account restored",
+    avatars: [
+      {
+        src: copy.students.reactive.avatar,
+        alt: copy.students.reactive.fullName,
+      },
+    ],
+  },
   animate: animateEmailScene,
   body: `
     <div class="chyron"><span class="num">01</span><span class="sep">/</span><span>Subject: Possible Academic Misconduct</span></div>
@@ -116,7 +128,7 @@ export const emailScene = createVisualScene({
               </div>
             </div>
           </div>
-          <aside class="email-data-panel">
+          <aside class="email-data-panel" data-focus-target>
             ${renderHeroConcernChart(stats.barriers, {
               title: "What stops students?",
               tone: "risk",

@@ -88,6 +88,14 @@
   width: 32px;
 }
 
+.ava.ava--image {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: block;
+  object-fit: cover;
+  padding: 0;
+}
+
 .quote-card,
 .quote-note {
   background: #fff8d9;

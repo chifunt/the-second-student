@@ -20,15 +20,16 @@
 
 @media (max-width: 900px) {
   .scene {
-    align-items: start;
-    min-height: auto;
-    overflow: visible;
+    align-items: center;
+    height: 100svh;
+    min-height: 100svh;
+    overflow: hidden;
     padding: 72px 18px 48px;
-    scroll-snap-align: none;
+    scroll-snap-align: start;
   }
 
-  html {
-    scroll-snap-type: none;
+  .s7 {
+    scroll-snap-align: none;
   }
 
   .progress {

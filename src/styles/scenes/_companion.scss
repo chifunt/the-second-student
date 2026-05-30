@@ -157,6 +157,11 @@
   max-width: 58ch;
 }
 
+.s9-data-stack {
+  display: grid;
+  gap: 18px;
+}
+
 .s9-aside .chart {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.1);

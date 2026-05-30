@@ -35,13 +35,28 @@ export const splitExperienceScene = createVisualScene({
   sceneClass: "s7",
   mood: "paper-cold",
   screenLabel: "07 Same Chart Two Lives",
+  entryOverlay: {
+    title: "One chart. Two lives.",
+    subject: "Where the readings meet.",
+    meta: "shared survey view",
+    avatars: [
+      {
+        src: copy.students.deliberate.avatar,
+        alt: copy.students.deliberate.fullName,
+      },
+      {
+        src: copy.students.reactive.avatar,
+        alt: copy.students.reactive.fullName,
+      },
+    ],
+  },
   animate: animateSplitExperienceScene,
   body: `
     <div class="chyron"><span class="num">07</span><span class="sep">/</span><span>Where the Student Stands</span></div>
     <div class="scene-inner scene-inner--wide split-experience">
       <section class="split-side split-side--deliberate" aria-label="Deliberate student perspective">
         <div class="split-profile">
-          <div class="ava">${copy.students.deliberate.initials}</div>
+          <img class="ava ava--image" src="${copy.students.deliberate.avatar}" alt="${copy.students.deliberate.fullName}" />
           <div><div class="name">${copy.students.deliberate.displayName}</div><div class="status">${copy.students.deliberate.username} - workspace clean - sources checked</div></div>
         </div>
         <div class="split-workspace">
@@ -67,7 +82,7 @@ export const splitExperienceScene = createVisualScene({
         </div>
       </section>
 
-      <div class="split-chart-stage" aria-label="Shared student experience impact chart">
+      <div class="split-chart-stage" aria-label="Shared student experience impact chart" data-focus-target>
         <p class="split-kicker">Same data. Different conditions.</p>
         <h2 id="split-experience-scene-title">Where the Student Stands</h2>
         <div class="split-chart">
@@ -84,7 +99,7 @@ export const splitExperienceScene = createVisualScene({
 
       <section class="split-side split-side--reactive" aria-label="Reactive student perspective">
         <div class="split-profile">
-          <div class="ava">${copy.students.reactive.initials}</div>
+          <img class="ava ava--image" src="${copy.students.reactive.avatar}" alt="${copy.students.reactive.fullName}" />
           <div><div class="name">${copy.students.reactive.displayName}</div><div class="status">${copy.students.reactive.username} - 01:08 - battery 4% - tabs: 11</div></div>
         </div>
         <div class="split-chat">

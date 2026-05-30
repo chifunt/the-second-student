@@ -12,6 +12,7 @@ export const panicButtonScene = createVisualScene({
   sceneClass: "s2",
   mood: "dark",
   screenLabel: "02 The Panic Button",
+  dataFocus: true,
   animate: animatePanicButtonScene,
   body: `
     <div class="chyron"><span class="num">02</span><span class="sep">/</span><span>The Panic Button</span></div>
@@ -25,7 +26,7 @@ export const panicButtonScene = createVisualScene({
             <div class="window-meta">23:47</div>
           </div>
           <div class="s2-account">
-            <span>${copy.students.reactive.initials}</span>
+            <img class="s2-account-avatar" src="${copy.students.reactive.avatar}" alt="${copy.students.reactive.fullName}" />
             <div><strong>${copy.students.reactive.displayName}</strong><small>${copy.students.reactive.email}</small></div>
           </div>
           <div class="email-reader s2-reader">
@@ -65,7 +66,7 @@ export const panicButtonScene = createVisualScene({
             </div>
           </div>
         </div>
-        <aside class="s2-data">
+        <aside class="s2-data" data-focus-target>
           <h2>Assessment work is already AI-mediated.</h2>
           ${renderPictogram({
             title: "Assessment prevalence",

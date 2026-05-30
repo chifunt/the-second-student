@@ -11,6 +11,7 @@ export const skillGapScene = createVisualScene({
   sceneClass: "s6",
   mood: "paper",
   screenLabel: "06 Skill Gap",
+  dataFocus: true,
   animate: animateSkillGapScene,
   body: `
     <div class="chyron"><span class="num">06</span><span class="sep">/</span><span>The Skill Everyone Needs</span></div>
@@ -35,7 +36,7 @@ export const skillGapScene = createVisualScene({
             </div>
             <p class="vle-note">Generic guidance appears across institutional portals. Students still describe being expected to use AI critically without being shown what "critically" means in their specific subject.</p>
           </div>
-          <aside class="vle-side">
+          <aside class="vle-side" data-focus-target>
             ${renderGapChart(
               [
                 {

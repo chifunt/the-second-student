@@ -14,6 +14,18 @@ export const deliberateWorkflowScene = createVisualScene({
   sceneClass: "s4",
   mood: "bright",
   screenLabel: "04 Same Tool Differently",
+  dataFocus: true,
+  entryOverlay: {
+    title: "Same tool. Different footing.",
+    subject: copy.students.deliberate.displayName,
+    meta: "workspace resumed - 14:22",
+    avatars: [
+      {
+        src: copy.students.deliberate.avatar,
+        alt: copy.students.deliberate.fullName,
+      },
+    ],
+  },
   animate: animateDeliberateWorkflowScene,
   body: `
     <div class="chyron"><span class="num">04</span><span class="sep">/</span><span>The Same Tool, Used Differently</span></div>
@@ -42,6 +54,8 @@ export const deliberateWorkflowScene = createVisualScene({
               ${renderProfileSummary({
                 className: "studio-profile",
                 initials: copy.students.deliberate.initials,
+                avatarSrc: copy.students.deliberate.avatar,
+                avatarAlt: copy.students.deliberate.fullName,
                 name: copy.students.deliberate.displayName,
                 status: `${copy.students.deliberate.username} - signed in - institution profile`,
               })}
@@ -67,7 +81,7 @@ export const deliberateWorkflowScene = createVisualScene({
             <div class="chat-input chat-input--light"><span>Reply to study...</span><span>enter</span></div>
             ${renderSurveyQuote(copy.quotes.studyBuddy, { className: "quote-note" })}
           </div>
-          <aside class="studio-data">
+          <aside class="studio-data" data-focus-target>
             ${renderWorkflowRiskMap(stats.assessmentUses, {
               title: "Where judgement stays visible",
               tone: "mixed",
