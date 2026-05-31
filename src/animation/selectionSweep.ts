@@ -1,35 +1,39 @@
 import { schedule } from "./runtimeEffects";
 
-const CHARACTER_DELAY_MS = 1.2;
+const LINE_GAP_MS = 22;
+
+function getLineDuration(line: HTMLElement): number {
+  const length = (line.textContent ?? "").trim().length;
+
+  return Math.min(Math.max(length * 2.8, 110), 280);
+}
 
 function prepareSelectionBody(body: HTMLElement): void {
   if (body.dataset.prepped === "true") {
     return;
   }
 
-  const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
-  const textNodes: Text[] = [];
-  let current = walker.nextNode();
+  const blocks = body.querySelectorAll<HTMLElement>(":scope > p, :scope .signature p");
 
-  while (current) {
-    textNodes.push(current as Text);
-    current = walker.nextNode();
-  }
+  blocks.forEach((block) => {
+    const wrapper = document.createElement("span");
 
-  textNodes.forEach((node) => {
-    const fragment = document.createDocumentFragment();
+    wrapper.className = "s2-select-line";
+    wrapper.style.setProperty("--s2-selection-duration", `${getLineDuration(block)}ms`);
 
-    for (const character of node.textContent ?? "") {
-      const span = document.createElement("span");
-      span.className = "s2-char";
-      span.textContent = character;
-      fragment.appendChild(span);
+    while (block.firstChild) {
+      wrapper.appendChild(block.firstChild);
     }
 
-    node.replaceWith(fragment);
+    block.appendChild(wrapper);
   });
 
   body.dataset.prepped = "true";
+}
+
+function resetSelection(lines: HTMLElement[], body: HTMLElement): void {
+  body.classList.remove("is-selecting", "is-selected");
+  lines.forEach((line) => line.classList.remove("s2-select-line--active"));
 }
 
 export function playSelectionSweep(container: HTMLElement): void {
@@ -40,17 +44,23 @@ export function playSelectionSweep(container: HTMLElement): void {
   }
 
   prepareSelectionBody(body);
-  body.classList.remove("is-selected");
-  body
-    .querySelectorAll<HTMLElement>(".s2-char.sel")
-    .forEach((char) => char.classList.remove("sel"));
+  const lines = Array.from(body.querySelectorAll<HTMLElement>(".s2-select-line"));
+  let elapsed = 0;
 
-  const chars = Array.from(body.querySelectorAll<HTMLElement>(".s2-char"));
+  resetSelection(lines, body);
+  body.classList.add("is-selecting");
 
-  chars.forEach((char, index) => {
-    schedule(() => char.classList.add("sel"), index * CHARACTER_DELAY_MS);
+  lines.forEach((line) => {
+    const duration = getLineDuration(line);
+    line.style.setProperty("--s2-selection-duration", `${duration}ms`);
+    schedule(() => line.classList.add("s2-select-line--active"), elapsed);
+    elapsed += duration + LINE_GAP_MS;
   });
-  schedule(() => body.classList.add("is-selected"), chars.length * CHARACTER_DELAY_MS);
+
+  schedule(() => {
+    body.classList.remove("is-selecting");
+    body.classList.add("is-selected");
+  }, elapsed);
 }
 
 export function setupSelectionSweep(reduceMotion: boolean): void {
@@ -62,8 +72,9 @@ export function setupSelectionSweep(reduceMotion: boolean): void {
   }
 
   prepareSelectionBody(body);
-  body
-    .querySelectorAll<HTMLElement>(".s2-char.sel")
-    .forEach((char) => char.classList.remove("sel"));
+  const lines = Array.from(body.querySelectorAll<HTMLElement>(".s2-select-line"));
+
+  resetSelection(lines, body);
+  lines.forEach((line) => line.classList.toggle("s2-select-line--active", reduceMotion));
   body.classList.toggle("is-selected", reduceMotion);
 }

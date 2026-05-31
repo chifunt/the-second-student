@@ -2,20 +2,23 @@ import { addProgressiveChat } from "./progressiveChat";
 import { playSelectionSweep } from "./selectionSweep";
 import { baseReveal, sceneContentPosition } from "./timelineCore";
 
-function getCursorTarget(container: HTMLElement): { left: number; top: number } {
+function getCursorTargetDelta(container: HTMLElement): { x: number; y: number } {
   const reader = container.querySelector<HTMLElement>(".s2-reader");
+  const cursor = container.querySelector<HTMLElement>(".cursor");
   const copyItem = container.querySelector<HTMLElement>(".context-menu .copy");
 
-  if (!reader || !copyItem) {
-    return { left: 0, top: 0 };
+  if (!reader || !cursor || !copyItem) {
+    return { x: 0, y: 0 };
   }
 
   const readerBox = reader.getBoundingClientRect();
   const copyBox = copyItem.getBoundingClientRect();
+  const targetLeft = copyBox.left - readerBox.left + Math.min(58, copyBox.width * 0.34);
+  const targetTop = copyBox.top - readerBox.top + copyBox.height / 2 - 2;
 
   return {
-    left: copyBox.left - readerBox.left + Math.min(58, copyBox.width * 0.34),
-    top: copyBox.top - readerBox.top + copyBox.height / 2 - 2,
+    x: targetLeft - cursor.offsetLeft,
+    y: targetTop - cursor.offsetTop,
   };
 }
 
@@ -67,8 +70,9 @@ export function animatePanicButtonScene(container: HTMLElement): void {
       {
         duration: 1.9,
         ease: "power1.inOut",
-        left: () => `${getCursorTarget(container).left}px`,
-        top: () => `${getCursorTarget(container).top}px`,
+        force3D: true,
+        x: () => getCursorTargetDelta(container).x,
+        y: () => getCursorTargetDelta(container).y,
       },
       contentStart + 0.45,
     )

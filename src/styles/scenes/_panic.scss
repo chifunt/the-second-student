@@ -79,6 +79,7 @@
   position: absolute;
   top: 230px;
   width: 22px;
+  will-change: transform;
   z-index: 6;
 }
 
@@ -94,11 +95,25 @@
   width: 100%;
 }
 
-.email-body.is-selected .s2-char,
-.s2-char.sel {
-  background: #2675d2;
+.s2-select-line {
+  -webkit-box-decoration-break: clone;
+  background: linear-gradient(#2675d2, #2675d2) no-repeat;
+  background-size: 0% 100%;
   border-radius: 2px;
+  box-decoration-break: clone;
+  padding: 0 2px;
+  transition: background-size var(--s2-selection-duration, 360ms) linear;
+}
+
+.s2-select-line--active,
+.email-body.is-selected .s2-select-line {
+  background-size: 100% 100%;
   color: white;
+}
+
+.email-body.is-selecting .highlight,
+.email-body.is-selected .highlight {
+  background: transparent;
 }
 
 .s2-data {
