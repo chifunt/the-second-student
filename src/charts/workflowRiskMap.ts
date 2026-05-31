@@ -49,7 +49,7 @@ export function renderWorkflowRiskMap(
               <div class="workflow-map__summary-card workflow-map__summary-card--${
                 datum.zone ?? "support"
               }" ${renderEvidenceAttributes(datum.label, datum.value, options.evidence)}>
-                <strong>${datum.value}<small>%</small></strong>
+                <strong><span data-chart-count data-chart-target="${datum.value}">${datum.value}</span><small>%</small></strong>
                 <span>${escapeHtml(datum.label)}</span>
               </div>
             `,
@@ -79,7 +79,7 @@ export function renderWorkflowRiskMap(
                       )}>
                         <div class="workflow-map__meta">
                           <span>${escapeHtml(datum.label)}</span>
-                          <strong>${datum.value}%</strong>
+                          <strong><span data-chart-count data-chart-target="${datum.value}">${datum.value}</span>%</strong>
                         </div>
                         <div class="bar-track"><i class="bar-fill" aria-hidden="true"></i></div>
                       </div>

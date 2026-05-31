@@ -33,6 +33,7 @@ export function setupInteractiveDetails(): void {
 
     if (target.closest(".continue-btn")) {
       finalScene.classList.add("gated");
+      finalScene.classList.add("final-question-visible");
       continueButton?.classList.add("used");
     }
 

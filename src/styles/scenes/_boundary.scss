@@ -1,6 +1,6 @@
 .writer {
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 340px);
   height: min(78vh, 740px);
   min-height: 620px;
 }
@@ -31,19 +31,19 @@
 .writer-doc {
   background: white;
   overflow: hidden;
-  padding: 40px 56px;
+  padding: 44px 64px;
 }
 
 .writer-doc h3 {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 500;
-  margin: 0 0 18px;
+  margin: 0 0 22px;
 }
 
 .writer-doc p {
-  font-size: 14.5px;
-  line-height: 1.75;
-  max-width: 62ch;
+  font-size: 15.5px;
+  line-height: 1.82;
+  max-width: 78ch;
 }
 
 .sug,

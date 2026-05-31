@@ -70,3 +70,8 @@
   color: #6fa3ff;
   filter: drop-shadow(0 0 7px rgba(111, 163, 255, 0.34));
 }
+
+.scroll-animation-ready .pictogram__icon--lit:not(.pictogram__icon--active) {
+  color: rgba(255, 255, 255, 0.13);
+  filter: none;
+}

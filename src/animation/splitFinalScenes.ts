@@ -142,33 +142,13 @@ export function animateFinalPaywallScene(container: HTMLElement): void {
 
   playDataFocus(timeline, container, 0);
 
-  timeline
-    .from(
-      container.querySelector(".continue-btn"),
-      {
-        duration: 0.34,
-        scale: 0.96,
-        y: 12,
-      },
-      contentStart + chatDuration + 0.18,
-    )
-    .from(
-      container.querySelectorAll(".ghost-card"),
-      {
-        autoAlpha: 0,
-        duration: 0.25,
-        stagger: 0.04,
-        y: 12,
-      },
-      0.18,
-    )
-    .from(
-      container.querySelector(".s10-outro"),
-      {
-        autoAlpha: 0,
-        duration: 0.35,
-        y: 18,
-      },
-      contentStart + chatDuration + 0.6,
-    );
+  timeline.from(
+    container.querySelector(".continue-btn"),
+    {
+      duration: 0.34,
+      scale: 0.96,
+      y: 12,
+    },
+    contentStart + chatDuration + 0.18,
+  );
 }

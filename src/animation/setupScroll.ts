@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { SceneConfig } from "../scenes/sceneTypes";
+import { prepareCharts } from "./chartAnimations";
 import { setupCountUps } from "./countUp";
 import { setupDensityTicks } from "./densityTicks";
 import { setupEntryOverlays } from "./entryOverlays";
@@ -32,7 +33,7 @@ export function setupScroll(scenes: readonly SceneConfig[]): void {
 
   const shouldReduceMotion = getShouldReduceMotion();
 
-  setupDensityTicks();
+  setupDensityTicks(shouldReduceMotion);
   setupAboutDrawer();
   setupEvidenceDetails();
   setupInteractiveDetails();
@@ -40,6 +41,12 @@ export function setupScroll(scenes: readonly SceneConfig[]): void {
   setupProgressiveChats(shouldReduceMotion);
   setupProgressDots(scenes, shouldReduceMotion);
   setupTitleOpen(shouldReduceMotion);
+
+  if (!shouldReduceMotion) {
+    document.documentElement.classList.add("scroll-animation-ready");
+    prepareCharts(document);
+  }
+
   const deferredScenes = setupEntryOverlays(scenes, shouldReduceMotion);
 
   if (shouldReduceMotion) {
@@ -48,7 +55,6 @@ export function setupScroll(scenes: readonly SceneConfig[]): void {
     return;
   }
 
-  document.documentElement.classList.add("scroll-animation-ready");
   setupCountUps();
   setupSelectionSweep(false);
 

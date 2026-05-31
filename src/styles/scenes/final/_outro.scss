@@ -3,6 +3,22 @@
   text-align: center;
 }
 
+.scroll-animation-ready .s10 .s10-outro {
+  opacity: 0;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    visibility 0.35s ease;
+  transform: translateY(18px);
+  visibility: hidden;
+}
+
+.scroll-animation-ready .s10.final-question-visible .s10-outro {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+
 .s10-outro h1 {
   font-family: var(--font-serif);
   font-size: clamp(42px, 7vw, 86px);

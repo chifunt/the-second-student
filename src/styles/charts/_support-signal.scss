@@ -149,6 +149,13 @@
   font-size: 11px;
 }
 
+.support-signal strong [data-chart-count] {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
+
 .support-signal__track .bar-track {
   background: rgba(255, 255, 255, 0.11);
   height: 5px;

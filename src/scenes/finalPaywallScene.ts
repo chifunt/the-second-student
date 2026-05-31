@@ -22,7 +22,7 @@ export const finalPaywallScene = createVisualScene({
   screenLabel: "10 Critical Thinking",
   dataFocus: "soft",
   entryOverlay: {
-    title: "The last window belongs to no one in particular.",
+    title: "One last window is still open.",
     subject: "Unresolved.",
     meta: "thread #14 - 02:46",
   },

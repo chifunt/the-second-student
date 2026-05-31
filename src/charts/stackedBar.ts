@@ -20,7 +20,7 @@ export function renderStackedBar(
             <div class="seg seg--${datum.tone}" style="--w:${width(datum.value).toFixed(
               2,
             )}%;" ${renderEvidenceAttributes(datum.label, datum.value, options.evidence)}>
-              <span>${datum.value}%</span>
+              <span><span data-chart-count data-chart-target="${datum.value}">${datum.value}</span>%</span>
               <small>${escapeHtml(datum.label)}</small>
             </div>
           `,

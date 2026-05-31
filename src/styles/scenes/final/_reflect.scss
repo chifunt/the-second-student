@@ -6,7 +6,7 @@
     0 40px 100px rgba(0, 0, 0, 0.18),
     0 10px 24px rgba(0, 0, 0, 0.06);
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 860px;
   min-height: 0;
   overflow: hidden;
   position: relative;
@@ -33,9 +33,17 @@
   display: flex;
   flex-direction: column;
   gap: 18px;
-  min-height: 330px;
+  height: clamp(380px, 34svh, 460px);
+  min-height: 0;
   overflow: hidden;
   padding: 34px 48px 42px;
+}
+
+.s10 .progressive-chat [data-chat-message][hidden] {
+  display: block !important;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .reflect-body .msg.user {

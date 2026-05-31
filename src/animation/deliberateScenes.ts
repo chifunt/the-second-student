@@ -2,18 +2,7 @@ import { addProgressiveChat } from "./progressiveChat";
 import { baseReveal, sceneContentPosition } from "./timelineCore";
 
 export function animateTitleScene(container: HTMLElement): void {
-  const timeline = baseReveal(container);
-
-  timeline.from(
-    container.querySelectorAll(".s0-density .tick.lit"),
-    {
-      autoAlpha: 0,
-      duration: 0.22,
-      stagger: 0.006,
-      y: 8,
-    },
-    0.3,
-  );
+  baseReveal(container);
 }
 
 export function animateDeliberateWorkflowScene(container: HTMLElement): void {
@@ -28,22 +17,23 @@ export function animateDeliberateWorkflowScene(container: HTMLElement): void {
   );
 
   timeline
-    .from(
-      container.querySelectorAll(".file"),
+    .to(
+      container.querySelector(".file.active"),
       {
-        autoAlpha: 0,
-        duration: 0.3,
-        stagger: 0.04,
-        x: -12,
+        duration: 0.26,
+        repeat: 1,
+        scale: 1.025,
+        transformOrigin: "left center",
+        yoyo: true,
       },
       contentStart + 0.18,
     )
-    .from(
+    .to(
       container.querySelector(".quote-note"),
       {
-        autoAlpha: 0,
+        autoAlpha: 1,
         duration: 0.45,
-        y: 18,
+        y: 0,
       },
       chatStart + chatDuration + 0.22,
     );
@@ -63,15 +53,16 @@ export function animateBoundaryScene(container: HTMLElement): void {
       },
       contentStart + 0.35,
     )
-    .from(
-      container.querySelectorAll(".threshold-summary > div, .threshold-note, .rung"),
+    .to(
+      container.querySelector(".accept-all"),
       {
-        autoAlpha: 0,
-        duration: 0.35,
-        stagger: 0.07,
-        x: 18,
+        duration: 0.28,
+        repeat: 1,
+        scale: 1.045,
+        transformOrigin: "center",
+        yoyo: true,
       },
-      contentStart + 0.48,
+      contentStart + 0.72,
     );
 }
 
@@ -79,13 +70,14 @@ export function animateSkillGapScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
   const contentStart = sceneContentPosition(container);
 
-  timeline.from(
+  timeline.to(
     container.querySelectorAll(".vle-card"),
     {
-      autoAlpha: 0,
-      duration: 0.35,
-      stagger: 0.06,
-      y: 16,
+      borderLeftColor: "#e6a23c",
+      duration: 0.18,
+      stagger: 0.035,
+      repeat: 1,
+      yoyo: true,
     },
     contentStart + 0.28,
   );

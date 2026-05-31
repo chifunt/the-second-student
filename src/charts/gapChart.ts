@@ -33,8 +33,8 @@ export function renderGapChart(data: readonly GapDatum[], options: ChartOptions)
                 <div class="dumbbell-bar gap-chart__line" aria-hidden="true"></div>
                 <div class="dumbbell-node have gap-chart__actual" aria-hidden="true"></div>
                 <div class="dumbbell-node need gap-chart__expected" aria-hidden="true"></div>
-                <div class="dumbbell-label have">${datum.actual}%</div>
-                <div class="dumbbell-label need">${datum.expected}%</div>
+                <div class="dumbbell-label have"><span data-chart-count data-chart-target="${datum.actual}">${datum.actual}</span>%</div>
+                <div class="dumbbell-label need"><span data-chart-count data-chart-target="${datum.expected}">${datum.expected}</span>%</div>
                 <div class="dumbbell-gap">${Math.abs(datum.expected - datum.actual)} pt gap</div>
               </div>
               <div class="dumbbell-legend">

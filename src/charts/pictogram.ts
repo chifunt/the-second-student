@@ -37,7 +37,7 @@ export function renderPictogram(options: PictogramOptions): string {
       `${options.value} of ${total} students ${options.label}`,
     )}" ${renderEvidenceAttributes(options.title, `${options.value} of ${total}`, options.evidence)}>
       <div class="pictogram__headline">
-        <span>${options.value}</span><small>of ${total}</small>
+        <span data-chart-count data-chart-target="${options.value}">${options.value}</span><small>of ${total}</small>
       </div>
       <div class="pictogram__label">${escapeHtml(options.label)}</div>
       <div class="pictogram__grid">${icons}</div>

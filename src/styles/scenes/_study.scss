@@ -118,6 +118,12 @@
   rotate: -1.5deg;
 }
 
+.scroll-animation-ready .s4 .quote-note {
+  opacity: 0;
+  transform: translateY(18px);
+  visibility: hidden;
+}
+
 .studio-data {
   background: #f1efe9;
   border-left-color: #e4e1d8;

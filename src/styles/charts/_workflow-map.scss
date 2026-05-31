@@ -125,6 +125,13 @@
   font-size: 11px;
 }
 
+.workflow-map strong [data-chart-count] {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
+
 .workflow-map__item .bar-track {
   height: 6px;
 }

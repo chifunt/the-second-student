@@ -16,6 +16,16 @@ export function setupProgressDots(
     progress?.classList.toggle("is-visible", index > 0);
   }
 
+  function getTrackingRect(element: HTMLElement): DOMRect {
+    const pinSpacer = element.parentElement;
+
+    if (element.classList.contains("s7") && pinSpacer?.classList.contains("pin-spacer")) {
+      return pinSpacer.getBoundingClientRect();
+    }
+
+    return element.getBoundingClientRect();
+  }
+
   function updateFromViewport(): void {
     const viewportCenter = window.innerHeight / 2;
     const sceneRects = scenes
@@ -26,7 +36,7 @@ export function setupProgressDots(
           return null;
         }
 
-        const rect = element.getBoundingClientRect();
+        const rect = getTrackingRect(element);
         return {
           distance: Math.abs(rect.top + rect.height / 2 - viewportCenter),
           index,

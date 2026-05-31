@@ -3,11 +3,19 @@ import type { SceneConfig } from "../scenes/sceneTypes";
 import { schedule, trackCleanup } from "./runtimeEffects";
 
 const ENTRY_OVERLAY_HOLD_MS = 3000;
-const ENTRY_OVERLAY_START_TOLERANCE_PX = 120;
+const ENTRY_OVERLAY_START_TOLERANCE_PX = 8;
+
+function getSceneStartTolerance(container: HTMLElement): number {
+  if (container.classList.contains("s7")) {
+    return Math.max(ENTRY_OVERLAY_START_TOLERANCE_PX, window.innerHeight * 0.025 + 8);
+  }
+
+  return ENTRY_OVERLAY_START_TOLERANCE_PX;
+}
 
 function isSceneSettledAtViewportTop(container: HTMLElement): boolean {
   return (
-    Math.abs(container.getBoundingClientRect().top) <= ENTRY_OVERLAY_START_TOLERANCE_PX
+    Math.abs(container.getBoundingClientRect().top) <= getSceneStartTolerance(container)
   );
 }
 

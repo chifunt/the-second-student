@@ -83,6 +83,7 @@ button {
   padding: 48px 32px;
   position: relative;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   width: 100%;
 }
 

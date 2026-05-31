@@ -113,6 +113,13 @@
   padding: 4px 7px;
 }
 
+.scroll-animation-ready .s8 .chip,
+.scroll-animation-ready .s8 .quote-card {
+  opacity: 0;
+  transform: translateY(12px);
+  visibility: hidden;
+}
+
 .dep-private-note {
   border-left-color: var(--amber);
   color: #f0d9b5;

@@ -208,6 +208,11 @@
   filter: drop-shadow(0 0 8px rgba(216, 200, 255, 0.42));
 }
 
+.scroll-animation-ready .s9-aside .pictogram__icon--lit:not(.pictogram__icon--active) {
+  color: rgba(255, 255, 255, 0.1);
+  filter: none;
+}
+
 .s9-aside .pictogram__label {
   font-size: 9px;
   margin: 0;

@@ -42,9 +42,15 @@
 }
 
 .entry-overlay-pending .scene-entry-overlay {
+  opacity: 1;
   pointer-events: none;
   transform: none;
   visibility: visible;
+}
+
+.entry-overlay-pending .scene-entry-timer::after {
+  animation: none;
+  transform: scaleX(0);
 }
 
 .scene[data-entry-overlay="true"] .scene-inner {

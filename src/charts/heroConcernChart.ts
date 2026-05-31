@@ -55,7 +55,7 @@ export function renderHeroConcernChart(
           options.evidence,
         )}>
           <div class="hero-concern__ring" aria-hidden="true">
-            <span>${datum.value}<small>%</small></span>
+            <span data-chart-count data-chart-target="${datum.value}">${datum.value}<small>%</small></span>
           </div>
           <div class="hero-concern__kind">${escapeHtml(color.label)}</div>
           <div class="hero-concern__label">${escapeHtml(datum.label)}</div>

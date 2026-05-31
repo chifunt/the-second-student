@@ -22,7 +22,7 @@ function renderTrack(
     )}%;" ${renderEvidenceAttributes(datum.label, datum.value, options.evidence)}>
       <div>
         <span>${escapeHtml(datum.label)}</span>
-        <strong>${datum.value}%</strong>
+        <strong><span data-chart-count data-chart-target="${datum.value}">${datum.value}</span>%</strong>
       </div>
       <div class="bar-track">
         <span class="bar-fill support-signal__track-fill" aria-hidden="true"></span>
@@ -62,7 +62,7 @@ export function renderSupportSignalChart(
         options.evidence,
       )}>
         <span class="support-signal__kicker">Immediate reply</span>
-        <strong>${instantSupport.value}<small>%</small></strong>
+        <strong><span data-chart-count data-chart-target="${instantSupport.value}">${instantSupport.value}</span><small>%</small></strong>
         <p>Instant support</p>
         <span>The data point closest to this panic moment.</span>
         <div class="support-signal__meter" aria-hidden="true">
@@ -76,7 +76,7 @@ export function renderSupportSignalChart(
         outsideHours.value,
         options.evidence,
       )}>
-        <strong>${outsideHours.value}<small>%</small></strong>
+        <strong><span data-chart-count data-chart-target="${outsideHours.value}">${outsideHours.value}</span><small>%</small></strong>
         <div>
           <span class="support-signal__kicker">After-hours support</span>
           <span>use AI outside traditional study hours</span>

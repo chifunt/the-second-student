@@ -22,24 +22,27 @@ function getCursorTarget(container: HTMLElement): { left: number; top: number } 
 export function animateEmailScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
   const contentStart = sceneContentPosition(container);
+  const targetRow = container.querySelector(".email-list .row.target");
 
   timeline
-    .from(
-      container.querySelectorAll(".email-list .row"),
+    .to(
+      targetRow,
       {
-        autoAlpha: 0,
-        duration: 0.35,
-        stagger: 0.05,
-        x: -18,
+        duration: 0.28,
+        repeat: 1,
+        scale: 1.012,
+        transformOrigin: "left center",
+        yoyo: true,
       },
       contentStart + 0.18,
     )
-    .from(
+    .to(
       container.querySelector(".email-reader"),
       {
-        autoAlpha: 0,
-        duration: 0.55,
-        x: 24,
+        boxShadow: "0 0 0 1px rgba(230, 162, 60, 0.24), 0 22px 56px rgba(0, 0, 0, 0.24)",
+        duration: 0.32,
+        repeat: 1,
+        yoyo: true,
       },
       contentStart + 0.32,
     );
@@ -120,13 +123,13 @@ export function animateDependencyScene(container: HTMLElement): void {
     contentStart + 0.28,
   );
 
-  timeline.from(
+  timeline.to(
     container.querySelectorAll(".chip, .quote-card"),
     {
-      autoAlpha: 0,
+      autoAlpha: 1,
       duration: 0.35,
       stagger: 0.05,
-      y: 12,
+      y: 0,
     },
     contentStart + chatDuration + 0.5,
   );
@@ -135,17 +138,6 @@ export function animateDependencyScene(container: HTMLElement): void {
 export function animateCompanionScene(container: HTMLElement): void {
   const timeline = baseReveal(container);
   const contentStart = sceneContentPosition(container);
-
-  timeline.from(
-    container.querySelector(".phone"),
-    {
-      autoAlpha: 0,
-      duration: 0.75,
-      filter: "blur(12px)",
-      y: 32,
-    },
-    contentStart + 0.14,
-  );
 
   addProgressiveChat(timeline, container, ".phone-stream", contentStart + 0.58);
 }
