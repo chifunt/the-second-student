@@ -9,6 +9,8 @@ gsap.registerPlugin(ScrollToPlugin);
 
 const NAVIGATION_EVENT = "second-student:navigate-to";
 const NAVIGATION_SETTLED_EVENT = "second-student:navigation-settled";
+const ENTRY_OVERLAY_STARTED_EVENT = "second-student:entry-overlay-started";
+const ENTRY_OVERLAY_DISMISSED_EVENT = "second-student:entry-overlay-dismissed";
 const SCROLL_DURATION_SECONDS = 0.85;
 const WHEEL_THRESHOLD = 34;
 const WHEEL_RESET_MS = 180;
@@ -188,11 +190,12 @@ export function setupSceneSnap(
   let wheelDelta = 0;
   let wheelTimer = 0;
   let touchStartY: number | undefined;
+  let activeOverlaySceneId: string | undefined;
 
   const isNavigationBlocked = (): boolean =>
     isMoving ||
     document.body.classList.contains("scroll-locked") ||
-    Boolean(document.querySelector(".entry-overlay-active"));
+    activeOverlaySceneId === stops[activeIndex]?.id;
 
   const settleAt = (stop: SceneStop, splitStep?: number) => {
     isMoving = false;
@@ -400,8 +403,28 @@ export function setupSceneSnap(
       activeIndex === splitStop?.index ? getClosestSplitStep(splitStop.element) : 0;
   };
 
+  const handleOverlayStarted = (event: Event) => {
+    const id = (event as CustomEvent<{ id?: string }>).detail?.id;
+
+    activeOverlaySceneId = id === stops[activeIndex]?.id ? id : undefined;
+  };
+
+  const handleOverlayDismissed = (event: Event) => {
+    const id = (event as CustomEvent<{ id?: string }>).detail?.id;
+
+    if (id === activeOverlaySceneId) {
+      activeOverlaySceneId = undefined;
+    }
+  };
+
   window.addEventListener(NAVIGATION_EVENT, handleRequest);
+  window.addEventListener(ENTRY_OVERLAY_STARTED_EVENT, handleOverlayStarted);
+  window.addEventListener(ENTRY_OVERLAY_DISMISSED_EVENT, handleOverlayDismissed);
   trackCleanup(() => window.removeEventListener(NAVIGATION_EVENT, handleRequest));
+  trackCleanup(() => {
+    window.removeEventListener(ENTRY_OVERLAY_STARTED_EVENT, handleOverlayStarted);
+    window.removeEventListener(ENTRY_OVERLAY_DISMISSED_EVENT, handleOverlayDismissed);
+  });
 
   if (reduceMotion) {
     return;
@@ -437,10 +460,18 @@ export function setupSceneSnap(
   });
 
   window.requestAnimationFrame(() => {
-    syncActiveFromScroll();
-    const activeStop = stops[activeIndex];
+    const hashStop = stops.find((stop) => window.location.hash === `#${stop.id}`);
+    const activeStop = hashStop ?? stops[findClosestSceneIndex(stops)];
 
     if (activeStop) {
+      activeIndex = activeStop.index;
+      activeSplitStep =
+        activeStop.index === splitStop?.index
+          ? getClosestSplitStep(splitStop.element)
+          : 0;
+      window.scrollTo(0, getElementTop(activeStop.element));
+      updateHash(activeStop.id);
+      ScrollTrigger.update();
       dispatchSettled(
         activeStop,
         activeStop.index === splitStop?.index ? activeSplitStep : undefined,

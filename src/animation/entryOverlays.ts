@@ -1,24 +1,12 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { SceneConfig } from "../scenes/sceneTypes";
 import { schedule, trackCleanup } from "./runtimeEffects";
+import { getElementTop, lockScrollAt } from "./scrollLock";
 
 const ENTRY_OVERLAY_HOLD_MS = 3000;
-const ENTRY_OVERLAY_START_TOLERANCE_PX = 8;
 const NAVIGATION_SETTLED_EVENT = "second-student:navigation-settled";
-
-function getSceneStartTolerance(container: HTMLElement): number {
-  if (container.classList.contains("s7")) {
-    return Math.max(ENTRY_OVERLAY_START_TOLERANCE_PX, window.innerHeight * 0.025 + 8);
-  }
-
-  return ENTRY_OVERLAY_START_TOLERANCE_PX;
-}
-
-function isSceneSettledAtViewportTop(container: HTMLElement): boolean {
-  return (
-    Math.abs(container.getBoundingClientRect().top) <= getSceneStartTolerance(container)
-  );
-}
+const ENTRY_OVERLAY_STARTED_EVENT = "second-student:entry-overlay-started";
+const ENTRY_OVERLAY_DISMISSED_EVENT = "second-student:entry-overlay-dismissed";
 
 function playDeferredSceneAnimation(container: HTMLElement): void {
   window.requestAnimationFrame(() => {
@@ -55,16 +43,19 @@ function dismissEntryOverlay(
   scene: SceneConfig,
   container: HTMLElement,
   reduceMotion: boolean,
+  unlockScroll?: () => void,
 ): void {
   if (container.classList.contains("entry-overlay-dismissed")) {
+    unlockScroll?.();
     return;
   }
 
   container.classList.remove("entry-overlay-pending");
   container.classList.remove("entry-overlay-active");
   container.classList.add("entry-overlay-dismissed");
+  unlockScroll?.();
   window.dispatchEvent(
-    new CustomEvent("second-student:entry-overlay-dismissed", {
+    new CustomEvent(ENTRY_OVERLAY_DISMISSED_EVENT, {
       detail: { id: scene.id },
     }),
   );
@@ -120,36 +111,24 @@ export function setupEntryOverlays(
       container.dataset.entryAnimationReady = "true";
     }
 
-    const trapScroll = (event: Event) => {
-      if (container.classList.contains("entry-overlay-active")) {
-        event.preventDefault();
-      }
-    };
-
-    overlay.addEventListener("wheel", trapScroll, {
-      passive: false,
-    });
-    overlay.addEventListener("touchmove", trapScroll, {
-      passive: false,
-    });
-    trackCleanup(() => {
-      overlay.removeEventListener("wheel", trapScroll);
-      overlay.removeEventListener("touchmove", trapScroll);
-    });
-
     let started = false;
-    let pollTimer = 0;
+    let unlockOverlayScroll: (() => void) | undefined;
     const startOverlay = () => {
-      if (started || !isSceneSettledAtViewportTop(container)) {
+      if (started) {
         return;
       }
 
       started = true;
-      window.clearInterval(pollTimer);
+      unlockOverlayScroll = lockScrollAt(getElementTop(container));
       container.classList.remove("entry-overlay-pending");
       container.classList.add("entry-overlay-active");
+      window.dispatchEvent(
+        new CustomEvent(ENTRY_OVERLAY_STARTED_EVENT, {
+          detail: { id: scene.id },
+        }),
+      );
       schedule(
-        () => dismissEntryOverlay(scene, container, reduceMotion),
+        () => dismissEntryOverlay(scene, container, reduceMotion, unlockOverlayScroll),
         ENTRY_OVERLAY_HOLD_MS,
       );
     };
@@ -162,37 +141,10 @@ export function setupEntryOverlays(
       }
     };
 
-    window.addEventListener("scroll", startOverlay, { passive: true });
-    window.addEventListener("resize", startOverlay, { passive: true });
     window.addEventListener(NAVIGATION_SETTLED_EVENT, startOverlayFromNavigation);
     trackCleanup(() => {
-      window.removeEventListener("scroll", startOverlay);
-      window.removeEventListener("resize", startOverlay);
       window.removeEventListener(NAVIGATION_SETTLED_EVENT, startOverlayFromNavigation);
     });
-
-    pollTimer = window.setInterval(startOverlay, 100);
-    trackCleanup(() => window.clearInterval(pollTimer));
-
-    const trigger = ScrollTrigger.create({
-      trigger: container,
-      // The entry slate is allowed to block scroll briefly, so it must only
-      // start after snap has settled the scene instead of while it is half-way in.
-      start: "top top+=10",
-      end: "bottom top",
-      onEnter: startOverlay,
-      onEnterBack: startOverlay,
-      onUpdate: startOverlay,
-    });
-    trackCleanup(() => trigger.kill());
-
-    const bounds = container.getBoundingClientRect();
-    if (
-      isSceneSettledAtViewportTop(container) &&
-      bounds.bottom > window.innerHeight * 0.3
-    ) {
-      startOverlay();
-    }
   });
 
   return deferredScenes;
