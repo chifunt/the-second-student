@@ -32,9 +32,9 @@ const ladderRows = [
   },
   {
     zone: "boundary",
-    label: "Edit my writing",
+    label: "Revise the voice",
     value: null,
-    desc: "Boundary marker: there is no survey value for this exact step.",
+    desc: "Narrative checkpoint: there is no survey value for this exact step.",
   },
   {
     zone: generateThenEdit.zone,
@@ -88,7 +88,6 @@ export const boundaryScene = createVisualScene({
               <div><strong>${generateThenEdit.value}%</strong><span>generate text, then edit</span></div>
               <div><strong>${includeDirectly.value}%</strong><span>include AI text directly</span></div>
             </div>
-            <div class="threshold-note">Boundary: when generated words enter the submitted draft.</div>
             <div class="ladder threshold-ladder">
               ${ladderRows
                 .map(
@@ -100,7 +99,7 @@ export const boundaryScene = createVisualScene({
                     )}>
                       <span>${index + 1}</span>
                       <span class="rung-label">${label}</span>
-                      <span class="pct">${value === null ? "boundary" : `${value}%`}<span class="toggle-ic">></span></span>
+                      <span class="pct">${value === null ? "checkpoint" : `${value}%`}<span class="toggle-ic">></span></span>
                       <span class="rung-meter" aria-hidden="true"><i></i></span>
                       <span class="desc">${desc}</span>
                     </button>

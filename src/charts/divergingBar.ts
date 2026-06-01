@@ -23,13 +23,22 @@ export function renderDivergingBar(data: DivergingDatum, options: ChartOptions):
       <div class="diverging-bar">
         <div class="seg less" style="--w:${width(data.lessValue).toFixed(
           2,
-        )}%;" ${renderEvidenceAttributes(data.lessLabel, data.lessValue, options.evidence)}>Less <span data-chart-count data-chart-target="${data.lessValue}">${data.lessValue}</span>%</div>
+        )}%;" ${renderEvidenceAttributes(data.lessLabel, data.lessValue, options.evidence)}>
+          <span class="diverging-bar__label">Less</span>
+          <strong class="diverging-bar__value"><span data-chart-count data-chart-target="${data.lessValue}">${data.lessValue}</span><small>%</small></strong>
+        </div>
         <div class="seg no" style="--w:${width(data.neutralValue).toFixed(
           2,
-        )}%;" ${renderEvidenceAttributes(data.neutralLabel, data.neutralValue, options.evidence)}>No impact <span data-chart-count data-chart-target="${data.neutralValue}">${data.neutralValue}</span>%</div>
+        )}%;" ${renderEvidenceAttributes(data.neutralLabel, data.neutralValue, options.evidence)}>
+          <span class="diverging-bar__label">No impact</span>
+          <strong class="diverging-bar__value"><span data-chart-count data-chart-target="${data.neutralValue}">${data.neutralValue}</span><small>%</small></strong>
+        </div>
         <div class="seg more" style="--w:${width(data.moreValue).toFixed(
           2,
-        )}%;" ${renderEvidenceAttributes(data.moreLabel, data.moreValue, options.evidence)}>More <span data-chart-count data-chart-target="${data.moreValue}">${data.moreValue}</span>%</div>
+        )}%;" ${renderEvidenceAttributes(data.moreLabel, data.moreValue, options.evidence)}>
+          <span class="diverging-bar__label">More</span>
+          <strong class="diverging-bar__value"><span data-chart-count data-chart-target="${data.moreValue}">${data.moreValue}</span><small>%</small></strong>
+        </div>
       </div>
       <div class="diverging-axis">
         <span>${escapeHtml(data.lessLabel)}</span>

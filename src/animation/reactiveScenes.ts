@@ -22,7 +22,7 @@ function getCursorTargetDelta(container: HTMLElement): { x: number; y: number } 
   };
 }
 
-export function animateEmailScene(container: HTMLElement): void {
+export function animateEmailScene(container: HTMLElement) {
   const timeline = baseReveal(container);
   const contentStart = sceneContentPosition(container);
   const targetRow = container.querySelector(".email-list .row.target");
@@ -49,9 +49,11 @@ export function animateEmailScene(container: HTMLElement): void {
       },
       contentStart + 0.32,
     );
+
+  return timeline;
 }
 
-export function animatePanicButtonScene(container: HTMLElement): void {
+export function animatePanicButtonScene(container: HTMLElement) {
   const timeline = baseReveal(container);
   const contentStart = sceneContentPosition(container);
   const cursor = container.querySelector(".cursor");
@@ -105,9 +107,11 @@ export function animatePanicButtonScene(container: HTMLElement): void {
       },
       contentStart + 2.7,
     );
+
+  return timeline;
 }
 
-export function animatePanicChatScene(container: HTMLElement): void {
+export function animatePanicChatScene(container: HTMLElement) {
   const timeline = baseReveal(container);
   addProgressiveChat(
     timeline,
@@ -115,9 +119,11 @@ export function animatePanicChatScene(container: HTMLElement): void {
     ".chat-stream",
     sceneContentPosition(container, 0.32),
   );
+
+  return timeline;
 }
 
-export function animateDependencyScene(container: HTMLElement): void {
+export function animateDependencyScene(container: HTMLElement) {
   const timeline = baseReveal(container);
   const contentStart = sceneContentPosition(container);
   const chatDuration = addProgressiveChat(
@@ -137,11 +143,15 @@ export function animateDependencyScene(container: HTMLElement): void {
     },
     contentStart + chatDuration + 0.5,
   );
+
+  return timeline;
 }
 
-export function animateCompanionScene(container: HTMLElement): void {
+export function animateCompanionScene(container: HTMLElement) {
   const timeline = baseReveal(container);
   const contentStart = sceneContentPosition(container);
 
   addProgressiveChat(timeline, container, ".phone-stream", contentStart + 0.58);
+
+  return timeline;
 }

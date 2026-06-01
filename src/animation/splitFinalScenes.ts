@@ -1,37 +1,20 @@
 import { addProgressiveChat } from "./progressiveChat";
 import { playDataFocus, sceneContentPosition, sceneTimeline } from "./timelineCore";
 
-export function animateSplitExperienceScene(container: HTMLElement): void {
-  let hasCompleted = false;
-  const timelineRef: { current?: ReturnType<typeof sceneTimeline> } = {};
-  const completeScene = (): void => {
-    if (hasCompleted) {
-      return;
-    }
-
-    hasCompleted = true;
-    container.classList.add("split-experience-complete");
-    timelineRef.current?.progress(1);
+export function animateSplitExperienceScene(container: HTMLElement) {
+  const updateCompletion = (progress: number): void => {
+    const isComplete = progress >= 0.98;
+    container.classList.toggle("split-experience-complete", isComplete);
+    container.classList.toggle("scene-animation-complete", isComplete);
   };
-
   const timeline = sceneTimeline(container, {
     end: "+=220%",
-    onEnterBack: () => {
-      if (hasCompleted) {
-        timelineRef.current?.progress(1);
-      }
-    },
-    onLeave: completeScene,
-    onUpdate: (self) => {
-      if (hasCompleted && self.progress < 1) {
-        timelineRef.current?.progress(1);
-      }
-    },
+    onLeave: () => updateCompletion(1),
+    onUpdate: (self) => updateCompletion(self.progress),
     pin: true,
     scrub: 0.8,
-    start: "top 2%",
+    start: "top top",
   });
-  timelineRef.current = timeline;
 
   timeline
     .fromTo(
@@ -127,9 +110,11 @@ export function animateSplitExperienceScene(container: HTMLElement): void {
       },
       2.55,
     );
+
+  return timeline;
 }
 
-export function animateFinalPaywallScene(container: HTMLElement): void {
+export function animateFinalPaywallScene(container: HTMLElement) {
   const timeline = sceneTimeline(container);
   const contentStart = sceneContentPosition(container);
   const chatDuration = addProgressiveChat(
@@ -151,4 +136,6 @@ export function animateFinalPaywallScene(container: HTMLElement): void {
     },
     contentStart + chatDuration + 0.18,
   );
+
+  return timeline;
 }

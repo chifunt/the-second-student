@@ -26,23 +26,40 @@ export function sceneTimeline(
   container: HTMLElement,
   options: TimelineOptions = {},
 ): gsap.core.Timeline {
-  return gsap.timeline({
+  const shouldRunImmediately =
+    !options.scrub &&
+    Boolean(container.dataset.dataFocus) &&
+    container.dataset.entryAnimationReady === "true" &&
+    container.classList.contains("entry-overlay-dismissed");
+
+  const timeline = gsap.timeline({
     defaults: {
       duration: 0.7,
       ease: "power2.out",
     },
-    scrollTrigger: {
-      trigger: container,
-      start: options.start ?? "top 70%",
-      end: options.end ?? "bottom 30%",
-      once: !options.scrub,
-      onEnterBack: options.onEnterBack,
-      onLeave: options.onLeave,
-      onUpdate: options.onUpdate,
-      pin: options.pin,
-      scrub: options.scrub,
-    },
+    paused: shouldRunImmediately,
+    scrollTrigger: shouldRunImmediately
+      ? undefined
+      : {
+          trigger: container,
+          start: options.start ?? "top 70%",
+          end: options.end ?? "bottom 30%",
+          once: !options.scrub,
+          onEnterBack: options.onEnterBack,
+          onLeave: options.onLeave,
+          onUpdate: options.onUpdate,
+          pin: options.pin,
+          scrub: options.scrub,
+        },
   });
+
+  if (!options.scrub) {
+    timeline.eventCallback("onComplete", () => {
+      container.classList.add("scene-animation-complete");
+    });
+  }
+
+  return timeline;
 }
 
 export function sceneContentPosition(container: HTMLElement, offset = 0): number {

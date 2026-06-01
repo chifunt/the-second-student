@@ -6,13 +6,24 @@
   font-size: 10px;
   left: 50%;
   letter-spacing: 0.22em;
-  opacity: 0.42;
+  opacity: 0;
   padding: 6px 10px;
+  pointer-events: none;
   position: absolute;
   text-align: center;
   text-transform: uppercase;
   transform: translateX(-50%);
+  transition:
+    opacity 0.28s ease,
+    visibility 0.28s ease;
+  visibility: hidden;
   z-index: 12;
+}
+
+.scene-animation-complete .scroll-hint {
+  opacity: 0.42;
+  pointer-events: auto;
+  visibility: visible;
 }
 
 .scroll-hint:hover {

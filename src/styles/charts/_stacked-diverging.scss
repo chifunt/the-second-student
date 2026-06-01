@@ -85,14 +85,38 @@
   align-items: center;
   color: white;
   display: flex;
+  flex-direction: column;
   flex: 0 0 var(--w);
   font-family: var(--font-mono);
-  font-size: 11px;
+  gap: 3px;
   justify-content: center;
+  line-height: 1;
   min-width: 0;
   overflow: hidden;
-  padding: 0 6px;
+  padding: 0 7px;
   white-space: nowrap;
+}
+
+.diverging-bar__label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  opacity: 0.78;
+  text-transform: uppercase;
+}
+
+.diverging-bar__value {
+  align-items: baseline;
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 700;
+  gap: 1px;
+  letter-spacing: -0.05em;
+}
+
+.diverging-bar__value small {
+  font-size: 0.58em;
+  letter-spacing: 0;
 }
 
 .diverging-bar .less {
@@ -106,6 +130,10 @@
 
 .diverging-bar .more {
   background: var(--muted-purple);
+}
+
+.diverging-bar .no .diverging-bar__value {
+  font-size: 16px;
 }
 
 .diverging-axis {

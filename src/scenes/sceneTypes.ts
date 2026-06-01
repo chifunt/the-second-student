@@ -9,6 +9,8 @@ export type SceneConfig = {
   title: string;
   mode: StudentMode;
   render: (container: HTMLElement, context?: SceneRenderContext) => void;
-  animate?: (container: HTMLElement) => void;
+  animate?: (
+    container: HTMLElement,
+  ) => void | { restart: (includeDelay?: boolean, suppressEvents?: boolean) => unknown };
   destroy?: (container: HTMLElement) => void;
 };

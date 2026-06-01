@@ -24,12 +24,15 @@ export function setupScroll(scenes: readonly SceneConfig[]): void {
   ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
   clearRuntimeEffects();
   document.documentElement.classList.remove("reduced-motion", "scroll-animation-ready");
-  document.body.classList.remove("scroll-locked");
+  document.body.classList.remove("scroll-locked", "scroll-pinned");
   document
     .querySelectorAll<HTMLElement>(".data-focus-active, .data-focus-released")
     .forEach((element) =>
       element.classList.remove("data-focus-active", "data-focus-released"),
     );
+  document
+    .querySelectorAll<HTMLElement>(".scene-animation-complete")
+    .forEach((element) => element.classList.remove("scene-animation-complete"));
 
   const shouldReduceMotion = getShouldReduceMotion();
 
@@ -52,6 +55,9 @@ export function setupScroll(scenes: readonly SceneConfig[]): void {
   if (shouldReduceMotion) {
     document.documentElement.classList.add("reduced-motion");
     document.querySelector<HTMLElement>(".s0")?.classList.add("opened");
+    scenes.forEach((scene) =>
+      document.getElementById(scene.id)?.classList.add("scene-animation-complete"),
+    );
     return;
   }
 

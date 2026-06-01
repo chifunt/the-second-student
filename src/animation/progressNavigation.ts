@@ -1,5 +1,6 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { SceneConfig } from "../scenes/sceneTypes";
+import { requestStoryNavigation } from "./sceneSnap";
 
 export function setupProgressDots(
   scenes: readonly SceneConfig[],
@@ -58,15 +59,35 @@ export function setupProgressDots(
 
   dots.forEach((dot) => {
     dot.addEventListener("click", () => {
-      const target = document.getElementById(dot.dataset.target ?? "");
-      target?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+      const targetId = dot.dataset.target;
+
+      if (!targetId) {
+        return;
+      }
+
+      if (reduceMotion) {
+        document.getElementById(targetId)?.scrollIntoView({ behavior: "auto" });
+        return;
+      }
+
+      requestStoryNavigation({ targetId });
     });
   });
 
   document.querySelectorAll<HTMLButtonElement>(".scroll-hint").forEach((hint) => {
     hint.addEventListener("click", () => {
-      const target = document.getElementById(hint.dataset.target ?? "");
-      target?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+      const targetId = hint.dataset.target;
+
+      if (!targetId) {
+        return;
+      }
+
+      if (reduceMotion) {
+        document.getElementById(targetId)?.scrollIntoView({ behavior: "auto" });
+        return;
+      }
+
+      requestStoryNavigation({ targetId });
     });
   });
 

@@ -4,6 +4,7 @@ import { schedule, trackCleanup } from "./runtimeEffects";
 
 const ENTRY_OVERLAY_HOLD_MS = 3000;
 const ENTRY_OVERLAY_START_TOLERANCE_PX = 8;
+const NAVIGATION_SETTLED_EVENT = "second-student:navigation-settled";
 
 function getSceneStartTolerance(container: HTMLElement): number {
   if (container.classList.contains("s7")) {
@@ -19,6 +20,37 @@ function isSceneSettledAtViewportTop(container: HTMLElement): boolean {
   );
 }
 
+function playDeferredSceneAnimation(container: HTMLElement): void {
+  window.requestAnimationFrame(() => {
+    ScrollTrigger.refresh();
+    ScrollTrigger.getAll().forEach((trigger) => {
+      if (trigger.trigger === container && trigger.animation && !trigger.vars.scrub) {
+        trigger.animation.play(0);
+      }
+    });
+  });
+}
+
+function restartDeferredAnimation(
+  animation: void | {
+    paused?: (value: boolean) => unknown;
+    progress?: (value: number) => unknown;
+    restart: (includeDelay?: boolean, suppressEvents?: boolean) => unknown;
+    timeScale?: (value?: number) => number | unknown;
+  },
+): void {
+  if (!animation) {
+    return;
+  }
+
+  window.setTimeout(() => {
+    animation.progress?.(0);
+    animation.timeScale?.(1);
+    animation.paused?.(false);
+    animation.restart(true, false);
+  }, 120);
+}
+
 function dismissEntryOverlay(
   scene: SceneConfig,
   container: HTMLElement,
@@ -31,6 +63,11 @@ function dismissEntryOverlay(
   container.classList.remove("entry-overlay-pending");
   container.classList.remove("entry-overlay-active");
   container.classList.add("entry-overlay-dismissed");
+  window.dispatchEvent(
+    new CustomEvent("second-student:entry-overlay-dismissed", {
+      detail: { id: scene.id },
+    }),
+  );
 
   if (
     reduceMotion ||
@@ -41,9 +78,11 @@ function dismissEntryOverlay(
   }
 
   container.dataset.entryAnimationReady = "true";
-  scene.animate(container);
+  const animation = scene.animate(container);
   ScrollTrigger.refresh();
   ScrollTrigger.update();
+  restartDeferredAnimation(animation);
+  playDeferredSceneAnimation(container);
 }
 
 export function setupEntryOverlays(
@@ -100,7 +139,6 @@ export function setupEntryOverlays(
 
     let started = false;
     let pollTimer = 0;
-
     const startOverlay = () => {
       if (started || !isSceneSettledAtViewportTop(container)) {
         return;
@@ -116,11 +154,21 @@ export function setupEntryOverlays(
       );
     };
 
+    const startOverlayFromNavigation = (event: Event) => {
+      const detail = (event as CustomEvent<{ id?: string }>).detail;
+
+      if (detail?.id === scene.id) {
+        startOverlay();
+      }
+    };
+
     window.addEventListener("scroll", startOverlay, { passive: true });
     window.addEventListener("resize", startOverlay, { passive: true });
+    window.addEventListener(NAVIGATION_SETTLED_EVENT, startOverlayFromNavigation);
     trackCleanup(() => {
       window.removeEventListener("scroll", startOverlay);
       window.removeEventListener("resize", startOverlay);
+      window.removeEventListener(NAVIGATION_SETTLED_EVENT, startOverlayFromNavigation);
     });
 
     pollTimer = window.setInterval(startOverlay, 100);

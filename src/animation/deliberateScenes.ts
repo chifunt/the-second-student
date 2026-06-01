@@ -1,11 +1,11 @@
 import { addProgressiveChat } from "./progressiveChat";
 import { baseReveal, sceneContentPosition } from "./timelineCore";
 
-export function animateTitleScene(container: HTMLElement): void {
-  baseReveal(container);
+export function animateTitleScene(container: HTMLElement) {
+  return baseReveal(container);
 }
 
-export function animateDeliberateWorkflowScene(container: HTMLElement): void {
+export function animateDeliberateWorkflowScene(container: HTMLElement) {
   const timeline = baseReveal(container);
   const contentStart = sceneContentPosition(container);
   const chatStart = contentStart + 0.32;
@@ -37,9 +37,11 @@ export function animateDeliberateWorkflowScene(container: HTMLElement): void {
       },
       chatStart + chatDuration + 0.22,
     );
+
+  return timeline;
 }
 
-export function animateBoundaryScene(container: HTMLElement): void {
+export function animateBoundaryScene(container: HTMLElement) {
   const timeline = baseReveal(container);
   const contentStart = sceneContentPosition(container);
 
@@ -64,9 +66,11 @@ export function animateBoundaryScene(container: HTMLElement): void {
       },
       contentStart + 0.72,
     );
+
+  return timeline;
 }
 
-export function animateSkillGapScene(container: HTMLElement): void {
+export function animateSkillGapScene(container: HTMLElement) {
   const timeline = baseReveal(container);
   const contentStart = sceneContentPosition(container);
 
@@ -81,4 +85,6 @@ export function animateSkillGapScene(container: HTMLElement): void {
     },
     contentStart + 0.28,
   );
+
+  return timeline;
 }

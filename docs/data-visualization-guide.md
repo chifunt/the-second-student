@@ -12,6 +12,9 @@ The visualizations should make the narrative point immediately. A chart is part 
 - Use D3 for scale calculations or SVG structure when a chart needs quantitative layout.
 - Use GSAP only after the chart structure exists.
 - Do not rely on color alone; every visual needs text labels or positional encoding.
+- Use stacked bars only when they make the whole distribution easier to read
+  than separate marks would. Prefer gap charts, pictograms, or spatial metaphors
+  when the task is distance, prevalence, or process.
 
 ## Scene-By-Scene Intent
 
@@ -101,9 +104,9 @@ Quote treatment: the worse-side excerpt is a real free-text quote and should use
 
 Primary point: help can become dependence when the student asks the tool to carry judgement.
 
-Visual: dependent prompt sequence, refusal beat, risk chips, and 100% stacked source-balance chart for 37 AI-first, 29 balanced, 34 traditional-first.
+Visual: dependent prompt sequence, refusal beat, risk chips, and compact 100% stacked source-balance chart for 37 AI-first, 29 balanced, 34 traditional-first.
 
-Why: the experience-impact distribution has already been established, so this scene should show the mechanism: AI becoming the first place the work starts.
+Why: the experience-impact distribution has already been established, so this scene should show the mechanism: AI becoming the first place the work starts. In the narrow sidebar, the compact stacked bar keeps the three starting-point groups readable without adding extra chart furniture.
 
 Details on demand: the grouped source-balance bar reveals the five original response options.
 

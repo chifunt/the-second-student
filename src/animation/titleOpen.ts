@@ -1,3 +1,6 @@
+import { getScrollTop } from "./scrollLock";
+import { requestStoryNavigation } from "./sceneSnap";
+
 export function setupTitleOpen(reduceMotion: boolean): void {
   const titleScene = document.querySelector<HTMLElement>(".s0");
   const button = document.querySelector<HTMLButtonElement>(".s0-open");
@@ -7,13 +10,22 @@ export function setupTitleOpen(reduceMotion: boolean): void {
     return;
   }
 
-  if (!reduceMotion && window.scrollY < 8) {
+  const startsOnTitle =
+    !window.location.hash || window.location.hash === `#${titleScene.id}`;
+
+  if (!reduceMotion && startsOnTitle && getScrollTop() < 8) {
     document.body.classList.add("scroll-locked");
   }
 
   button.addEventListener("click", () => {
     titleScene.classList.add("opened");
     document.body.classList.remove("scroll-locked");
-    next.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+
+    if (reduceMotion) {
+      next.scrollIntoView({ behavior: "auto" });
+      return;
+    }
+
+    requestStoryNavigation({ targetId: next.id });
   });
 }

@@ -176,6 +176,8 @@ export function addProgressiveChat(
       () => container.classList.add(options.completeClass ?? ""),
       position + elapsed / 1000,
     );
+  } else {
+    timeline.add(() => undefined, position + elapsed / 1000);
   }
 
   return elapsed / 1000;
