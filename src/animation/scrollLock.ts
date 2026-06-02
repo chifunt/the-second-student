@@ -40,13 +40,6 @@ export function getElementTop(element: HTMLElement): number {
   return scrollElement.getBoundingClientRect().top + getScrollTop();
 }
 
-export function snapElementToTop(element: HTMLElement): number {
-  const top = getElementTop(element);
-
-  setScrollTop(top);
-  return top;
-}
-
 export function lockScrollAt(top: number): () => void {
   activeUnlock?.();
 

@@ -1,12 +1,26 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { SceneConfig } from "../scenes/sceneTypes";
+import {
+  ENTRY_OVERLAY_DISMISSED_EVENT,
+  ENTRY_OVERLAY_STARTED_EVENT,
+  NAVIGATION_SETTLED_EVENT,
+} from "./navigation/events";
+import type { NavigationSettledDetail } from "./navigation/events";
 import { schedule, trackCleanup } from "./runtimeEffects";
 import { getElementTop, lockScrollAt } from "./scrollLock";
 
 const ENTRY_OVERLAY_HOLD_MS = 3000;
-const NAVIGATION_SETTLED_EVENT = "second-student:navigation-settled";
-const ENTRY_OVERLAY_STARTED_EVENT = "second-student:entry-overlay-started";
-const ENTRY_OVERLAY_DISMISSED_EVENT = "second-student:entry-overlay-dismissed";
+
+function prearmDataFocus(container: HTMLElement): void {
+  const wash = container.querySelector<HTMLElement>(".data-focus-wash");
+  const target = container.querySelector<HTMLElement>("[data-focus-target]");
+
+  container.classList.remove("data-focus-active", "data-focus-released");
+  container.classList.add("data-focus-prearmed");
+  wash?.style.removeProperty("opacity");
+  wash?.style.removeProperty("visibility");
+  target?.style.removeProperty("transform");
+}
 
 function playDeferredSceneAnimation(container: HTMLElement): void {
   window.requestAnimationFrame(() => {
@@ -107,6 +121,7 @@ export function setupEntryOverlays(
     // before the user reaches it.
     if (shouldDeferAnimation) {
       deferredScenes.add(scene.id);
+      prearmDataFocus(container);
     } else if (!reduceMotion && scene.animate) {
       container.dataset.entryAnimationReady = "true";
     }
@@ -134,13 +149,15 @@ export function setupEntryOverlays(
     };
 
     const startOverlayFromNavigation = (event: Event) => {
-      const detail = (event as CustomEvent<{ id?: string }>).detail;
+      const detail = (event as CustomEvent<NavigationSettledDetail>).detail;
 
       if (detail?.id === scene.id) {
         startOverlay();
       }
     };
 
+    // Overlays must be subordinate to guided navigation; raw scroll observers can
+    // start an offscreen overlay and block the visible scene.
     window.addEventListener(NAVIGATION_SETTLED_EVENT, startOverlayFromNavigation);
     trackCleanup(() => {
       window.removeEventListener(NAVIGATION_SETTLED_EVENT, startOverlayFromNavigation);

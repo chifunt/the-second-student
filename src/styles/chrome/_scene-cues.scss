@@ -34,6 +34,49 @@
     rgba(216, 224, 236, 0.95);
 }
 
+// Entry slates sit above the story, so prearmed data-focus scenes need the
+// slate itself to carry the wash treatment before the underlying wash is seen.
+.scene.data-focus-prearmed .scene-entry-overlay {
+  backdrop-filter: blur(5px) saturate(0.72);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1), transparent 24%),
+    radial-gradient(circle at 50% 50%, transparent 0 22%, rgba(7, 17, 31, 0.3) 66%),
+    rgba(7, 17, 31, 0.58);
+}
+
+.scene[data-mood="bright"].data-focus-prearmed .scene-entry-overlay,
+.scene[data-mood="paper"].data-focus-prearmed .scene-entry-overlay {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.42), transparent 24%),
+    radial-gradient(circle at 50% 50%, transparent 0 24%, rgba(7, 17, 31, 0.14) 68%),
+    rgba(247, 246, 242, 0.62);
+}
+
+.scene[data-mood="paper-cold"].data-focus-prearmed .scene-entry-overlay {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.32), transparent 24%),
+    radial-gradient(circle at 50% 50%, transparent 0 24%, rgba(36, 54, 82, 0.14) 68%),
+    rgba(216, 224, 236, 0.64);
+}
+
+.scene[data-data-focus="soft"].data-focus-prearmed .scene-entry-overlay {
+  backdrop-filter: blur(3px) saturate(0.85);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.28), transparent 24%),
+    radial-gradient(circle at 50% 50%, transparent 0 28%, rgba(81, 60, 36, 0.1) 70%),
+    rgba(250, 246, 236, 0.68);
+}
+
+.scene.data-focus-prearmed .scene-entry-card {
+  text-shadow: 0 2px 24px rgba(7, 17, 31, 0.32);
+}
+
+.scene[data-mood="bright"].data-focus-prearmed .scene-entry-card,
+.scene[data-mood="paper"].data-focus-prearmed .scene-entry-card,
+.scene[data-mood="paper-cold"].data-focus-prearmed .scene-entry-card {
+  text-shadow: 0 2px 24px rgba(255, 255, 255, 0.74);
+}
+
 .entry-overlay-dismissed .scene-entry-overlay {
   opacity: 0;
   pointer-events: none;
@@ -62,6 +105,11 @@
 .entry-overlay-active .scene-inner {
   filter: blur(3px) saturate(0.88);
   transform: scale(0.992);
+}
+
+.data-focus-prearmed.entry-overlay-active .scene-inner {
+  filter: none;
+  transform: none;
 }
 
 .scene-entry-card {
@@ -201,6 +249,11 @@
   opacity: 1;
 }
 
+.data-focus-prearmed .data-focus-wash {
+  opacity: 1;
+  visibility: visible;
+}
+
 .data-focus-wash--soft {
   backdrop-filter: blur(3px) saturate(0.85);
   background: rgba(250, 246, 236, 0.4);
@@ -215,6 +268,18 @@
     0 0 0 1px color-mix(in srgb, currentColor 16%, transparent),
     0 24px 70px rgba(7, 17, 31, 0.22);
   z-index: 32;
+}
+
+.data-focus-prearmed [data-focus-target] {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, currentColor 16%, transparent),
+    0 24px 70px rgba(7, 17, 31, 0.22);
+  transform: translateY(-5px) scale(1.025);
+  z-index: 32;
+}
+
+.scene[data-data-focus="soft"].data-focus-prearmed [data-focus-target] {
+  transform: translateY(-2px) scale(1.012);
 }
 
 .scene[data-data-focus]:not(.data-focus-released) [data-focus-target] {

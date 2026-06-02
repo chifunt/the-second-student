@@ -58,10 +58,12 @@ This keeps the narrative surface clean while still exposing source table, survey
 
 Focused helpers live beside it:
 
+- `navigation/`: guided story navigation, input capture, URL hash settling, and Scene 07 internal stops.
 - `timelineCore.ts`: shared scene timeline primitives.
 - `reactiveScenes.ts`: Arman/reactive-path scene timelines.
 - `deliberateScenes.ts`: title, Ben/deliberate-path, and institutional scene timelines.
 - `splitFinalScenes.ts`: mirror-scene and final paywall timelines.
+- `entryOverlays.ts`: entry slate lifecycle; it starts only from the guided navigation settled event.
 - `densityTicks.ts`: title density strips.
 - `progressNavigation.ts`: scene progress dots.
 - `titleOpen.ts`: opening handoff from title to email.
@@ -73,6 +75,12 @@ Focused helpers live beside it:
 - `motionPreference.ts`: reduced-motion and query override logic.
 
 `sceneTransitions.ts` is a compatibility barrel that re-exports the scene timeline functions. Keep scene imports stable there, but add new implementation code to the focused modules above.
+
+The guided navigation layer is the only owner of story-position changes in animated mode. Wheel, touch, keyboard, progress dots, continue hints, and the title open button should all route through `requestStoryNavigation()`. Entry overlays must not observe raw scroll independently; they wait for `second-student:navigation-settled`, lock at the already-arrived scene top, then release into the scene animation. This keeps overlays from starting offscreen and blocking the current scene.
+
+Scenes with both entry overlays and data focus use a prearmed data-focus state behind the entry slate. The entry overlay remains visually primary, but the data-focus wash is already prepared underneath it; `playDataFocus()` then releases that state instead of introducing a second overlay after the entry slate.
+
+Scene 07 is intentionally special: guided navigation maps it to internal stops rather than treating the entire pinned range as free scroll. Its split-step logic belongs in `navigation/splitStops.ts`, while visual choreography remains in `splitFinalScenes.ts`.
 
 ## Styling Organization
 
@@ -104,4 +112,5 @@ Expectations:
 - New chart: add `src/charts/{chartName}.ts`, style it in `src/styles/charts/_{chartName}.scss`, and import that partial from `src/styles/charts/index.scss`.
 - New evidence card: add metadata to `src/data/evidence.ts`, pass it through the chart helper, and render attributes with `renderEvidenceAttributes`.
 - New global interaction: add a focused helper in `src/animation/` and call it from `setupScroll.ts`.
+- New scroll/navigation behavior: add it under `src/animation/navigation/`; do not add raw wheel/touch listeners in scene modules.
 - New scene animation: add or extend a function in the relevant focused animation module, then re-export it from `sceneTransitions.ts`.

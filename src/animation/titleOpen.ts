@@ -1,5 +1,5 @@
+import { requestStoryNavigation } from "./navigation/guidedNavigation";
 import { getScrollTop } from "./scrollLock";
-import { requestStoryNavigation } from "./sceneSnap";
 
 export function setupTitleOpen(reduceMotion: boolean): void {
   const titleScene = document.querySelector<HTMLElement>(".s0");

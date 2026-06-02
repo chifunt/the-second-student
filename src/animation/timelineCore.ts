@@ -78,22 +78,12 @@ export function playDataFocus(
     return;
   }
 
-  timeline
-    .add(() => container.classList.add("data-focus-active"), position)
-    .set(wash, { autoAlpha: 1 }, position)
-    .to(
-      wash,
-      {
-        autoAlpha: 0,
-        duration: DATA_FOCUS_RELEASE_SECONDS,
-        onComplete: () => {
-          container.classList.remove("data-focus-active");
-          container.classList.add("data-focus-released");
-        },
-      },
-      position + DATA_FOCUS_HOLD_SECONDS,
-    )
-    .fromTo(
+  const isPrearmed = container.classList.contains("data-focus-prearmed");
+
+  timeline.add(() => container.classList.add("data-focus-active"), position);
+
+  if (!isPrearmed) {
+    timeline.set(wash, { autoAlpha: 1 }, position).fromTo(
       target,
       {
         scale: container.dataset.dataFocus === "soft" ? 1.012 : 1.025,
@@ -106,6 +96,30 @@ export function playDataFocus(
       },
       position + 0.08,
     );
+  } else {
+    timeline.to(
+      target,
+      {
+        duration: 0.8,
+        scale: 1,
+        y: 0,
+      },
+      position + 0.08,
+    );
+  }
+
+  timeline.to(
+    wash,
+    {
+      autoAlpha: 0,
+      duration: DATA_FOCUS_RELEASE_SECONDS,
+      onComplete: () => {
+        container.classList.remove("data-focus-active", "data-focus-prearmed");
+        container.classList.add("data-focus-released");
+      },
+    },
+    position + DATA_FOCUS_HOLD_SECONDS,
+  );
 }
 
 export function baseReveal(container: HTMLElement): gsap.core.Timeline {

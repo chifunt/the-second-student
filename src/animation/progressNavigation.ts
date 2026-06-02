@@ -1,6 +1,6 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { SceneConfig } from "../scenes/sceneTypes";
-import { requestStoryNavigation } from "./sceneSnap";
+import { requestStoryNavigation } from "./navigation/guidedNavigation";
 
 export function setupProgressDots(
   scenes: readonly SceneConfig[],

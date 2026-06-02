@@ -8,10 +8,10 @@ import { setupEntryOverlays } from "./entryOverlays";
 import { setupEvidenceDetails } from "./evidenceDetails";
 import { setupFakeTyping } from "./fakeTyping";
 import { getShouldReduceMotion } from "./motionPreference";
+import { setupGuidedNavigation } from "./navigation/guidedNavigation";
 import { setupProgressiveChats } from "./progressiveChat";
 import { setupProgressDots } from "./progressNavigation";
 import { clearRuntimeEffects } from "./runtimeEffects";
-import { setupSceneSnap } from "./sceneSnap";
 import { setupSelectionSweep } from "./selectionSweep";
 import { setupAboutDrawer, setupInteractiveDetails } from "./storyInteractions";
 import { setupTitleOpen } from "./titleOpen";
@@ -26,9 +26,15 @@ export function setupScroll(scenes: readonly SceneConfig[]): void {
   document.documentElement.classList.remove("reduced-motion", "scroll-animation-ready");
   document.body.classList.remove("scroll-locked", "scroll-pinned");
   document
-    .querySelectorAll<HTMLElement>(".data-focus-active, .data-focus-released")
+    .querySelectorAll<HTMLElement>(
+      ".data-focus-active, .data-focus-prearmed, .data-focus-released",
+    )
     .forEach((element) =>
-      element.classList.remove("data-focus-active", "data-focus-released"),
+      element.classList.remove(
+        "data-focus-active",
+        "data-focus-prearmed",
+        "data-focus-released",
+      ),
     );
   document
     .querySelectorAll<HTMLElement>(".scene-animation-complete")
@@ -72,6 +78,6 @@ export function setupScroll(scenes: readonly SceneConfig[]): void {
     }
   }
 
-  setupSceneSnap(scenes, shouldReduceMotion);
+  setupGuidedNavigation(scenes, shouldReduceMotion);
   ScrollTrigger.refresh();
 }
