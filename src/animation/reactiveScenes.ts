@@ -126,6 +126,9 @@ export function animatePanicChatScene(container: HTMLElement) {
 export function animateDependencyScene(container: HTMLElement) {
   const timeline = baseReveal(container);
   const contentStart = sceneContentPosition(container);
+  const themes = container.querySelector(".dep-themes");
+  const themeChips = container.querySelectorAll(".dep-themes .chip");
+  const privateNote = container.querySelector(".dep-private-note");
   const chatDuration = addProgressiveChat(
     timeline,
     container,
@@ -133,16 +136,38 @@ export function animateDependencyScene(container: HTMLElement) {
     contentStart + 0.28,
   );
 
-  timeline.to(
-    container.querySelectorAll(".chip, .quote-card"),
-    {
-      autoAlpha: 1,
-      duration: 0.35,
-      stagger: 0.05,
-      y: 0,
-    },
-    contentStart + chatDuration + 0.5,
-  );
+  if (themes) {
+    timeline.to(
+      themes,
+      {
+        autoAlpha: 1,
+        duration: 0.3,
+        y: 0,
+      },
+      contentStart + chatDuration + 0.42,
+    );
+  }
+
+  timeline
+    .to(
+      themeChips,
+      {
+        autoAlpha: 1,
+        duration: 0.3,
+        stagger: 0.04,
+        y: 0,
+      },
+      contentStart + chatDuration + 0.55,
+    )
+    .to(
+      privateNote,
+      {
+        autoAlpha: 1,
+        duration: 0.35,
+        y: 0,
+      },
+      contentStart + chatDuration + 0.82,
+    );
 
   return timeline;
 }
