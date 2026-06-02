@@ -4,19 +4,26 @@
 }
 
 .scroll-animation-ready .s10 .s10-outro {
-  opacity: 0;
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease,
-    visibility 0.35s ease;
-  transform: translateY(18px);
   visibility: hidden;
 }
 
 .scroll-animation-ready .s10.final-question-visible .s10-outro {
+  visibility: visible;
+}
+
+.scroll-animation-ready .s10 .s10-outro h1,
+.scroll-animation-ready .s10 .s10-outro p {
+  opacity: 0;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+  transform: translateY(18px);
+}
+
+.scroll-animation-ready .s10.final-question-visible .s10-outro h1,
+.scroll-animation-ready .s10.final-second-line-visible .s10-outro p {
   opacity: 1;
   transform: none;
-  visibility: visible;
 }
 
 .s10-outro h1 {
@@ -32,4 +39,9 @@
 .s10-outro em {
   color: #c25a3a;
   font-style: italic;
+}
+
+.s10-outro p {
+  font-size: clamp(19px, 2.4vw, 30px);
+  margin: 18px 0 0;
 }
