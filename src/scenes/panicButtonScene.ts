@@ -3,6 +3,7 @@ import { renderPictogram } from "../charts/pictogram";
 import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
+import { renderWindowTitlebar } from "../ui/windowChrome";
 import { createVisualScene } from "./createScene";
 
 export const panicButtonScene = createVisualScene({
@@ -19,12 +20,12 @@ export const panicButtonScene = createVisualScene({
     <div class="scene-inner scene-inner--wide">
       <div class="s2-bottom">
         <div class="window mail-window">
-          <div class="window-titlebar">
-            <div class="dots"><span></span><span></span><span></span></div>
-            <div class="mark"><span class="mark-dot"></span>Mail</div>
-            <div class="window-title">Inbox - ${copy.students.reactive.displayName}</div>
-            <div class="window-meta">23:47</div>
-          </div>
+          ${renderWindowTitlebar({
+            app: "mail",
+            mark: "Mail",
+            title: `Inbox - ${copy.students.reactive.displayName}`,
+            meta: "23:47",
+          })}
           <div class="s2-account">
             <img class="s2-account-avatar" src="${copy.students.reactive.avatar}" alt="${copy.students.reactive.fullName}" />
             <div><strong>${copy.students.reactive.displayName}</strong><small>${copy.students.reactive.email}</small></div>

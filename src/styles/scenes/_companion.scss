@@ -64,9 +64,13 @@
 }
 
 .phone-header .name {
+  align-items: center;
   color: #c8d3e6;
+  display: inline-flex;
   font-family: var(--font-mono);
   font-size: 13px;
+  gap: 7px;
+  justify-content: center;
 }
 
 .phone-header .status {

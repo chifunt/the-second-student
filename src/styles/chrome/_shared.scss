@@ -27,10 +27,30 @@
 }
 
 .dots span {
-  background: rgba(7, 17, 31, 0.22);
+  border: 1px solid rgba(7, 17, 31, 0.16);
   border-radius: 50%;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
   height: 10px;
   width: 10px;
+}
+
+.dots span:nth-child(1) {
+  background: #ef6a5f;
+}
+
+.dots span:nth-child(2) {
+  background: #f5bd4f;
+}
+
+.dots span:nth-child(3) {
+  background: #61c454;
+}
+
+.scene[data-mood="dark"] .dots span {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 0 10px rgba(255, 255, 255, 0.04);
 }
 
 .mark {
@@ -41,6 +61,171 @@
   gap: 8px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.app-logo {
+  align-items: center;
+  border-radius: 7px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 22px;
+  justify-content: center;
+  width: 22px;
+}
+
+.app-logo svg {
+  display: block;
+  height: 100%;
+  overflow: visible;
+  width: 100%;
+}
+
+.app-logo__bg,
+.app-logo__mark,
+.app-logo__line,
+.app-logo__shadow,
+.app-logo__letter,
+.app-logo__spark,
+.app-logo__core {
+  vector-effect: non-scaling-stroke;
+}
+
+.app-logo__line,
+.app-logo__letter {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.app-logo--titlebar {
+  height: 20px;
+  width: 20px;
+}
+
+.app-logo--inline {
+  height: 18px;
+  width: 18px;
+}
+
+.app-logo--tiny {
+  height: 14px;
+  width: 14px;
+}
+
+.app-logo--mail .app-logo__bg {
+  fill: #1768d8;
+}
+
+.app-logo--mail .app-logo__mark {
+  fill: #f7fbff;
+}
+
+.app-logo--mail .app-logo__line,
+.app-logo--mail .app-logo__letter {
+  stroke: #1768d8;
+  stroke-width: 1.2;
+}
+
+.app-logo--mail .app-logo__shadow {
+  fill: #0f4eaf;
+}
+
+.app-logo--assist .app-logo__bg,
+.app-logo--companion .app-logo__bg {
+  fill: #101820;
+}
+
+.app-logo--assist .app-logo__mark,
+.app-logo--companion .app-logo__mark {
+  fill: none;
+  stroke: #d8c8ff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.4;
+}
+
+.app-logo--assist .app-logo__core,
+.app-logo--companion .app-logo__core {
+  fill: rgba(216, 200, 255, 0.18);
+  stroke: #d8c8ff;
+  stroke-width: 1.1;
+}
+
+.app-logo--companion .app-logo__line {
+  stroke: #8fa7ff;
+  stroke-width: 1.2;
+}
+
+.app-logo--study .app-logo__bg {
+  fill: #dff7f0;
+}
+
+.app-logo--study .app-logo__mark {
+  fill: #fff;
+  stroke: #2f8e8b;
+  stroke-linejoin: round;
+  stroke-width: 1.1;
+}
+
+.app-logo--study .app-logo__line {
+  stroke: #2f8e8b;
+  stroke-width: 1.1;
+}
+
+.app-logo--study .app-logo__spark {
+  fill: #5aa2ff;
+}
+
+.app-logo--write .app-logo__bg {
+  fill: #11845b;
+}
+
+.app-logo--write .app-logo__mark,
+.app-logo--write .app-logo__line {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.app-logo--write .app-logo__line {
+  opacity: 0.55;
+  stroke-width: 1.1;
+}
+
+.app-logo--reflect .app-logo__bg {
+  fill: #f4dfc1;
+}
+
+.app-logo--reflect .app-logo__mark {
+  fill: #c25a3a;
+}
+
+.app-logo--reflect .app-logo__line {
+  fill: #8d6b3f;
+  opacity: 0.86;
+}
+
+.mark--app-mail {
+  color: #d8e8ff;
+}
+
+.mark--app-assist,
+.mark--app-companion {
+  color: #d8c8ff;
+}
+
+.mark--app-study {
+  color: #2f8e8b;
+}
+
+.mark--app-write {
+  color: #11845b;
+}
+
+.mark--app-reflect {
+  color: #c25a3a;
 }
 
 .mark-dot,

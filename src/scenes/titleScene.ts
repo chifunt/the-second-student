@@ -3,6 +3,7 @@ import { escapeHtml, renderEvidenceAttributes } from "../charts/chartUtils";
 import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
 import { stats, surveySource } from "../data/surveyStats";
+import { renderAppLogo } from "../ui/windowChrome";
 import { getTitleQuoteLayout } from "../ui/titleQuoteLayout";
 import { createVisualScene } from "./createScene";
 
@@ -68,15 +69,10 @@ export const titleScene = createVisualScene({
       <p class="sub">An interactive story about studying with AI in higher education.<br />Two students. One dataset. Different screens.</p>
       <button class="open-btn s0-open" type="button" aria-label="Open the email">
         <span class="open-btn-inner">
-          <svg
-            aria-hidden="true"
-            class="open-btn-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path d="M4 6h16v12H4z" />
-            <path d="m4 7 8 6 8-6" />
-          </svg>
+          ${renderAppLogo("mail", {
+            className: "open-btn-icon",
+            hidden: true,
+          })}
           Open the email
           <span class="open-btn-arrow" aria-hidden="true">-&gt;</span>
         </span>

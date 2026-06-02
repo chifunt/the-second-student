@@ -76,9 +76,12 @@
 }
 
 .chat-model {
+  align-items: center;
   color: #c9d1d9;
+  display: inline-flex;
   font-family: var(--font-mono);
   font-size: 12px;
+  gap: 8px;
 }
 
 .chat-profile,
@@ -195,12 +198,19 @@
 }
 
 .ai-tag {
+  align-items: center;
   color: #6fa3ff;
+  display: inline-flex;
   font-family: var(--font-mono);
   font-size: 10px;
+  gap: 6px;
   letter-spacing: 0.14em;
   margin-bottom: 8px;
   text-transform: uppercase;
+}
+
+.ai-tag--study {
+  color: #2f8e8b;
 }
 
 .chat-generation,

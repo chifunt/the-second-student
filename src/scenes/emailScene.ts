@@ -3,6 +3,7 @@ import { renderHeroConcernChart } from "../charts/heroConcernChart";
 import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
+import { renderWindowTitlebar } from "../ui/windowChrome";
 import { createVisualScene } from "./createScene";
 
 const inboxRows = [
@@ -44,12 +45,12 @@ export const emailScene = createVisualScene({
     <div class="chyron"><span class="num">01</span><span class="sep">/</span><span>Subject: Possible Academic Misconduct</span></div>
     <div class="scene-inner scene-inner--wide">
       <div class="window mail-window">
-        <div class="window-titlebar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <div class="mark"><span class="mark-dot"></span>Mail</div>
-          <div class="window-title">Inbox - ${copy.students.reactive.email}</div>
-          <div class="window-meta">Tue 14 May - 23:47</div>
-        </div>
+        ${renderWindowTitlebar({
+          app: "mail",
+          mark: "Mail",
+          title: `Inbox - ${copy.students.reactive.email}`,
+          meta: "Tue 14 May - 23:47",
+        })}
         <div class="mail-ribbon">
           <div class="tab active">Home</div>
           <div class="tab">View</div>

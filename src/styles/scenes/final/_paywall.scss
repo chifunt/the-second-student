@@ -30,9 +30,13 @@
 }
 
 .badge {
+  align-items: center;
   color: #c25a3a;
+  display: inline-flex;
   font-family: var(--font-mono);
   font-size: 10px;
+  gap: 6px;
+  justify-content: center;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }

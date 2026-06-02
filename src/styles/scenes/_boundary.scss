@@ -18,6 +18,12 @@
   padding: 12px 24px;
 }
 
+.writer-toolbar > span {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+}
+
 .accept-all {
   background: var(--calm-green);
   border-radius: 6px;

@@ -3,7 +3,11 @@ import { renderSupportSignalChart } from "../charts/supportSignalChart";
 import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
-import { renderProfileSummary, renderWindowTitlebar } from "../ui/windowChrome";
+import {
+  renderAppLogo,
+  renderProfileSummary,
+  renderWindowTitlebar,
+} from "../ui/windowChrome";
 import { createVisualScene } from "./createScene";
 
 export const panicChatScene = createVisualScene({
@@ -20,6 +24,7 @@ export const panicChatScene = createVisualScene({
     <div class="scene-inner scene-inner--wide">
       <div class="window ai-chat">
         ${renderWindowTitlebar({
+          app: "assist",
           mark: "assist",
           title: "New chat - private",
           meta: "23:52",
@@ -38,7 +43,10 @@ export const panicChatScene = createVisualScene({
           </aside>
           <div class="chat-main">
             <div class="chat-header">
-              <div class="chat-model"><span class="glow"></span>assist - large</div>
+              <div class="chat-model">${renderAppLogo("assist", {
+                className: "app-logo--inline",
+                hidden: true,
+              })}<span>assist - large</span></div>
               ${renderProfileSummary({
                 initials: copy.students.reactive.initials,
                 avatarSrc: copy.students.reactive.avatar,
@@ -50,7 +58,10 @@ export const panicChatScene = createVisualScene({
             <div class="chat-stream">
               <div class="msg user">wtf do i do. i got accused of using ai. i used it to understand stuff but not to write the whole thing. help.</div>
               <div class="msg bot">
-                <div class="ai-tag"><span class="dot-anim"></span>assist</div>
+                <div class="ai-tag">${renderAppLogo("assist", {
+                  className: "app-logo--tiny",
+                  hidden: true,
+                })}<span>assist</span></div>
                 <p class="first-line">First, breathe.</p>
                 <p>You are not crazy. You are not weak for feeling this.</p>
                 <p>Let's keep this grounded. You need a calm response that explains your process clearly, without panic and without overclaiming.</p>

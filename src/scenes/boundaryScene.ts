@@ -3,6 +3,7 @@ import { renderEvidenceAttributes } from "../charts/chartUtils";
 import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
 import { getAssessmentUse } from "../data/statLookups";
+import { renderAppLogo, renderWindowTitlebar } from "../ui/windowChrome";
 import { createVisualScene } from "./createScene";
 
 const explainConcepts = getAssessmentUse("Explain concepts");
@@ -63,14 +64,17 @@ export const boundaryScene = createVisualScene({
     <div class="chyron"><span class="num">05</span><span class="sep">/</span><span>Help, Edit, Hand-In</span></div>
     <div class="scene-inner scene-inner--wide">
       <div class="window">
-        <div class="window-titlebar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <div class="mark"><span class="mark-dot"></span>write</div>
-          <div class="window-title">essay_draft_v3.docx - ${copy.students.deliberate.displayName} - Suggestions mode</div>
-          <div class="window-meta">14:48</div>
-        </div>
+        ${renderWindowTitlebar({
+          app: "write",
+          mark: "write",
+          title: `essay_draft_v3.docx - ${copy.students.deliberate.displayName} - Suggestions mode`,
+          meta: "14:48",
+        })}
         <div class="writer-toolbar">
-          <span>${copy.students.deliberate.username} - 3 suggestions in this paragraph - 12 in the document</span>
+          <span>${renderAppLogo("write", {
+            className: "app-logo--tiny",
+            hidden: true,
+          })}${copy.students.deliberate.username} - 3 suggestions in this paragraph - 12 in the document</span>
           <button class="accept-all pulse" type="button">Accept all suggestions</button>
         </div>
         <div class="writer">

@@ -5,7 +5,11 @@ import { evidence } from "../data/evidence";
 import { getSourceBalanceGroup } from "../data/statLookups";
 import { stats } from "../data/surveyStats";
 import { renderSurveyQuote } from "../ui/surveyQuote";
-import { renderProfileSummary, renderWindowTitlebar } from "../ui/windowChrome";
+import {
+  renderAppLogo,
+  renderProfileSummary,
+  renderWindowTitlebar,
+} from "../ui/windowChrome";
 import { createVisualScene } from "./createScene";
 
 const aiFirst = getSourceBalanceGroup("AI-first");
@@ -55,6 +59,7 @@ export const dependencyScene = createVisualScene({
     <div class="scene-inner scene-inner--wide">
       <div class="window ai-chat">
         ${renderWindowTitlebar({
+          app: "assist",
           mark: "assist",
           title: "untitled chat - 14 of 14 today",
           meta: "01:08 - battery 4%",
@@ -62,7 +67,10 @@ export const dependencyScene = createVisualScene({
         <div class="dep-chat">
           <div class="dep-main">
             <div class="chat-header">
-              <div class="chat-model"><span class="glow"></span>assist - fast</div>
+              <div class="chat-model">${renderAppLogo("assist", {
+                className: "app-logo--inline",
+                hidden: true,
+              })}<span>assist - fast</span></div>
               ${renderProfileSummary({
                 initials: copy.students.reactive.initials,
                 avatarSrc: copy.students.reactive.avatar,
@@ -81,7 +89,10 @@ export const dependencyScene = createVisualScene({
               <div class="msg bot refuse">I can't help hide AI use or bypass academic rules. I can help you explain your process honestly.</div>
               <div class="msg user">then what part do i actually write</div>
               <div class="msg bot">
-                <div class="ai-tag"><span class="dot-anim"></span>assist - response</div>
+                <div class="ai-tag">${renderAppLogo("assist", {
+                  className: "app-logo--tiny",
+                  hidden: true,
+                })}<span>assist - response</span></div>
                 <p class="first-line">Let me stop you here.</p>
                 <p>You are not crazy. You spotted a pattern.</p>
                 <p>But let's keep this grounded: I can help you clarify your thinking, <em>not replace it</em>.</p>

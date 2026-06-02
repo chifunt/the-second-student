@@ -5,6 +5,7 @@ import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { renderInlineSurveyQuote } from "../ui/surveyQuote";
+import { renderAppLogo } from "../ui/windowChrome";
 import { createVisualScene } from "./createScene";
 
 export const companionScene = createVisualScene({
@@ -26,7 +27,10 @@ export const companionScene = createVisualScene({
             <div class="phone-status"><span>${copy.students.reactive.displayName}</span><span>02:13 - 4%</span></div>
             <div class="phone-header">
               <img class="ava ava--image" src="${copy.students.reactive.avatar}" alt="${copy.students.reactive.fullName}" />
-              <div class="name">assist</div>
+              <div class="name">${renderAppLogo("companion", {
+                className: "app-logo--inline",
+                hidden: true,
+              })}<span>assist</span></div>
               <div class="status">always on - always here</div>
             </div>
             <div class="phone-stream">

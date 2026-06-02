@@ -4,7 +4,11 @@ import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
 import { stats } from "../data/surveyStats";
 import { renderSurveyQuote } from "../ui/surveyQuote";
-import { renderProfileSummary, renderWindowTitlebar } from "../ui/windowChrome";
+import {
+  renderAppLogo,
+  renderProfileSummary,
+  renderWindowTitlebar,
+} from "../ui/windowChrome";
 import { createVisualScene } from "./createScene";
 
 export const deliberateWorkflowScene = createVisualScene({
@@ -32,8 +36,8 @@ export const deliberateWorkflowScene = createVisualScene({
     <div class="scene-inner scene-inner--wide">
       <div class="window">
         ${renderWindowTitlebar({
+          app: "study",
           mark: "study",
-          markClass: "dot",
           title: "Module: SOC 240 - Coursework 2",
           meta: "Wed 15 May - 14:22",
         })}
@@ -64,7 +68,10 @@ export const deliberateWorkflowScene = createVisualScene({
             <div class="studio-stream">
               <div class="msg user">Here are my lecture notes and assignment brief. Help me identify what I understand, what I am missing, and what I should ask my lecturer. <strong>Do not write the assignment.</strong></div>
               <div class="msg bot">
-                <div class="ai-tag">study - structured response</div>
+                <div class="ai-tag ai-tag--study">${renderAppLogo("study", {
+                  className: "app-logo--tiny",
+                  hidden: true,
+                })}<span>study - structured response</span></div>
                 <div class="col-2">
                   <div>
                     <h6>You seem to understand</h6>

@@ -2,6 +2,7 @@ import { animateFinalPaywallScene } from "../animation/sceneTransitions";
 import { renderEvidenceAttributes } from "../charts/chartUtils";
 import { copy } from "../data/copy";
 import { evidence } from "../data/evidence";
+import { renderAppLogo } from "../ui/windowChrome";
 import { createVisualScene } from "./createScene";
 
 const recapCards = [
@@ -49,7 +50,10 @@ export const finalPaywallScene = createVisualScene({
       </div>
       <div class="reflect">
         <div class="reflect-bar">
-          <div class="brand">reflect</div>
+          <div class="brand">${renderAppLogo("reflect", {
+            className: "app-logo--inline",
+            hidden: true,
+          })}<span>reflect</span></div>
           <div class="center">thread #14 - <span class="free-counter"><span data-msg-counter>0</span> free messages remaining</span></div>
           <div class="right">02:46</div>
         </div>
@@ -66,7 +70,10 @@ export const finalPaywallScene = createVisualScene({
         </div>
         <div class="paywall" role="dialog" aria-label="Upgrade required">
           <div class="paywall-card">
-            <div class="badge">Free limit reached</div>
+            <div class="badge">${renderAppLogo("reflect", {
+              className: "app-logo--tiny",
+              hidden: true,
+            })}<span>Free limit reached</span></div>
             <h3>You have reached your free message limit.</h3>
             <p>Upgrade to continue this reflection - and the next one, and the one after that.</p>
             <div class="price"><strong>Pro - &euro;20 / month</strong></div>
