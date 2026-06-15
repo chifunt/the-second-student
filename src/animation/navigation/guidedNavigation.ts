@@ -1,6 +1,7 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { SceneConfig } from "../../scenes/sceneTypes";
 import { trackCleanup } from "../runtimeEffects";
+import { getElementTop } from "../scrollLock";
 import { ENTRY_OVERLAY_DISMISSED_EVENT, NAVIGATION_EVENT } from "./events";
 import type { NavigationDirection, NavigationRequest } from "./events";
 import {
@@ -28,6 +29,16 @@ export function requestStoryNavigation(request: NavigationRequest): void {
 
 function getSettledStop(stops: readonly SceneStop[]): SceneStop | undefined {
   return stops.find((stop) => {
+    if (stop.element.classList.contains("s7")) {
+      const sceneRect = stop.element.getBoundingClientRect();
+      const trackingRect = getTrackingElement(stop.element).getBoundingClientRect();
+
+      return (
+        Math.abs(sceneRect.top) <= SETTLE_TOLERANCE_PX &&
+        trackingRect.bottom > window.innerHeight / 2
+      );
+    }
+
     const rect = getTrackingElement(stop.element).getBoundingClientRect();
 
     return Math.abs(rect.top) <= SETTLE_TOLERANCE_PX;
@@ -40,10 +51,22 @@ function scrollToStop(stop: SceneStop, reduceMotion: boolean): void {
     return;
   }
 
-  stop.element.scrollIntoView({
+  window.scrollTo({
     behavior: "smooth",
-    block: "start",
+    top: getElementTop(stop.element),
   });
+}
+
+function getStopDistanceFromViewport(stop: SceneStop): number {
+  const rect = getTrackingElement(stop.element).getBoundingClientRect();
+
+  if (stop.element.classList.contains("s7")) {
+    return Math.abs(rect.top);
+  }
+
+  const viewportCenter = window.innerHeight / 2;
+
+  return Math.abs(rect.top + rect.height / 2 - viewportCenter);
 }
 
 export function setupGuidedNavigation(
@@ -105,7 +128,7 @@ export function setupGuidedNavigation(
     const rect = getTrackingElement(splitStop.element).getBoundingClientRect();
     const viewportCenter = window.innerHeight / 2;
 
-    return rect.top < viewportCenter && rect.bottom > viewportCenter;
+    return rect.top <= SETTLE_TOLERANCE_PX && rect.bottom > viewportCenter;
   };
 
   const correctSnapIfNeeded = (): void => {
@@ -118,7 +141,19 @@ export function setupGuidedNavigation(
       return;
     }
 
-    const targetStop = stops[findClosestSceneIndex(stops)];
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    stops.forEach((stop) => {
+      const distance = getStopDistanceFromViewport(stop);
+
+      if (distance < closestDistance) {
+        closestIndex = stop.index;
+        closestDistance = distance;
+      }
+    });
+
+    const targetStop = stops[closestIndex];
 
     if (!targetStop) {
       return;
@@ -226,9 +261,9 @@ export function setupGuidedNavigation(
     ScrollTrigger.refresh();
 
     if (hashStop) {
-      hashStop.element.scrollIntoView({
+      window.scrollTo({
         behavior: "auto",
-        block: "start",
+        top: getElementTop(hashStop.element),
       });
     }
 

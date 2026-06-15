@@ -36,6 +36,16 @@ function playDeferredSceneAnimation(container: HTMLElement): void {
 }
 
 function isSceneSettled(container: HTMLElement): boolean {
+  if (container.classList.contains("s7")) {
+    const sceneRect = container.getBoundingClientRect();
+    const trackingRect = getTrackingElement(container).getBoundingClientRect();
+
+    return (
+      Math.abs(sceneRect.top) <= SETTLED_TOLERANCE_PX &&
+      trackingRect.bottom > window.innerHeight / 2
+    );
+  }
+
   const rect = getTrackingElement(container).getBoundingClientRect();
 
   return Math.abs(rect.top) <= SETTLED_TOLERANCE_PX;

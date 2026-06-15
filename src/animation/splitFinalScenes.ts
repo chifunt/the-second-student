@@ -7,6 +7,15 @@ export function animateSplitExperienceScene(container: HTMLElement) {
     container.classList.toggle("split-experience-complete", isComplete);
     container.classList.toggle("scene-animation-complete", isComplete);
   };
+  const markPinSpacer = (): void => {
+    const parent = container.parentElement;
+
+    // The stable spacer is the snap anchor; the pinned scene itself stays
+    // outside native snap so ScrollTrigger can own the internal scrub.
+    if (parent?.classList.contains("pin-spacer")) {
+      parent.classList.add("split-experience-pin-spacer");
+    }
+  };
   const timeline = sceneTimeline(container, {
     end: "+=220%",
     onLeave: () => updateCompletion(1),
@@ -15,6 +24,9 @@ export function animateSplitExperienceScene(container: HTMLElement) {
     scrub: 0.8,
     start: "top top",
   });
+
+  markPinSpacer();
+  window.requestAnimationFrame(markPinSpacer);
 
   timeline
     .fromTo(

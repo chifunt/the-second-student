@@ -9,6 +9,11 @@
   scroll-snap-align: none;
 }
 
+.split-experience-pin-spacer {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
 .split-experience {
   align-items: center;
   display: grid;
