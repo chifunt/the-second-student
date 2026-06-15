@@ -15,17 +15,10 @@ function animateDensityTicks(element: HTMLElement): Cancelable {
   const fill = Number(element.dataset.fill ?? "100");
   const ticks = Array.from(element.querySelectorAll<HTMLElement>(".tick"));
   const start = performance.now() + DENSITY_DELAY_MS;
-  let frameId = 0;
   let cancelled = false;
-  let previousLitCount = -1;
 
-  const updateLitCount = (litCount: number) => {
-    if (litCount === previousLitCount) {
-      return;
-    }
-
-    setLitTicks(ticks, litCount);
-    previousLitCount = litCount;
+  const queueFrame = () => {
+    window.setTimeout(() => frame(performance.now()), 16);
   };
 
   function frame(now: number): void {
@@ -34,28 +27,27 @@ function animateDensityTicks(element: HTMLElement): Cancelable {
     }
 
     if (now < start) {
-      updateLitCount(0);
-      frameId = window.requestAnimationFrame(frame);
+      setLitTicks(ticks, 0);
+      queueFrame();
       return;
     }
 
     const progress = Math.min(1, (now - start) / DENSITY_DURATION_MS);
     const eased = 1 - (1 - progress) ** 3;
-    updateLitCount(Math.round(fill * eased));
+    setLitTicks(ticks, Math.round(fill * eased));
 
     if (progress < 1) {
-      frameId = window.requestAnimationFrame(frame);
+      queueFrame();
     } else {
-      updateLitCount(fill);
+      setLitTicks(ticks, fill);
     }
   }
 
-  frameId = window.requestAnimationFrame(frame);
+  queueFrame();
 
   return {
     cancel() {
       cancelled = true;
-      window.cancelAnimationFrame(frameId);
     },
   };
 }

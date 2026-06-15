@@ -1,15 +1,8 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { trackCleanup } from "../runtimeEffects";
-import {
-  ENTRY_OVERLAY_DISMISSED_EVENT,
-  ENTRY_OVERLAY_STARTED_EVENT,
-  NAVIGATION_SETTLED_EVENT,
-  NAVIGATION_STARTED_EVENT,
-} from "./events";
 import type { NavigationDirection } from "./events";
 
 const WHEEL_THRESHOLD = 34;
-const WHEEL_QUIET_AFTER_SETTLE_MS = 120;
 const WHEEL_RESET_MS = 180;
 const TOUCH_THRESHOLD = 44;
 const LOCKED_KEYS = new Set([
@@ -50,24 +43,8 @@ export function setupNavigationInput({
   stopCount,
 }: NavigationInputOptions): void {
   let wheelDelta = 0;
-  let quietWheelTimer = 0;
-  let requiresQuietWheel = false;
   let wheelTimer = 0;
   let touchStartY: number | undefined;
-
-  const resetWheelState = () => {
-    wheelDelta = 0;
-    window.clearTimeout(wheelTimer);
-  };
-
-  const requireQuietWheel = () => {
-    requiresQuietWheel = true;
-    resetWheelState();
-    window.clearTimeout(quietWheelTimer);
-    quietWheelTimer = window.setTimeout(() => {
-      requiresQuietWheel = false;
-    }, WHEEL_QUIET_AFTER_SETTLE_MS);
-  };
 
   const handleWheel = (event: WheelEvent) => {
     if (shouldIgnoreInputTarget(event.target)) {
@@ -77,12 +54,6 @@ export function setupNavigationInput({
     event.preventDefault();
 
     if (isBlocked()) {
-      requireQuietWheel();
-      return;
-    }
-
-    if (requiresQuietWheel) {
-      requireQuietWheel();
       return;
     }
 
@@ -184,24 +155,15 @@ export function setupNavigationInput({
     passive: false,
   });
   document.addEventListener("keydown", handleKey, true);
-  window.addEventListener(NAVIGATION_STARTED_EVENT, requireQuietWheel);
-  window.addEventListener(NAVIGATION_SETTLED_EVENT, requireQuietWheel);
-  window.addEventListener(ENTRY_OVERLAY_STARTED_EVENT, requireQuietWheel);
-  window.addEventListener(ENTRY_OVERLAY_DISMISSED_EVENT, requireQuietWheel);
   ScrollTrigger.addEventListener("refresh", onRefresh);
 
   trackCleanup(() => {
-    window.clearTimeout(quietWheelTimer);
     window.clearTimeout(wheelTimer);
     window.removeEventListener("wheel", handleWheel, true);
     window.removeEventListener("touchstart", handleTouchStart, true);
     window.removeEventListener("touchmove", handleTouchMove, true);
     window.removeEventListener("touchend", handleTouchEnd, true);
     document.removeEventListener("keydown", handleKey, true);
-    window.removeEventListener(NAVIGATION_STARTED_EVENT, requireQuietWheel);
-    window.removeEventListener(NAVIGATION_SETTLED_EVENT, requireQuietWheel);
-    window.removeEventListener(ENTRY_OVERLAY_STARTED_EVENT, requireQuietWheel);
-    window.removeEventListener(ENTRY_OVERLAY_DISMISSED_EVENT, requireQuietWheel);
     ScrollTrigger.removeEventListener("refresh", onRefresh);
   });
 }

@@ -8,7 +8,6 @@ import {
   ENTRY_OVERLAY_DISMISSED_EVENT,
   ENTRY_OVERLAY_STARTED_EVENT,
   NAVIGATION_EVENT,
-  NAVIGATION_STARTED_EVENT,
 } from "./events";
 import type {
   EntryOverlayDetail,
@@ -34,7 +33,6 @@ import {
 gsap.registerPlugin(ScrollToPlugin);
 
 const SCROLL_DURATION_SECONDS = 0.85;
-const POST_NAVIGATION_COOLDOWN_MS = 700;
 
 export function requestStoryNavigation(request: NavigationRequest): void {
   window.dispatchEvent(
@@ -54,34 +52,15 @@ export function setupGuidedNavigation(
   let activeSplitStep =
     activeIndex === splitStop?.index ? getClosestSplitStep(splitStop.element) : 0;
   let isMoving = false;
-  let navigationBlockedUntil = 0;
   let activeOverlaySceneId: string | undefined;
 
   const isNavigationBlocked = (): boolean =>
     isMoving ||
-    performance.now() < navigationBlockedUntil ||
     document.body.classList.contains("scroll-locked") ||
     activeOverlaySceneId === stops[activeIndex]?.id;
 
-  const startCooldown = () => {
-    navigationBlockedUntil = performance.now() + POST_NAVIGATION_COOLDOWN_MS;
-  };
-
-  const dispatchNavigationStarted = (stop: SceneStop, splitStep?: number): void => {
-    window.dispatchEvent(
-      new CustomEvent(NAVIGATION_STARTED_EVENT, {
-        detail: {
-          id: stop.id,
-          index: stop.index,
-          splitStep,
-        },
-      }),
-    );
-  };
-
   const settleAt = (stop: SceneStop, splitStep?: number) => {
     isMoving = false;
-    startCooldown();
     activeIndex = stop.index;
     activeSplitStep =
       stop.index === splitStop?.index
@@ -112,7 +91,6 @@ export function setupGuidedNavigation(
 
     isMoving = true;
     document.documentElement.classList.add("guided-scroll-moving");
-    dispatchNavigationStarted(stop, splitStep);
     gsap.to(window, {
       duration: SCROLL_DURATION_SECONDS,
       ease: "power2.inOut",
@@ -122,8 +100,7 @@ export function setupGuidedNavigation(
       },
       onInterrupt: () => {
         document.documentElement.classList.remove("guided-scroll-moving");
-        window.scrollTo(0, Math.round(targetTop));
-        settleAt(stop, splitStep);
+        isMoving = false;
       },
       onUpdate: () => ScrollTrigger.update(),
       overwrite: true,
@@ -204,9 +181,6 @@ export function setupGuidedNavigation(
     // Only the overlay for the current scene may block navigation. Any stale
     // overlay event is ignored so it cannot freeze another scene.
     activeOverlaySceneId = id === stops[activeIndex]?.id ? id : undefined;
-    if (activeOverlaySceneId) {
-      startCooldown();
-    }
   };
 
   const handleOverlayDismissed = (event: Event) => {
@@ -214,7 +188,6 @@ export function setupGuidedNavigation(
 
     if (id === activeOverlaySceneId) {
       activeOverlaySceneId = undefined;
-      startCooldown();
     }
   };
 

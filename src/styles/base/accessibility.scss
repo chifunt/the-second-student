@@ -4,53 +4,6 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
-.performance-lite .data-focus-wash,
-.performance-lite .scene-entry-overlay,
-.performance-lite .paywall {
-  backdrop-filter: none !important;
-}
-
-.performance-lite .s0-bg,
-.performance-lite .entry-overlay-active .scene-inner,
-.performance-lite .s1 .scene-inner,
-.performance-lite .s2 .scene-inner {
-  filter: none !important;
-}
-
-.performance-lite .window,
-.performance-lite .phone,
-.performance-lite .reflect,
-.performance-lite .paywall-card,
-.performance-lite .ghost-card,
-.performance-lite .quote-card,
-.performance-lite .quote-note {
-  box-shadow: none !important;
-}
-
-.performance-lite .pictogram__icon--lit,
-.performance-lite .s9-aside .pictogram__icon--lit,
-.performance-lite .cursor,
-.performance-lite .split-chart .seg {
-  filter: none !important;
-}
-
-.performance-lite .tq {
-  animation: none !important;
-}
-
-.performance-lite .tq-far,
-.performance-lite .tq-tablet-hidden {
-  display: none !important;
-}
-
-.performance-lite .open-btn,
-.performance-lite .open-btn::after,
-.performance-lite .continue-btn,
-.performance-lite .continue-btn::after,
-.performance-lite .scroll-hint {
-  animation: none !important;
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

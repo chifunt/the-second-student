@@ -7,7 +7,7 @@ import { setupDensityTicks } from "./densityTicks";
 import { setupEntryOverlays } from "./entryOverlays";
 import { setupEvidenceDetails } from "./evidenceDetails";
 import { setupFakeTyping } from "./fakeTyping";
-import { getShouldReduceMotion, getShouldUsePerformanceLite } from "./motionPreference";
+import { getShouldReduceMotion } from "./motionPreference";
 import { setupGuidedNavigation } from "./navigation/guidedNavigation";
 import { setupProgressiveChats } from "./progressiveChat";
 import { setupProgressDots } from "./progressNavigation";
@@ -23,11 +23,7 @@ export function setupScroll(scenes: readonly SceneConfig[]): void {
   // rebuild animation hooks without hiding content or duplicating timers.
   ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
   clearRuntimeEffects();
-  document.documentElement.classList.remove(
-    "performance-lite",
-    "reduced-motion",
-    "scroll-animation-ready",
-  );
+  document.documentElement.classList.remove("reduced-motion", "scroll-animation-ready");
   document.body.classList.remove("scroll-locked", "scroll-pinned");
   document
     .querySelectorAll<HTMLElement>(
@@ -45,9 +41,6 @@ export function setupScroll(scenes: readonly SceneConfig[]): void {
     .forEach((element) => element.classList.remove("scene-animation-complete"));
 
   const shouldReduceMotion = getShouldReduceMotion();
-  const shouldUsePerformanceLite = getShouldUsePerformanceLite(shouldReduceMotion);
-
-  document.documentElement.classList.toggle("performance-lite", shouldUsePerformanceLite);
 
   setupDensityTicks(shouldReduceMotion);
   setupAboutDrawer();
