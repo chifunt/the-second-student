@@ -34,7 +34,7 @@ import {
 gsap.registerPlugin(ScrollToPlugin);
 
 const SCROLL_DURATION_SECONDS = 0.85;
-const POST_NAVIGATION_COOLDOWN_MS = 700;
+const POST_NAVIGATION_COOLDOWN_MS = 120;
 
 export function requestStoryNavigation(request: NavigationRequest): void {
   window.dispatchEvent(
@@ -204,9 +204,6 @@ export function setupGuidedNavigation(
     // Only the overlay for the current scene may block navigation. Any stale
     // overlay event is ignored so it cannot freeze another scene.
     activeOverlaySceneId = id === stops[activeIndex]?.id ? id : undefined;
-    if (activeOverlaySceneId) {
-      startCooldown();
-    }
   };
 
   const handleOverlayDismissed = (event: Event) => {
@@ -214,7 +211,6 @@ export function setupGuidedNavigation(
 
     if (id === activeOverlaySceneId) {
       activeOverlaySceneId = undefined;
-      startCooldown();
     }
   };
 
