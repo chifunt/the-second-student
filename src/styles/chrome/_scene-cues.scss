@@ -91,9 +91,18 @@
   visibility: visible;
 }
 
-.entry-overlay-pending .scene-entry-timer::after {
-  animation: none;
-  transform: scaleX(0);
+.entry-overlay-active .scene-entry-overlay {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+  visibility: visible;
+}
+
+.entry-overlay-paused .scene-entry-overlay {
+  opacity: 1;
+  pointer-events: none;
+  transform: none;
+  visibility: visible;
 }
 
 .scene[data-entry-overlay="true"] .scene-inner {
@@ -186,14 +195,11 @@
 }
 
 .scene-entry-type {
-  animation: entry-type 1.45s steps(var(--chars)) 0.18s both;
-  clip-path: inset(0 100% 0 0);
   display: inline-block;
 }
 
 .scene-entry-type--subject {
-  animation-delay: 1.25s;
-  animation-duration: 0.78s;
+  display: inline-block;
 }
 
 .scene-entry-timer {
@@ -206,30 +212,13 @@
   width: min(240px, 52vw);
 }
 
-.scene-entry-timer::after {
+.scene-entry-timer__bar {
   background: currentColor;
   border-radius: inherit;
-  content: "";
   inset: 0;
   position: absolute;
   transform: scaleX(0);
   transform-origin: left center;
-}
-
-.entry-overlay-active .scene-entry-timer::after {
-  animation: entry-timer 3s linear both;
-}
-
-@keyframes entry-type {
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@keyframes entry-timer {
-  to {
-    transform: scaleX(1);
-  }
 }
 
 .data-focus-wash {
@@ -314,8 +303,7 @@
     clip-path: none;
   }
 
-  .scene-entry-timer::after {
-    animation: none;
+  .scene-entry-timer__bar {
     transform: scaleX(1);
   }
 

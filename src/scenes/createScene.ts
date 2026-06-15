@@ -102,7 +102,9 @@ function renderEntryOverlay(
           )}</p>
         </div>
         <p class="scene-entry-meta">${escapeHtml(overlay.meta)}</p>
-        <div class="scene-entry-timer" aria-hidden="true"></div>
+        <div class="scene-entry-timer" aria-hidden="true">
+          <span class="scene-entry-timer__bar"></span>
+        </div>
       </div>
     </div>
   `;

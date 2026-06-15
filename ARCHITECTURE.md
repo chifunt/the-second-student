@@ -58,12 +58,12 @@ This keeps the narrative surface clean while still exposing source table, survey
 
 Focused helpers live beside it:
 
-- `navigation/`: guided story navigation, input capture, URL hash settling, and Scene 07 internal stops.
+- `navigation/`: native snap settling, button/dot navigation requests, URL hash updates, and Scene 07 completion state.
 - `timelineCore.ts`: shared scene timeline primitives.
 - `reactiveScenes.ts`: Arman/reactive-path scene timelines.
 - `deliberateScenes.ts`: title, Ben/deliberate-path, and institutional scene timelines.
 - `splitFinalScenes.ts`: mirror-scene and final paywall timelines.
-- `entryOverlays.ts`: entry slate lifecycle; it starts only from the guided navigation settled event.
+- `entryOverlays.ts`: entry slate lifecycle; it starts only from the native snap settled event.
 - `densityTicks.ts`: title density strips.
 - `progressNavigation.ts`: scene progress dots.
 - `titleOpen.ts`: opening handoff from title to email.
@@ -76,11 +76,13 @@ Focused helpers live beside it:
 
 `sceneTransitions.ts` is a compatibility barrel that re-exports the scene timeline functions. Keep scene imports stable there, but add new implementation code to the focused modules above.
 
-The guided navigation layer is the only owner of story-position changes in animated mode. Wheel, touch, keyboard, progress dots, continue hints, and the title open button should all route through `requestStoryNavigation()`. Entry overlays must not observe raw scroll independently; they wait for `second-student:navigation-settled`, lock at the already-arrived scene top, then release into the scene animation. This keeps overlays from starting offscreen and blocking the current scene.
+Native browser scrolling and CSS snap own wheel, trackpad, touch, and keyboard movement. JavaScript should not intercept those inputs for normal scene travel. Programmatic controls such as progress dots, continue hints, and the title open button route through `requestStoryNavigation()`, which uses native smooth scrolling to the requested scene.
+
+Entry overlays start from settled scene alignment, usually via `second-student:navigation-settled` and with a small alignment fallback for browser snap paths that do not emit that event. Their progress cue only advances while the scene is aligned. If the reader scrolls away before the cue completes, the overlay pauses and resumes from the saved progress when that scene snaps back to the viewport top.
 
 Scenes with both entry overlays and data focus use a prearmed data-focus state behind the entry slate. The entry overlay remains visually primary, but the data-focus wash is already prepared underneath it; `playDataFocus()` then releases that state instead of introducing a second overlay after the entry slate.
 
-Scene 07 is intentionally special: guided navigation maps it to internal stops rather than treating the entire pinned range as free scroll. Its split-step logic belongs in `navigation/splitStops.ts`, while visual choreography remains in `splitFinalScenes.ts`.
+Scene 07 is intentionally special: native scroll drives its pinned ScrollTrigger scrub range. Its split completion helper belongs in `navigation/splitStops.ts`, while visual choreography remains in `splitFinalScenes.ts`.
 
 ## Styling Organization
 

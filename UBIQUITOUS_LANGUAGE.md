@@ -50,16 +50,16 @@
 
 ## Motion And Navigation
 
-| Term                  | Definition                                                                                              | Aliases to avoid                   |
-| --------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| **Guided Navigation** | The story-owned movement system that advances one scene or internal stop per input.                     | scroll snap, snapping, free scroll |
-| **Scene Stop**        | A stable resting position for a main story scene.                                                       | snap point, anchor, scroll target  |
-| **Internal Stop**     | A guided sub-state inside the Mirror Scene.                                                             | split step, scene 07 step          |
-| **Entry Overlay**     | The full-screen identity/session introduction shown before selected scenes begin.                       | data overlay, focus wash, popup    |
-| **Data Focus Wash**   | The blur, tint, or darkening treatment that spotlights a scene's primary chart before action continues. | entry overlay, filter, blur thing  |
-| **Continue Hint**     | The bottom cue that appears only when a scene is ready to leave.                                        | down arrow, continue text          |
-| **Progress Dots**     | The fixed navigation indicators for the 11 main scenes, excluding internal stops.                       | pagination dots, nav dots          |
-| **Performance Lite**  | A reduced-paint mode that preserves content while lowering blur, glow, and shadow cost.                 | low power mode, reduced motion     |
+| Term                       | Definition                                                                                              | Aliases to avoid                  |
+| -------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| **Native Snap Navigation** | Browser-owned scrolling plus CSS snap for main scene travel.                                            | guided navigation, scroll hijack  |
+| **Scene Stop**             | A stable snap-aligned resting position for a main story scene.                                          | anchor, scroll target             |
+| **Internal Stop**          | A sub-state inside the Mirror Scene's pinned scrub range.                                               | split step, scene 07 step         |
+| **Entry Overlay**          | The pauseable full-screen identity/session introduction shown before selected scenes begin.             | data overlay, focus wash, popup   |
+| **Data Focus Wash**        | The blur, tint, or darkening treatment that spotlights a scene's primary chart before action continues. | entry overlay, filter, blur thing |
+| **Continue Hint**          | The bottom cue that appears only when a scene is ready to leave.                                        | down arrow, continue text         |
+| **Progress Dots**          | The fixed navigation indicators for the 11 main scenes, excluding internal stops.                       | pagination dots, nav dots         |
+| **Performance Lite**       | A reduced-paint mode that preserves content while lowering blur, glow, and shadow cost.                 | low power mode, reduced motion    |
 
 ## Relationships
 
@@ -69,7 +69,7 @@
 - A **Workbook Statistic** can drive a **Density Strip**, **Pictogram**, **Concern Dial**, **Gap Chart**, **Stacked Bar**, or **Diverging Bar**.
 - A **Survey Quote** must use source labeling, while **Fictional Interface Copy** must not pretend to be survey evidence.
 - An **Evidence Card** belongs to a chart mark or stat card, not to the whole scene.
-- **Guided Navigation** moves between **Scene Stops** and the Mirror Scene's **Internal Stops**.
+- **Native Snap Navigation** moves between **Scene Stops**, while native scroll drives the Mirror Scene's pinned **Internal Stops**.
 - An **Entry Overlay** introduces a session, while a **Data Focus Wash** prioritizes a chart.
 - **Progress Dots** represent only main **Scenes**, not **Internal Stops**.
 
@@ -81,7 +81,7 @@
 >
 > **Dev:** "Should the **Continue Hint** show during the chat typing?"
 >
-> **Domain expert:** "No. The **Continue Hint** appears only when the **Narrative Beat** is complete and **Guided Navigation** can move to the next **Scene Stop**."
+> **Domain expert:** "No. The **Continue Hint** appears only when the **Narrative Beat** is complete and the reader can move to the next **Scene Stop**."
 >
 > **Dev:** "Can I call the worse-side quote an AI line?"
 >
@@ -90,8 +90,8 @@
 ## Flagged Ambiguities
 
 - "Overlay" has meant both **Entry Overlay** and **Data Focus Wash**; use the former for the full-screen session introduction and the latter for the chart spotlight treatment.
-- "Snap" has meant native CSS snapping, abrupt hard snapping, and **Guided Navigation**; use **Guided Navigation** for the current movement model and **Scene Stop** for a resting position.
-- "Scene 07" is too implementation-specific for discussion; use **Mirror Scene** when talking about the narrative role and **Internal Stop** when talking about its guided sub-states.
+- "Snap" has meant native CSS snapping, abrupt hard snapping, and JS-guided movement; use **Native Snap Navigation** for the current movement model and **Scene Stop** for a resting position.
+- "Scene 07" is too implementation-specific for discussion; use **Mirror Scene** when talking about the narrative role and **Internal Stop** when talking about its pinned sub-states.
 - "Dark side" and "light side" make the students sound morally ranked; use **Reactive Path** and **Deliberate Path** in code/docs, and use the student identities in visible copy.
 - "Quote" is overloaded; use **Survey Quote** for report excerpts and **Fictional Interface Copy** for invented chat, email, and assistant text.
 - "Data point" is too vague; use **Workbook Statistic** for survey percentages and **Primary Read** for the intended first data message.

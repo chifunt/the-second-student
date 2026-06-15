@@ -24,7 +24,7 @@ export function setupScroll(scenes: readonly SceneConfig[]): void {
   ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
   clearRuntimeEffects();
   document.documentElement.classList.remove("reduced-motion", "scroll-animation-ready");
-  document.body.classList.remove("scroll-locked", "scroll-pinned");
+  document.body.classList.remove("scroll-locked");
   document
     .querySelectorAll<HTMLElement>(
       ".data-focus-active, .data-focus-prearmed, .data-focus-released",

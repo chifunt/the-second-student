@@ -14,7 +14,7 @@ This file is for fast orientation during maintenance and refactors.
 - `src/ui/surveyQuote.ts`: shared treatment for real free-text excerpts.
 - `src/charts/chartUtils.ts`: chart escaping, figure wrapper, SVG helper.
 - `src/animation/setupScroll.ts`: orchestration only.
-- `src/animation/navigation/`: guided story navigation, scene stops, input capture, hash sync, and Scene 07 internal stops.
+- `src/animation/navigation/`: native snap settling, programmatic scene requests, hash sync, and Scene 07 completion state.
 - `src/animation/sceneTransitions.ts`: compatibility barrel for scene timeline exports.
 - `src/animation/reactiveScenes.ts`: Arman/reactive-path scene timelines.
 - `src/animation/deliberateScenes.ts`: title, Ben/deliberate-path, and institutional timelines.
@@ -33,8 +33,9 @@ This file is for fast orientation during maintenance and refactors.
 - Keep chart helpers reusable and typed.
 - Keep GSAP focused on animation of rendered elements.
 - Do not hide content by default and reveal it only with animation.
-- Route scene-to-scene movement through `requestStoryNavigation()`; do not use `scrollIntoView()` in animated navigation paths.
-- Entry overlays start only from the navigation-settled event. Do not add scroll, resize, or ScrollTrigger startup hooks to them.
+- Let native browser scroll and CSS snap own wheel, trackpad, touch, and keyboard movement.
+- Route progress dots, continue hints, and title-open clicks through `requestStoryNavigation()` instead of adding bespoke scroll code.
+- Entry overlays start from settled scene alignment. Prefer the navigation-settled event, with exact-alignment fallback checks only for browser snap paths that do not emit it. They are pauseable reading cues, so do not add scroll locks, skip listeners, resize hooks, or ScrollTrigger startup hooks to them.
 - Do not remove `data-focus-prearmed`; it prevents entry+data scenes from showing a second data overlay pop after the entry slate dismisses.
 
 ## Verification Checklist
@@ -66,19 +67,19 @@ Styles are split by ownership:
 
 Animations are split by behavior and story path. Add a new focused helper in `src/animation/` when the behavior is global or reusable; add scene timeline implementation to `reactiveScenes.ts`, `deliberateScenes.ts`, or `splitFinalScenes.ts`, then re-export from `sceneTransitions.ts`.
 
-Guided navigation is split under `src/animation/navigation/`:
+Native snap coordination lives under `src/animation/navigation/`:
 
-- `guidedNavigation.ts`: public setup and `requestStoryNavigation()`.
-- `input.ts`: wheel, touch, and keyboard capture.
+- `guidedNavigation.ts`: compatibility-named setup module and `requestStoryNavigation()` for buttons/dots/hints.
 - `sceneStops.ts`: scene-stop lookup, active-scene settling, and URL hash updates.
-- `splitStops.ts`: Scene 07 internal stop positions and completion state.
+- `splitStops.ts`: Scene 07 progress helpers and completion state.
 - `events.ts`: shared event names and payload types.
 
 Scroll troubleshooting checklist:
 
-- Confirm movement goes through `requestStoryNavigation()`.
-- Confirm only the current scene owns an active entry overlay.
-- Confirm Scene 07 is using split-step state rather than normal scene-to-scene state.
-- Confirm reduced-motion mode has not intentionally bypassed guided movement.
+- Confirm normal wheel, trackpad, touch, and keyboard movement is not intercepted by JavaScript.
+- Confirm programmatic movement goes through `requestStoryNavigation()`.
+- Confirm only the current scene owns an active entry overlay, and scrolling away pauses progress instead of dismissing the cue or trapping the page.
+- Confirm Scene 07 is using native pinned ScrollTrigger scrub rather than forced internal jumps.
+- Confirm reduced-motion mode has not intentionally bypassed snap-related behavior.
 
 Legacy helper files should not be kept indefinitely. If a chart or UI helper has no imports and no near-term owner, remove it and keep the guide/docs aligned with the remaining public helpers.

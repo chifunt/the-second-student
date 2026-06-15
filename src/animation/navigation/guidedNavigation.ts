@@ -1,38 +1,22 @@
-import gsap from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { SceneConfig } from "../../scenes/sceneTypes";
 import { trackCleanup } from "../runtimeEffects";
-import { getElementTop } from "../scrollLock";
-import {
-  ENTRY_OVERLAY_DISMISSED_EVENT,
-  ENTRY_OVERLAY_STARTED_EVENT,
-  NAVIGATION_EVENT,
-} from "./events";
-import type {
-  EntryOverlayDetail,
-  NavigationDirection,
-  NavigationRequest,
-} from "./events";
-import { setupNavigationInput } from "./input";
+import { ENTRY_OVERLAY_DISMISSED_EVENT, NAVIGATION_EVENT } from "./events";
+import type { NavigationDirection, NavigationRequest } from "./events";
 import {
   dispatchNavigationSettled,
   findClosestSceneIndex,
   getSceneStops,
+  getTrackingElement,
   scrollImmediatelyToStop,
   updateSceneHash,
 } from "./sceneStops";
 import type { SceneStop } from "./sceneStops";
-import {
-  getClosestSplitStep,
-  getSplitStepTop,
-  setSplitCompletion,
-  SPLIT_STEPS,
-} from "./splitStops";
+import { getClosestSplitStep, setSplitCompletion } from "./splitStops";
 
-gsap.registerPlugin(ScrollToPlugin);
-
-const SCROLL_DURATION_SECONDS = 0.85;
+const SCROLL_SETTLE_MS = 160;
+const SETTLE_TOLERANCE_PX = 2;
+const SNAP_CORRECTION_MS = 900;
 
 export function requestStoryNavigation(request: NavigationRequest): void {
   window.dispatchEvent(
@@ -42,6 +26,26 @@ export function requestStoryNavigation(request: NavigationRequest): void {
   );
 }
 
+function getSettledStop(stops: readonly SceneStop[]): SceneStop | undefined {
+  return stops.find((stop) => {
+    const rect = getTrackingElement(stop.element).getBoundingClientRect();
+
+    return Math.abs(rect.top) <= SETTLE_TOLERANCE_PX;
+  });
+}
+
+function scrollToStop(stop: SceneStop, reduceMotion: boolean): void {
+  if (reduceMotion) {
+    scrollImmediatelyToStop(stop);
+    return;
+  }
+
+  stop.element.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+}
+
 export function setupGuidedNavigation(
   scenes: readonly SceneConfig[],
   reduceMotion: boolean,
@@ -49,166 +53,166 @@ export function setupGuidedNavigation(
   const stops = getSceneStops(scenes);
   const splitStop = stops.find((stop) => stop.element.classList.contains("s7"));
   let activeIndex = findClosestSceneIndex(stops);
-  let activeSplitStep =
-    activeIndex === splitStop?.index ? getClosestSplitStep(splitStop.element) : 0;
-  let isMoving = false;
-  let activeOverlaySceneId: string | undefined;
+  let isInitializing = true;
+  let isCorrectingSnap = false;
+  let correctionTimer = 0;
+  const overlayDismissTimers: number[] = [];
+  let settleTimer = 0;
 
-  const isNavigationBlocked = (): boolean =>
-    isMoving ||
-    document.body.classList.contains("scroll-locked") ||
-    activeOverlaySceneId === stops[activeIndex]?.id;
+  // This module coordinates native snap events and programmatic button/dot
+  // navigation. Wheel, touch, and keyboard scrolling stay browser-owned.
+  document.documentElement.classList.remove("guided-scroll-moving");
+  if ("scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
 
-  const settleAt = (stop: SceneStop, splitStep?: number) => {
-    isMoving = false;
+  const settleAt = (stop: SceneStop): void => {
+    window.clearTimeout(correctionTimer);
+    isCorrectingSnap = false;
     activeIndex = stop.index;
-    activeSplitStep =
-      stop.index === splitStop?.index
-        ? (splitStep ?? getClosestSplitStep(splitStop.element))
-        : 0;
-    setSplitCompletion(
-      splitStop?.element,
-      stop.index === splitStop?.index ? activeSplitStep : 0,
-    );
+    const splitStep =
+      stop.index === splitStop?.index ? getClosestSplitStep(splitStop.element) : 0;
+
+    setSplitCompletion(splitStop?.element, splitStep);
     updateSceneHash(stop.id);
     ScrollTrigger.update();
     dispatchNavigationSettled(
       stop,
-      stop.index === splitStop?.index ? activeSplitStep : undefined,
+      stop.index === splitStop?.index ? splitStep : undefined,
     );
   };
 
-  const scrollToStop = (stop: SceneStop, splitStep?: number) => {
-    if (reduceMotion) {
-      scrollImmediatelyToStop(stop);
+  const settleIfAligned = (): boolean => {
+    if (isInitializing) {
+      return false;
+    }
+
+    const stop = getSettledStop(stops);
+
+    if (stop) {
+      settleAt(stop);
+      return true;
+    }
+
+    return false;
+  };
+
+  const isInsideSplitRange = (): boolean => {
+    if (!splitStop) {
+      return false;
+    }
+
+    const rect = getTrackingElement(splitStop.element).getBoundingClientRect();
+    const viewportCenter = window.innerHeight / 2;
+
+    return rect.top < viewportCenter && rect.bottom > viewportCenter;
+  };
+
+  const correctSnapIfNeeded = (): void => {
+    if (
+      reduceMotion ||
+      isCorrectingSnap ||
+      document.body.classList.contains("scroll-locked") ||
+      isInsideSplitRange()
+    ) {
       return;
     }
 
-    const targetTop =
-      stop.index === splitStop?.index && splitStop
-        ? getSplitStepTop(splitStop.element, splitStep ?? 0)
-        : getElementTop(stop.element);
+    const targetStop = stops[findClosestSceneIndex(stops)];
 
-    isMoving = true;
-    document.documentElement.classList.add("guided-scroll-moving");
-    gsap.to(window, {
-      duration: SCROLL_DURATION_SECONDS,
-      ease: "power2.inOut",
-      onComplete: () => {
-        document.documentElement.classList.remove("guided-scroll-moving");
-        settleAt(stop, splitStep);
-      },
-      onInterrupt: () => {
-        document.documentElement.classList.remove("guided-scroll-moving");
-        isMoving = false;
-      },
-      onUpdate: () => ScrollTrigger.update(),
-      overwrite: true,
-      scrollTo: {
-        autoKill: false,
-        y: Math.round(targetTop),
-      },
-    });
+    if (!targetStop) {
+      return;
+    }
+
+    isCorrectingSnap = true;
+    activeIndex = targetStop.index;
+    scrollToStop(targetStop, false);
+    correctionTimer = window.setTimeout(() => {
+      isCorrectingSnap = false;
+      if (!settleIfAligned()) {
+        scheduleSettleCheck();
+      }
+    }, SNAP_CORRECTION_MS);
   };
 
-  const navigateToIndex = (
-    index: number,
-    direction: NavigationDirection = 1,
-    splitStep?: number,
-  ) => {
+  const scheduleSettleCheck = (): void => {
+    window.clearTimeout(settleTimer);
+    settleTimer = window.setTimeout(() => {
+      if (!settleIfAligned()) {
+        correctSnapIfNeeded();
+      }
+    }, SCROLL_SETTLE_MS);
+  };
+
+  const navigateToIndex = (index: number, direction: NavigationDirection = 1): void => {
+    if (document.body.classList.contains("scroll-locked")) {
+      return;
+    }
+
     const stop = stops[Math.min(Math.max(index, 0), stops.length - 1)];
 
     if (!stop) {
       return;
     }
 
-    if (stop.index === splitStop?.index) {
-      scrollToStop(stop, splitStep ?? (direction < 0 ? SPLIT_STEPS.length - 1 : 0));
+    activeIndex = stop.index;
+    scrollToStop(stop, reduceMotion);
+
+    if (reduceMotion) {
       return;
     }
 
-    scrollToStop(stop);
-  };
-
-  const navigateByDirection = (direction: NavigationDirection) => {
-    if (isNavigationBlocked()) {
-      return;
+    scheduleSettleCheck();
+    if (direction < 0) {
+      ScrollTrigger.update();
     }
-
-    if (activeIndex === splitStop?.index) {
-      const nextSplitStep = activeSplitStep + direction;
-
-      if (nextSplitStep >= 0 && nextSplitStep < SPLIT_STEPS.length) {
-        navigateToIndex(activeIndex, direction, nextSplitStep);
-        return;
-      }
-    }
-
-    navigateToIndex(activeIndex + direction, direction);
   };
 
-  const syncActiveFromScroll = () => {
-    activeIndex = findClosestSceneIndex(stops);
-    activeSplitStep =
-      activeIndex === splitStop?.index ? getClosestSplitStep(splitStop.element) : 0;
-  };
-
-  const handleRequest = (event: Event) => {
+  const handleRequest = (event: Event): void => {
     const request = (event as CustomEvent<NavigationRequest>).detail;
-
-    if (isNavigationBlocked()) {
-      return;
-    }
 
     if (request.targetId) {
       const targetStop = stops.find((stop) => stop.id === request.targetId);
 
       if (targetStop) {
         const direction = targetStop.index < activeIndex ? -1 : 1;
-        navigateToIndex(targetStop.index, direction, request.splitStep);
+        navigateToIndex(targetStop.index, direction);
       }
       return;
     }
 
     if (request.direction) {
-      navigateByDirection(request.direction);
+      navigateToIndex(activeIndex + request.direction, request.direction);
     }
   };
 
-  const handleOverlayStarted = (event: Event) => {
-    const id = (event as CustomEvent<EntryOverlayDetail>).detail?.id;
-
-    // Only the overlay for the current scene may block navigation. Any stale
-    // overlay event is ignored so it cannot freeze another scene.
-    activeOverlaySceneId = id === stops[activeIndex]?.id ? id : undefined;
+  const handleScroll = (): void => {
+    ScrollTrigger.update();
+    scheduleSettleCheck();
   };
 
-  const handleOverlayDismissed = (event: Event) => {
-    const id = (event as CustomEvent<EntryOverlayDetail>).detail?.id;
-
-    if (id === activeOverlaySceneId) {
-      activeOverlaySceneId = undefined;
-    }
+  const handleOverlayDismissed = (): void => {
+    [260, 960].forEach((delay) => {
+      overlayDismissTimers.push(window.setTimeout(scheduleSettleCheck, delay));
+    });
   };
 
   window.addEventListener(NAVIGATION_EVENT, handleRequest);
-  window.addEventListener(ENTRY_OVERLAY_STARTED_EVENT, handleOverlayStarted);
   window.addEventListener(ENTRY_OVERLAY_DISMISSED_EVENT, handleOverlayDismissed);
-  trackCleanup(() => {
-    window.removeEventListener(NAVIGATION_EVENT, handleRequest);
-    window.removeEventListener(ENTRY_OVERLAY_STARTED_EVENT, handleOverlayStarted);
-    window.removeEventListener(ENTRY_OVERLAY_DISMISSED_EVENT, handleOverlayDismissed);
-  });
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  window.addEventListener("scrollend", settleIfAligned);
+  ScrollTrigger.addEventListener("refresh", settleIfAligned);
 
-  if (!reduceMotion) {
-    setupNavigationInput({
-      isBlocked: isNavigationBlocked,
-      navigateByDirection,
-      navigateToIndex,
-      onRefresh: syncActiveFromScroll,
-      stopCount: stops.length,
-    });
-  }
+  trackCleanup(() => {
+    window.clearTimeout(settleTimer);
+    window.clearTimeout(correctionTimer);
+    overlayDismissTimers.forEach((timer) => window.clearTimeout(timer));
+    window.removeEventListener(NAVIGATION_EVENT, handleRequest);
+    window.removeEventListener(ENTRY_OVERLAY_DISMISSED_EVENT, handleOverlayDismissed);
+    window.removeEventListener("scroll", handleScroll);
+    window.removeEventListener("scrollend", settleIfAligned);
+    ScrollTrigger.removeEventListener("refresh", settleIfAligned);
+  });
 
   window.requestAnimationFrame(() => {
     const hashStop = stops.find((stop) => window.location.hash === `#${stop.id}`);
@@ -219,14 +223,20 @@ export function setupGuidedNavigation(
     }
 
     activeIndex = activeStop.index;
-    activeSplitStep =
-      activeStop.index === splitStop?.index ? getClosestSplitStep(splitStop.element) : 0;
-    window.scrollTo(0, getElementTop(activeStop.element));
-    updateSceneHash(activeStop.id);
-    ScrollTrigger.update();
-    dispatchNavigationSettled(
-      activeStop,
-      activeStop.index === splitStop?.index ? activeSplitStep : undefined,
-    );
+    ScrollTrigger.refresh();
+
+    if (hashStop) {
+      hashStop.element.scrollIntoView({
+        behavior: "auto",
+        block: "start",
+      });
+    }
+
+    window.requestAnimationFrame(() => {
+      isInitializing = false;
+      ScrollTrigger.refresh();
+      settleIfAligned();
+      scheduleSettleCheck();
+    });
   });
 }
