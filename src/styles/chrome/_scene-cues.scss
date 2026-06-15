@@ -7,15 +7,16 @@
   display: flex;
   inset: 0;
   justify-content: center;
-  opacity: 1;
+  opacity: 0;
   padding: 32px;
-  pointer-events: auto;
+  pointer-events: none;
   position: absolute;
   text-align: center;
   transition:
     opacity 0.45s ease,
     transform 0.45s ease,
     visibility 0.45s ease;
+  visibility: hidden;
   z-index: 60;
 }
 
@@ -77,18 +78,23 @@
   text-shadow: 0 2px 24px rgba(255, 255, 255, 0.74);
 }
 
+.entry-overlay-pending .scene-entry-overlay {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.entry-overlay-active .scene-entry-overlay {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+  visibility: visible;
+}
+
 .entry-overlay-dismissed .scene-entry-overlay {
   opacity: 0;
   pointer-events: none;
   transform: translateY(-10px);
   visibility: hidden;
-}
-
-.entry-overlay-pending .scene-entry-overlay {
-  opacity: 1;
-  pointer-events: none;
-  transform: none;
-  visibility: visible;
 }
 
 .entry-overlay-pending .scene-entry-timer::after {

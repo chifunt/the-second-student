@@ -1,6 +1,8 @@
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { SceneConfig } from "../scenes/sceneTypes";
+import { NAVIGATION_SETTLED_EVENT } from "./navigation/events";
+import type { NavigationSettledDetail } from "./navigation/events";
 import { requestStoryNavigation } from "./navigation/guidedNavigation";
+import { trackCleanup } from "./runtimeEffects";
 
 export function setupProgressDots(
   scenes: readonly SceneConfig[],
@@ -57,8 +59,8 @@ export function setupProgressDots(
     }
   }
 
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
+  dots.forEach((dot, index) => {
+    const handleClick = () => {
       const targetId = dot.dataset.target;
 
       if (!targetId) {
@@ -67,15 +69,19 @@ export function setupProgressDots(
 
       if (reduceMotion) {
         document.getElementById(targetId)?.scrollIntoView({ behavior: "auto" });
+        activate(index);
         return;
       }
 
       requestStoryNavigation({ targetId });
-    });
+    };
+
+    dot.addEventListener("click", handleClick);
+    trackCleanup(() => dot.removeEventListener("click", handleClick));
   });
 
   document.querySelectorAll<HTMLButtonElement>(".scroll-hint").forEach((hint) => {
-    hint.addEventListener("click", () => {
+    const handleClick = () => {
       const targetId = hint.dataset.target;
 
       if (!targetId) {
@@ -84,19 +90,33 @@ export function setupProgressDots(
 
       if (reduceMotion) {
         document.getElementById(targetId)?.scrollIntoView({ behavior: "auto" });
+        const targetIndex = scenes.findIndex((scene) => scene.id === targetId);
+
+        if (targetIndex >= 0) {
+          activate(targetIndex);
+        }
         return;
       }
 
       requestStoryNavigation({ targetId });
-    });
+    };
+
+    hint.addEventListener("click", handleClick);
+    trackCleanup(() => hint.removeEventListener("click", handleClick));
   });
 
-  ScrollTrigger.create({
-    start: 0,
-    end: "max",
-    onRefresh: updateFromViewport,
-    onUpdate: updateFromViewport,
-  });
+  const handleNavigationSettled = (event: Event) => {
+    const index = (event as CustomEvent<NavigationSettledDetail>).detail?.index;
+
+    if (typeof index === "number") {
+      activate(index);
+    }
+  };
+
+  window.addEventListener(NAVIGATION_SETTLED_EVENT, handleNavigationSettled);
+  trackCleanup(() =>
+    window.removeEventListener(NAVIGATION_SETTLED_EVENT, handleNavigationSettled),
+  );
 
   updateFromViewport();
 }

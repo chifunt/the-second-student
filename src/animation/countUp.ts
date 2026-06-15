@@ -8,11 +8,9 @@ function countUp(element: HTMLElement): Cancelable {
   const duration = Number(element.dataset.duration ?? "1200");
   const delay = Number(element.dataset.delay ?? "120");
   const start = performance.now() + delay;
+  let frameId = 0;
   let cancelled = false;
-
-  const queueFrame = () => {
-    window.setTimeout(() => frame(performance.now()), 16);
-  };
+  let previousText = "";
 
   function frame(now: number): void {
     if (cancelled) {
@@ -20,27 +18,38 @@ function countUp(element: HTMLElement): Cancelable {
     }
 
     if (now < start) {
-      element.textContent = `0${suffix}`;
-      queueFrame();
+      const nextText = `0${suffix}`;
+
+      if (nextText !== previousText) {
+        element.textContent = nextText;
+        previousText = nextText;
+      }
+      frameId = window.requestAnimationFrame(frame);
       return;
     }
 
     const progress = Math.min(1, (now - start) / duration);
     const eased = 1 - (1 - progress) ** 3;
-    element.textContent = `${Math.round(target * eased)}${suffix}`;
+    const nextText = `${Math.round(target * eased)}${suffix}`;
+
+    if (nextText !== previousText) {
+      element.textContent = nextText;
+      previousText = nextText;
+    }
 
     if (progress < 1) {
-      queueFrame();
+      frameId = window.requestAnimationFrame(frame);
     } else {
       element.textContent = `${target}${suffix}`;
     }
   }
 
-  queueFrame();
+  frameId = window.requestAnimationFrame(frame);
 
   return {
     cancel() {
       cancelled = true;
+      window.cancelAnimationFrame(frameId);
     },
   };
 }

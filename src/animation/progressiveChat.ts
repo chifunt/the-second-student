@@ -1,9 +1,8 @@
-import { schedule } from "./runtimeEffects";
+import { schedule, trackLoop } from "./runtimeEffects";
 
 const STREAM_SELECTOR =
   ".chat-stream, .studio-stream, .dep-stream, .phone-stream, .reflect-body";
 const MESSAGE_SELECTOR = ".msg, .phone-bubble";
-const TICK_MS = 24;
 const MESSAGE_GAP_MS = 180;
 const BOT_THINK_MS = 520;
 
@@ -88,21 +87,52 @@ function typeMessage(message: HTMLElement, duration: number): void {
   message.innerHTML = originalHtml;
   const entries = collectTextEntries(message);
   const totalLength = entries.reduce((sum, entry) => sum + entry.text.length, 0);
-  const tickCount = Math.max(1, Math.ceil(duration / TICK_MS));
+  const start = performance.now();
+  let frame = 0;
+  let cancelled = false;
+  let previousTypedLength = -1;
 
   message.hidden = false;
   message.classList.add("is-typing");
 
-  for (let tick = 1; tick <= tickCount; tick += 1) {
-    schedule(() => {
-      setTypedLength(entries, Math.ceil((totalLength * tick) / tickCount));
-    }, tick * TICK_MS);
-  }
-
-  schedule(() => {
+  const finish = () => {
     message.innerHTML = originalHtml;
     message.classList.remove("is-typing");
-  }, duration);
+  };
+
+  const tick = (now: number) => {
+    if (cancelled) {
+      return;
+    }
+
+    const progress = Math.min(1, (now - start) / duration);
+    const typedLength = Math.ceil(totalLength * progress);
+
+    if (typedLength !== previousTypedLength) {
+      setTypedLength(entries, typedLength);
+      previousTypedLength = typedLength;
+    }
+
+    if (progress < 1) {
+      frame = window.requestAnimationFrame(tick);
+      return;
+    }
+
+    finish();
+  };
+
+  if (totalLength === 0) {
+    finish();
+    return;
+  }
+
+  frame = window.requestAnimationFrame(tick);
+  trackLoop({
+    cancel() {
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+    },
+  });
 }
 
 function createTypingBubble(reference: HTMLElement): HTMLElement {
